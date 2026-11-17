@@ -31,8 +31,6 @@
       --red-glow: rgba(239, 68, 68, 0.4);
       --purple-fdc: #9333ea;
       --emerald-accent: #059669;
-      --cyan-terrace: #0284c7;
-      --amber-lounge: #d97706;
       --border-color: #cbd5e1;
     }
 
@@ -138,7 +136,7 @@
 
     .metrics-group {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 8px;
     }
 
@@ -542,8 +540,9 @@
   <!-- VIEWPORT -->
   <main class="viewport-area" id="mapTouchArea">
     <div class="map-frame" id="mapFrame">
+      <!-- Terhubung otomatis ke file denah.jpg di repository Anda -->
       <img id="mainDenahImg" 
-           src="Pesta Ballroom Mewah dengan Panggung Konser.png" 
+           src="denah.jpg" 
            alt="Ballroom - King & Queen 2027" 
            class="render-3d-img"
            crossorigin="anonymous"
@@ -931,12 +930,8 @@
     let currentTable = null;
     let zoomLevel = 1.0;
 
-    // Fallback otomatis jika nama file gambar memiliki variasi ekstensi/spasi
-    const possibleImageFiles = [
-      'Pesta Ballroom Mewah dengan Panggung Konser.png',
-      'pesta ballroom mewah dengan panggung konser.png',
-      'denah.jpg'
-    ];
+    // Fallback otomatis jika format ekstensi berbeda
+    const possibleImageFiles = ['denah.jpg', 'denah.JPG', 'Denah.jpg'];
     let imgAttemptIndex = 0;
 
     function handleImgFallback(img) {
