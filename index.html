@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+  <title>Ballroom Utama - King & Queen OF THE NIGHT 2026</title>
+  
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.png">
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Supabase JS Client & HTML2Canvas -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <style>
+    :root {
+      --bg-page: #f1f5f9;
+      --header-bg: #1e293b;
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --gold-primary: #d4af37;
+      --gold-grad: linear-gradient(135deg, #fce08a 0%, #d4af37 50%, #856108 100%);
+      --red-booked: #ef4444;
+      --red-glow: rgba(239, 68, 68, 0.4);
+      --purple-fdc: #9333ea;
+      --emerald-accent: #059669;
+      --cyan-terrace: #0284c7;
+      --amber-lounge: #d97706;
+      --border-color: #cbd5e1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg-page);
+      color: var(--text-main);
+      min-height: 100vh;
+      min-height: -webkit-fill-available;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: var(--header-bg);
+      border-bottom: 3px solid rgba(212, 175, 55, 0.8);
+      padding: 12px 16px;
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .hdr-wrap {
+      max-width: 1850px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo-frame {
+      width: 140px;
+      height: 52px;
+      background: #ffffff;
+      border: 2px solid var(--gold-primary);
+      border-radius: 8px;
+      padding: 3px 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+      overflow: hidden;
+    }
+
+    .brand-logo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .brand-title h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .brand-title p {
+      font-size: 0.7rem;
+      color: #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 3px;
+      font-weight: 600;
+    }
+
+    .event-badge {
+      background: rgba(212, 175, 55, 0.25);
+      border: 1px solid var(--gold-primary);
+      color: #fce08a;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.62rem;
+      font-weight: 700;
+    }
+
+    .hdr-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .metrics-group {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .metric-card-lg {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+      min-height: 48px;
+    }
+
+    .metric-card-lg i { font-size: 1.15rem; color: var(--gold-primary); }
+    .metric-card-lg .txt-wrap { display: flex; flex-direction: column; line-height: 1.2; }
+    .metric-card-lg .txt-wrap span { font-size: 0.58rem; color: #cbd5e1; text-transform: uppercase; font-weight: 700; }
+    .metric-card-lg .txt-wrap strong { font-size: 0.9rem; font-family: 'Cinzel', serif; color: #fff; }
+
+    .btn-action-group {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .btn-action {
+      border: none;
+      padding: 10px 8px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.75rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      color: #fff;
+      touch-action: manipulation;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      transition: all 0.2s ease;
+      min-height: 44px;
+    }
+
+    .btn-action:active { transform: scale(0.97); }
+
+    .btn-dashboard { background: #0284c7; }
+    .btn-fdc { background: #9333ea; }
+    .btn-menu { background: #b45309; }
+    .btn-reg { background: #0891b2; grid-column: span 2; }
+    .btn-reset-pos { background: #991b1b; }
+    .btn-jpg { background: #059669; }
+    .btn-csv { background: #d97706; color: #fff; }
+
+    .toolbar-bar {
+      max-width: 1850px;
+      margin: 10px auto 0;
+      padding: 0 16px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .legend-tag {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #ffffff;
+      padding: 8px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border-color);
+      font-size: 0.7rem;
+      font-weight: 600;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .dot-node { width: 9px; height: 9px; border-radius: 50%; }
+    .dot-node.avail { background: #0284c7; }
+    .dot-node.booked { background: #ef4444; }
+
+    .zoom-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-tool-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .viewport-area {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      touch-action: pan-x pan-y pinch-zoom;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+    }
+
+    .map-frame {
+      width: 100%;
+      max-width: 1400px;
+      position: relative;
+      transform-origin: center center;
+      transition: transform 0.12s ease-out;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+      border-radius: 10px;
+      overflow: hidden;
+      background: #111;
+      border: 2px solid var(--gold-primary);
+    }
+
+    .render-3d-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      pointer-events: none;
+    }
+
+    .hotspots-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .spot {
+      position: absolute;
+      cursor: grab;
+      border-radius: 50%;
+      background: rgba(212, 175, 55, 0.25);
+      border: 1.5px dashed var(--gold-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.55rem;
+      font-weight: 800;
+      color: #fff;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+      -webkit-tap-highlight-color: transparent;
+      touch-action: none;
+      transition: background 0.2s ease;
+    }
+
+    .spot:active { cursor: grabbing; }
+
+    .spot:hover {
+      background: rgba(212, 175, 55, 0.5);
+      border-color: #fff;
+      z-index: 10;
+    }
+
+    .spot.is-booked {
+      background: rgba(239, 68, 68, 0.88) !important;
+      border: 2px solid #b91c1c !important;
+      box-shadow: 0 0 12px var(--red-glow), inset 0 0 6px rgba(255,255,255,0.6) !important;
+      color: #fff !important;
+      z-index: 5;
+    }
+
+    /* MODAL */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(5px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+    }
+
+    .modal-backdrop.open { display: flex; }
+
+    .modal-container {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 520px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    .modal-header {
+      background: #f8fafc;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h3 { font-family: 'Cinzel', serif; font-size: 1rem; color: #0f172a; font-weight: 700; }
+    .btn-x { background: transparent; border: none; color: var(--text-muted); font-size: 1.3rem; cursor: pointer; padding: 4px; }
+
+    .modal-body {
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .form-row { display: flex; flex-direction: column; gap: 5px; }
+    .form-row label { font-size: 0.78rem; font-weight: 700; color: #334155; display: flex; align-items: center; gap: 6px; }
+
+    .inp-field {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 11px 12px;
+      color: var(--text-main);
+      font-size: 0.9rem;
+      outline: none;
+      width: 100%;
+      font-family: inherit;
+    }
+
+    .inp-field:focus { border-color: var(--header-bg); box-shadow: 0 0 0 3px rgba(30, 41, 59, 0.15); }
+
+    .money-input-box { position: relative; }
+    .money-input-box span {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--header-bg);
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+    .money-input-box input { padding-left: 38px; width: 100%; }
+
+    .modal-footer {
+      padding: 14px 18px;
+      background: #f8fafc;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-modal-del { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; padding: 10px 14px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer; }
+    .btn-modal-save { background: #1e293b; color: #fff; border: none; padding: 10px 18px; border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 2px 6px rgba(30,41,59,0.3); }
+
+    .dash-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .dash-card { background: #f8fafc; border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 6px; }
+    .dash-card.hero-card { grid-column: span 2; background: linear-gradient(135deg, rgba(212,175,55,0.1) 0%, rgba(248,250,252,1) 100%); border-color: var(--gold-primary); }
+    .dash-card .card-lbl { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+    .dash-card .card-val { font-size: 1.2rem; font-weight: 800; color: #0f172a; font-family: 'Cinzel', serif; }
+    .dash-card .card-sub { font-size: 0.7rem; color: var(--text-muted); }
+
+    .occupancy-bar-wrap { width: 100%; height: 7px; background: #e2e8f0; border-radius: 4px; overflow: hidden; margin-top: 4px; }
+    .occupancy-bar { height: 100%; width: 0%; transition: width 0.4s ease; background: var(--gold-primary); }
+
+    .loader-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.85);
+      z-index: 200;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .spinner {
+      width: 44px;
+      height: 44px;
+      border: 4px solid rgba(255, 255, 255, 0.2);
+      border-top-color: var(--gold-primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (min-width: 992px) {
+      .hdr-wrap { flex-direction: row; align-items: center; justify-content: space-between; }
+      .metrics-group { display: flex; }
+      .metric-card-lg { min-width: 140px; }
+      .btn-action-group { display: flex; flex-wrap: wrap; }
+      .btn-reg { grid-column: auto; }
+      .toolbar-bar { margin: 12px auto 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="hdr-wrap">
+      <div class="brand-section">
+        <div class="brand-logo-frame">
+          <img src="Logo.png" alt="Logo Platinum Hotel"
+                onerror="this.onerror=null; this.src='logo.png'; this.addEventListener('error', () => { this.src='favicon.png'; });">
+        </div>
+        <div class="brand-title">
+          <h1>Platinum Hotel & Convention Hall</h1>
+          <p>
+            <span>MAIN BALLROOM</span>
+            <span class="event-badge"><i class="fa-solid fa-crown"></i> KING & QUEEN 2027</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="hdr-controls">
+        <div class="metrics-group">
+          <div class="metric-card-lg" onclick="openReportModal()" title="Lihat Inventaris Meja">
+            <i class="fa-solid fa-chair"></i>
+            <div class="txt-wrap">
+              <span>Meja Terisi</span>
+              <strong><span id="statTablesBooked">0</span><span style="font-size:0.75rem; color:#cbd5e1;"> / 60</span></strong>
+            </div>
+          </div>
+
+          <div class="metric-card-lg" onclick="openFDCListModal()" title="Lihat Tamu Tiket FDC">
+            <i class="fa-solid fa-ticket" style="color: #e879f9;"></i>
+            <div class="txt-wrap">
+              <span>FDC Guests</span>
+              <strong><span id="statFDCPaxTotal">0</span><span style="font-size:0.75rem; color:#cbd5e1;"> Pax</span></strong>
+            </div>
+          </div>
+
+          <div class="metric-card-lg" onclick="openReportModal()" title="Lihat Rincian Pendapatan">
+            <i class="fa-solid fa-money-bill-wave" style="color: #34d399;"></i>
+            <div class="txt-wrap">
+              <span>Total Gross Rev</span>
+              <strong id="statDPTotal">Rp 0</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-action-group">
+          <button class="btn-action btn-dashboard" onclick="openReportModal()">
+            <i class="fa-solid fa-chart-pie"></i> Report
+          </button>
+          <button class="btn-action btn-fdc" onclick="openFDCBookingModal()">
+            <i class="fa-solid fa-user-plus"></i> + FDC
+          </button>
+          <button class="btn-action btn-menu" onclick="openMasterMenuModal()">
+            <i class="fa-solid fa-utensils"></i> Master Menu
+          </button>
+          <button class="btn-action btn-reg" onclick="openRegistrationModal()">
+            <i class="fa-solid fa-file-pen"></i> + Input Meja
+          </button>
+          <button class="btn-action btn-reset-pos" onclick="resetHotspotsPosition()" title="Reset Posisi Kotak">
+            <i class="fa-solid fa-arrows-rotate"></i> Reset Meja
+          </button>
+          <button class="btn-action btn-jpg" onclick="downloadLayoutJPG()">
+            <i class="fa-solid fa-file-image"></i> Share JPG
+          </button>
+          <button class="btn-action btn-csv" onclick="exportReservationsCSV()">
+            <i class="fa-solid fa-file-csv"></i> CSV
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- TOOLBAR -->
+  <div class="toolbar-bar">
+    <div class="legend-tag">
+      <div style="display:flex; align-items:center; gap:6px;"><div class="dot-node avail"></div> <span id="legendAvailText">Tersedia: 60 Meja</span></div>
+      <div style="display:flex; align-items:center; gap:6px;"><div class="dot-node booked"></div> <span id="legendBookedText">0 Terisi</span></div>
+      <div style="color: var(--gold-primary); font-size: 0.7rem; font-weight: 700;"><i class="fa-solid fa-cloud"></i> Sinkronisasi Cloud Aktif</div>
+    </div>
+    
+    <div class="zoom-group">
+      <label class="btn-tool-icon" title="Pilih Gambar Denah dari Perangkat">
+        <i class="fa-solid fa-image"></i>
+        <input type="file" id="localImgPicker" accept="image/*" style="display: none;" onchange="loadLocalImage(event)">
+      </label>
+      <button class="btn-tool-icon" onclick="zoomMap(0.1)"><i class="fa-solid fa-plus"></i></button>
+      <button class="btn-tool-icon" onclick="zoomMap(-0.1)"><i class="fa-solid fa-minus"></i></button>
+      <button class="btn-tool-icon" onclick="resetZoom()"><i class="fa-solid fa-arrows-rotate"></i></button>
+    </div>
+  </div>
+
+  <!-- VIEWPORT -->
+  <main class="viewport-area" id="mapTouchArea">
+    <div class="map-frame" id="mapFrame">
+      <img id="mainDenahImg" 
+           src="Pesta Ballroom Mewah dengan Panggung Konser.png" 
+           alt="Ballroom - King & Queen 2027" 
+           class="render-3d-img"
+           crossorigin="anonymous"
+           onerror="handleImgFallback(this)">
+
+      <div class="hotspots-layer" id="hotspotsLayer">
+        <!-- Hotspots diinjeksikan secara dinamis berdasarkan posisi 3D ballroom -->
+      </div>
+    </div>
+  </main>
+
+  <!-- MODAL RESERVASI MEJA -->
+  <div id="bookingModal" class="modal-backdrop">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-chair" style="color: var(--gold-primary);"></i> Reservasi <span id="modalTitle">#T01</span></h3>
+        <button class="btn-x" onclick="closeBookingModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-row">
+          <label><i class="fa-solid fa-user"></i> Nama Tamu (Guest Name) *</label>
+          <input type="text" id="guestName" class="inp-field" placeholder="Contoh: Jessica Alexandra">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div class="form-row">
+            <label><i class="fa-brands fa-whatsapp"></i> WhatsApp / HP *</label>
+            <input type="tel" id="guestPhone" class="inp-field" placeholder="0812-xxxx-xxxx">
+          </div>
+          <div class="form-row">
+            <label><i class="fa-solid fa-users"></i> Jumlah Pax</label>
+            <input type="number" id="guestPax" class="inp-field" value="10" min="1">
+          </div>
+        </div>
+
+        <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 10px;">
+          <label style="font-size: 0.8rem; font-weight: 700; color: #b45309; display: flex; align-items: center; gap: 6px;">
+            <i class="fa-solid fa-utensils"></i> Kasir Menu & Paket Banquet
+          </label>
+
+          <div style="display: flex; gap: 8px;">
+            <select id="selectMasterMenuDropdown" class="inp-field" style="flex: 1;">
+              <option value="">-- Pilih Menu / Paket --</option>
+            </select>
+            <button type="button" class="btn-action" style="background: #0284c7; color: #fff; padding: 0 16px; min-height: 44px;" onclick="addCartItemFromDropdown()">
+              <i class="fa-solid fa-plus"></i> Tambah
+            </button>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1.3fr 1.2fr auto; gap: 6px;">
+            <input type="text" id="customMenuName" class="inp-field" placeholder="Nama Menu Custom">
+            <input type="text" id="customMenuPrice" class="inp-field" placeholder="Harga Murni (Cth: 500000)" onkeyup="formatCurrencyInput(this)">
+            <button type="button" class="btn-action" style="background: #9333ea; color: #fff; padding: 0 12px;" onclick="addCustomCartItem()">
+              <i class="fa-solid fa-plus"></i> Custom
+            </button>
+          </div>
+
+          <div id="bookingCartItemsContainer" style="display: flex; flex-direction: column; gap: 6px; max-height: 150px; overflow-y: auto;">
+            <div style="font-size: 0.75rem; color: var(--text-muted); text-align: center; padding: 6px;">Belum ada menu dipilih.</div>
+          </div>
+
+          <div style="background: #ffffff; border: 1px solid #10b981; border-radius: 8px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 0.78rem; font-weight: 700; color: #059669;">Total Estimasi Menu:</span>
+            <strong id="bookingCartTotalDisplay" style="font-size: 1rem; font-family: 'Cinzel', serif; color: #059669;">Rp 0</strong>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label><i class="fa-solid fa-money-bill-wave" style="color: #059669;"></i> Nominal DP / Uang Muka *</label>
+          <div class="money-input-box">
+            <span>Rp</span>
+            <input type="text" id="guestDP" class="inp-field" placeholder="Contoh: 1.000.000" onkeyup="formatCurrencyInput(this); updateBalanceDisplay();">
+          </div>
+        </div>
+
+        <div style="background: #f8fafc; border: 1.5px dashed var(--header-bg); border-radius: 10px; padding: 12px; display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="font-size: 0.72rem; font-weight: 700; color: var(--header-bg); text-transform: uppercase;"><i class="fa-solid fa-scale-balanced"></i> Balance (Sisa Tagihan)</div>
+            <div style="font-size: 0.65rem; color: var(--text-muted);">Total Konsumsi dikurangi DP</div>
+          </div>
+          <strong id="bookingBalanceDisplay" style="font-size: 1.05rem; font-family: 'Cinzel', serif; color: #0f172a;">Rp 0</strong>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div class="form-row">
+            <label><i class="fa-solid fa-clock"></i> Jam Kedatangan</label>
+            <select id="guestTime" class="inp-field">
+              <option value="18:30 WITA">18:30 WITA</option>
+              <option value="19:00 WITA" selected>19:00 WITA</option>
+              <option value="19:30 WITA">19:30 WITA</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label><i class="fa-solid fa-user-tag"></i> Created By (Staff) *</label>
+            <input type="text" id="guestCreatedBy" class="inp-field" placeholder="Nama staff...">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label><i class="fa-solid fa-calendar-days"></i> Waktu Input</label>
+          <input type="text" id="guestInputTimestamp" class="inp-field" readonly style="background: #f1f5f9;">
+        </div>
+
+        <div class="form-row">
+          <label><i class="fa-solid fa-note-sticky"></i> Catatan Khusus</label>
+          <input type="text" id="guestNotes" class="inp-field" placeholder="Cth: Kursi tambahan anak, diet khusus...">
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button id="btnRemoveBooking" class="btn-modal-del" onclick="deleteBooking()" style="display: none;">
+          <i class="fa-solid fa-trash"></i> Hapus
+        </button>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <button type="button" class="btn-action" onclick="generateGuestBookingPDF()" style="background: #0284c7; color:#fff; min-height: 42px; padding: 8px 14px;">
+            <i class="fa-solid fa-file-pdf"></i> Cetak PDF
+          </button>
+          <button class="btn-modal-save" onclick="saveBooking()">
+            <i class="fa-solid fa-check"></i> Simpan ke Cloud
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL REGISTRASI -->
+  <div id="registrationModal" class="modal-backdrop">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-file-pen" style="color: var(--gold-primary);"></i> Input Meja Fleksibel</h3>
+        <button class="btn-x" onclick="closeRegistrationModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-row">
+          <label><i class="fa-solid fa-tag"></i> Pilih Nomor Meja *</label>
+          <select id="regTableIdSelect" class="inp-field">
+            <option value="">-- Pilih Meja Kosong --</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label><i class="fa-solid fa-user"></i> Nama Tamu *</label>
+          <input type="text" id="regGuestName" class="inp-field" placeholder="Contoh: Jessica Alexandra">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div class="form-row">
+            <label><i class="fa-brands fa-whatsapp"></i> WhatsApp / HP *</label>
+            <input type="tel" id="regGuestPhone" class="inp-field" placeholder="0812-xxxx-xxxx">
+          </div>
+          <div class="form-row">
+            <label><i class="fa-solid fa-users"></i> Jumlah Pax</label>
+            <input type="number" id="regGuestPax" class="inp-field" value="10" min="1">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label><i class="fa-solid fa-money-bill-wave" style="color: #059669;"></i> Nominal DP *</label>
+          <div class="money-input-box">
+            <span>Rp</span>
+            <input type="text" id="regGuestDP" class="inp-field" placeholder="1.000.000" onkeyup="formatCurrencyInput(this)">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label><i class="fa-solid fa-user-tag"></i> Created By (Staff) *</label>
+          <input type="text" id="regGuestCreatedBy" class="inp-field" placeholder="Nama staff...">
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-modal-del" style="background:#e2e8f0; color:#475569; border:none;" onclick="closeRegistrationModal()">Batal</button>
+        <button class="btn-modal-save" onclick="saveRegistrationBooking()">
+          <i class="fa-solid fa-check"></i> Simpan & Ubah Merah
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL MASTER MENU -->
+  <div id="masterMenuModal" class="modal-backdrop">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 style="color: #b45309;"><i class="fa-solid fa-utensils"></i> Master Menu & Paket Banquet</h3>
+        <button class="btn-x" onclick="closeMasterMenuModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-row">
+          <label><i class="fa-solid fa-tag"></i> Nama Menu / Paket *</label>
+          <input type="text" id="menuItemName" class="inp-field" placeholder="Contoh: Paket VIP Gala Dinner">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div class="form-row">
+            <label><i class="fa-solid fa-folder"></i> Kategori</label>
+            <select id="menuItemCategory" class="inp-field">
+              <option value="Gala Dinner Package">Gala Dinner Package</option>
+              <option value="Beverage & Wine">Beverage & Wine</option>
+              <option value="Appetizer / Dessert">Appetizer / Dessert</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label><i class="fa-solid fa-money-bill"></i> Harga (IDR) *</label>
+            <div class="money-input-box">
+              <span>Rp</span>
+              <input type="text" id="menuItemPrice" class="inp-field" placeholder="2.500.000" onkeyup="formatCurrencyInput(this)">
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-action btn-menu" style="width:100%; justify-content:center; margin-top:4px;" onclick="addMasterMenuItem()">
+          <i class="fa-solid fa-plus"></i> Tambah ke Master Menu
+        </button>
+
+        <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 10px 0;">
+
+        <div style="font-size:0.8rem; font-weight:700; color:#334155; margin-bottom:4px;">Daftar Master Menu Aktif:</div>
+        <div id="masterMenuListContent" style="max-height: 180px; overflow-y: auto;"></div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-modal-del" style="background:#e2e8f0; color:#475569; border:none;" onclick="closeMasterMenuModal()">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL FDC -->
+  <div id="fdcModal" class="modal-backdrop">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-ticket" style="color: #9333ea;"></i> Input Tiket FDC (Standing Party)</h3>
+        <button class="btn-x" onclick="closeFDCModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-row">
+          <label><i class="fa-solid fa-user"></i> Nama Tamu *</label>
+          <input type="text" id="fdcName" class="inp-field" placeholder="Nama pemesan FDC">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div class="form-row">
+            <label><i class="fa-brands fa-whatsapp"></i> WhatsApp / HP *</label>
+            <input type="tel" id="fdcPhone" class="inp-field" placeholder="0812-xxxx-xxxx">
+          </div>
+          <div class="form-row">
+            <label><i class="fa-solid fa-users"></i> Jumlah Tiket (Pax) *</label>
+            <input type="number" id="fdcPax" class="inp-field" value="1" min="1" oninput="calculateFDCAmount()">
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div class="form-row">
+            <label><i class="fa-solid fa-money-bill-wave" style="color: #059669;"></i> Total FDC (@ Rp 150rb) *</label>
+            <div class="money-input-box">
+              <span>Rp</span>
+              <input type="text" id="fdcAmount" class="inp-field" placeholder="150.000" onkeyup="formatCurrencyInput(this)">
+            </div>
+          </div>
+          <div class="form-row">
+            <label><i class="fa-solid fa-user-tag"></i> Created By *</label>
+            <input type="text" id="fdcCreatedBy" class="inp-field" placeholder="Nama staff...">
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-modal-del" style="background:#e2e8f0; color:#475569; border:none;" onclick="closeFDCModal()">Batal</button>
+        <button class="btn-modal-save" style="background: #9333ea;" onclick="saveFDCBooking()">
+          <i class="fa-solid fa-check"></i> Simpan Tiket FDC
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL EXECUTIVE DASHBOARD -->
+  <div id="reportModal" class="modal-backdrop">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-chart-line" style="color: var(--header-bg);"></i> Event Executive Dashboard</h3>
+        <button class="btn-x" onclick="closeReportModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="dash-grid">
+          <div class="dash-card hero-card">
+            <div class="card-lbl"><i class="fa-solid fa-coins" style="color: var(--gold-primary);"></i> Total Gross Revenue (Meja + FDC)</div>
+            <div class="card-val" id="repTotalGross" style="color: #0f172a;">Rp 0</div>
+            <div class="card-sub">Akumulasi seluruh transaksi reservasi 60 meja & tiket standing</div>
+          </div>
+
+          <div class="dash-card">
+            <div class="card-lbl"><i class="fa-solid fa-chair" style="color: #0284c7;"></i> Okupansi Meja Ballroom</div>
+            <div><span id="repTablesBooked" style="color: #0284c7; font-size: 1.25rem; font-weight: 800;">0</span> <span style="font-size:0.75rem; color:var(--text-muted);">/ 60 Meja</span></div>
+            <div class="occupancy-bar-wrap">
+              <div id="repTablesBar" class="occupancy-bar"></div>
+            </div>
+            <div class="card-sub" style="margin-top: 4px;">
+              Tersisa: <strong id="repTablesLeft" style="color:#0284c7;">60</strong> Meja
+            </div>
+          </div>
+
+          <div class="dash-card">
+            <div class="card-lbl"><i class="fa-solid fa-ticket" style="color: #9333ea;"></i> FDC Standing Ticket</div>
+            <div class="card-val" id="repFDCPax" style="font-size: 1.05rem; color: #9333ea;">0 Pax</div>
+            <div class="card-sub" id="repFDCTotalRev">Rp 0 Total FDC Revenue</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-modal-del" style="background:#e2e8f0; color:#475569; border:none;" onclick="closeReportModal()">Tutup</button>
+        <button class="btn-action btn-csv" onclick="exportReservationsCSV()" style="background: #1e293b;">
+          <i class="fa-solid fa-download"></i> Unduh CSV
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DAFTAR FDC -->
+  <div id="fdcListModal" class="modal-backdrop">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-list-check" style="color: #9333ea;"></i> Daftar Pesanan FDC (Standing)</h3>
+        <button class="btn-x" onclick="closeFDCListModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="modal-body" style="max-height: 60vh; overflow-y: auto;">
+        <div id="fdcListContent"></div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-modal-del" style="background:#e2e8f0; color:#475569; border:none;" onclick="closeFDCListModal()">Tutup</button>
+        <button class="btn-action btn-fdc" onclick="closeFDCListModal(); openFDCBookingModal();">
+          + Tambah FDC Baru
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOADER -->
+  <div id="loaderOverlay" class="loader-overlay">
+    <div class="spinner"></div>
+    <div style="color: #ffffff; font-weight: 700; font-size: 0.95rem;">Menyiapkan Gambar Denah JPG...</div>
+  </div>
+
+  <script>
+    const SUPABASE_URL = 'https://hupvhnvztvzqbdhuukpt.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh1cHZobnZ6dHZ6cWJkaHV1a3B0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAyNDY4NTIsImV4cCI6MjEwNTgyMjg1Mn0.E-XiAzngGIe_KAe2Znk201Jy55zwLUMOwL4cHhxQCPQ';
+
+    const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const FDC_DEFAULT_PRICE = 150000;
+
+    // Generasi 60 meja ballroom (T01 - T54 & R1 - R6)
+    const ALL_TABLE_IDS = [];
+    for (let i = 1; i <= 54; i++) {
+      ALL_TABLE_IDS.push('T' + (i < 10 ? '0' + i : i));
+    }
+    for (let i = 1; i <= 6; i++) {
+      ALL_TABLE_IDS.push('R' + i);
+    }
+
+    const DEFAULT_TABLE_CONFIGS = {};
+    // Distribusi posisi proporsional sesuai visualisasi 3D ballroom (panggung kiri, runway tengah, meja-meja bankuet)
+    ALL_TABLE_IDS.forEach((id, index) => {
+      let top = 15 + (Math.floor(index / 9) * 13);
+      let left = 28 + ((index % 9) * 7.5);
+      if (index >= 27) {
+        top = 55 + (Math.floor((index - 27) / 9) * 13);
+      }
+      DEFAULT_TABLE_CONFIGS[id] = { top, left, w: 4.8, h: 4.8, type: 'Banquet Table', pax: 10 };
+    });
+
+    let tableConfigs = {};
+    let bookings = {};
+    let fdcBookings = [];
+    let masterMenu = [
+      { id: 1, name: 'VIP Gala Dinner Set Menu', category: 'Gala Dinner Package', price: 2500000 },
+      { id: 2, name: 'Premium Red Wine Bottle', category: 'Beverage & Wine', price: 1500000 }
+    ];
+
+    let currentCart = [];
+    let currentTable = null;
+    let zoomLevel = 1.0;
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      await loadTableConfigsFromCloud();
+      renderHotspots();
+      await fetchAllCloudData();
+      initGestures();
+      subscribeRealtime();
+    });
+
+    async function loadTableConfigsFromCloud() {
+      try {
+        const { data, error } = await _supabase.from('kq_table_positions').select('*');
+        if (!error && data && data.length > 0) {
+          data.forEach(row => {
+            const tid = String(row.table_id).trim();
+            tableConfigs[tid] = {
+              id: tid,
+              top: Number(row.top),
+              left: Number(row.left),
+              w: Number(row.w),
+              h: Number(row.h),
+              type: DEFAULT_TABLE_CONFIGS[tid]?.type || 'Banquet Table',
+              pax: 10
+            };
+          });
+        }
+      } catch (err) {}
+
+      ALL_TABLE_IDS.forEach(id => {
+        if (!tableConfigs[id] && DEFAULT_TABLE_CONFIGS[id]) {
+          tableConfigs[id] = { id, ...DEFAULT_TABLE_CONFIGS[id] };
+        }
+      });
+    }
+
+    async function saveTableConfigToCloud(id) {
+      const t = tableConfigs[id];
+      if (!t) return;
+      try {
+        await _supabase.from('kq_table_positions').upsert({
+          table_id: String(id),
+          top: t.top, left: t.left, w: t.w, h: t.h
+        }, { onConflict: 'table_id' });
+      } catch (err) {}
+    }
+
+    async function resetHotspotsPosition() {
+      if (confirm('Kembalikan posisi meja ke default ballroom?')) {
+        try { await _supabase.from('kq_table_positions').delete().neq('table_id', 'XXX'); } catch(e) {}
+        tableConfigs = {};
+        ALL_TABLE_IDS.forEach(id => {
+          if (DEFAULT_TABLE_CONFIGS[id]) {
+            tableConfigs[id] = { id, ...DEFAULT_TABLE_CONFIGS[id] };
+            saveTableConfigToCloud(id);
+          }
+        });
+        renderHotspots();
+        refreshMapNodes();
+      }
+    }
+
+    function renderHotspots() {
+      const layer = document.getElementById('hotspotsLayer');
+      let html = '';
+      ALL_TABLE_IDS.forEach(id => {
+        const t = tableConfigs[id] || DEFAULT_TABLE_CONFIGS[id];
+        if (!t) return;
+        const isBookedClass = bookings[id] ? 'is-booked' : '';
+        html += `
+          <div id="spot-${id}" class="spot ${isBookedClass}" 
+               style="top: ${t.top}%; left: ${t.left}%; width: ${t.w}%; height: ${t.h}%;"
+               data-id="${id}"
+               onmousedown="initDrag(event, '${id}')"
+               ontouchstart="initDrag(event, '${id}')"
+               onclick="handleSpotClick(event, '${id}')">${id}</div>
+        `;
+      });
+      layer.innerHTML = html;
+    }
+
+    let draggingId = null, startX = 0, startY = 0, origTop = 0, origLeft = 0, hasDragged = false;
+
+    function initDrag(e, id) {
+      draggingId = id;
+      hasDragged = false;
+      const t = tableConfigs[id] || DEFAULT_TABLE_CONFIGS[id];
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      startX = clientX; startY = clientY;
+      origTop = t.top; origLeft = t.left;
+      document.addEventListener('mousemove', onDragging);
+      document.addEventListener('mouseup', stopDragging);
+      document.addEventListener('touchmove', onDragging, {passive: false});
+      document.addEventListener('touchend', stopDragging);
+    }
+
+    function onDragging(e) {
+      if (!draggingId) return;
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      if (Math.abs(clientX - startX) > 4 || Math.abs(clientY - startY) > 4) hasDragged = true;
+      if (!hasDragged) return;
+      e.preventDefault();
+      const frame = document.getElementById('mapFrame').getBoundingClientRect();
+      const deltaX = ((clientX - startX) / frame.width) * 100;
+      const deltaY = ((clientY - startY) / frame.height) * 100;
+      const t = tableConfigs[draggingId];
+      t.top = Math.max(0, Math.min(95, origTop + deltaY));
+      t.left = Math.max(0, Math.min(95, origLeft + deltaX));
+      const el = document.getElementById(`spot-${draggingId}`);
+      if (el) { el.style.top = t.top + '%'; el.style.left = t.left + '%'; }
+    }
+
+    function stopDragging() {
+      if (draggingId && hasDragged) saveTableConfigToCloud(draggingId);
+      draggingId = null;
+      document.removeEventListener('mousemove', onDragging);
+      document.removeEventListener('mouseup', stopDragging);
+      document.removeEventListener('touchmove', onDragging);
+      document.removeEventListener('touchend', stopDragging);
+    }
+
+    function handleSpotClick(e, id) {
+      if (hasDragged) return;
+      openBooking(id, 'Banquet Table', 10);
+    }
+
+    async function fetchAllCloudData() {
+      try {
+        const { data: tableData } = await _supabase.from('kq_table_bookings').select('*');
+        if (tableData) {
+          bookings = {};
+          tableData.forEach(row => {
+            const tid = String(row.table_id).trim();
+            let parsedCart = [];
+            try { if (row.cart_items) parsedCart = JSON.parse(row.cart_items); } catch(e){}
+            bookings[tid] = {
+              name: row.guest_name, phone: row.guest_phone, pax: row.pax,
+              dp: Number(row.dp), balance: Number(row.balance || 0),
+              time: row.arrival_time, notes: row.notes, cart_items: parsedCart,
+              created_by: row.created_by || '', timestamp: row.timestamp || '-'
+            };
+          });
+        }
+        const { data: fdcData } = await _supabase.from('kq_fdc_bookings').select('*');
+        if (fdcData) {
+          fdcBookings = fdcData.map(row => ({
+            id: row.id, name: row.guest_name, phone: row.guest_phone,
+            pax: row.pax, amount: Number(row.amount), created_by: row.created_by || ''
+          }));
+        }
+        refreshMapNodes();
+        updateMetrics();
+      } catch (err) {}
+    }
+
+    function subscribeRealtime() {
+      _supabase.channel('schema-kq-changes')
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'kq_table_bookings' }, fetchAllCloudData)
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'kq_fdc_bookings' }, fetchAllCloudData)
+        .subscribe();
+    }
+
+    function openRegistrationModal() {
+      const select = document.getElementById('regTableIdSelect');
+      let html = '<option value="">-- Pilih Meja Kosong --</option>';
+      ALL_TABLE_IDS.forEach(id => {
+        if (!bookings[id]) html += `<option value="${id}">Meja #${id}</option>`;
+      });
+      select.innerHTML = html;
+      document.getElementById('regGuestName').value = '';
+      document.getElementById('regGuestPhone').value = '';
+      document.getElementById('regGuestDP').value = '';
+      document.getElementById('regGuestCreatedBy').value = localStorage.getItem('last_staff_name') || '';
+      document.getElementById('registrationModal').classList.add('open');
+    }
+
+    function closeRegistrationModal() { document.getElementById('registrationModal').classList.remove('open'); }
+
+    async function saveRegistrationBooking() {
+      const tid = document.getElementById('regTableIdSelect').value;
+      const name = document.getElementById('regGuestName').value.trim();
+      const phone = document.getElementById('regGuestPhone').value.trim();
+      const pax = parseInt(document.getElementById('regGuestPax').value, 10) || 10;
+      const rawDP = document.getElementById('regGuestDP').value.replace(/[^0-9]/g, '');
+      const dp = rawDP ? parseInt(rawDP, 10) : 0;
+      const staff = document.getElementById('regGuestCreatedBy').value.trim();
+
+      if (!tid || !name) { alert('Lengkapi nomor meja dan nama tamu.'); return; }
+      localStorage.setItem('last_staff_name', staff);
+
+      const now = new Date();
+      const timestamp = `${now.toLocaleDateString('id-ID')} - ${now.toLocaleTimeString('id-ID')} WITA`;
+
+      const payload = {
+        table_id: String(tid), guest_name: name, guest_phone: phone, pax: pax,
+        dp: dp, balance: 0, arrival_time: '19:00 WITA', created_by: staff, timestamp: timestamp, notes: 'Registrasi Cepat'
+      };
+
+      await _supabase.from('kq_table_bookings').upsert(payload, { onConflict: 'table_id' });
+      closeRegistrationModal();
+      await fetchAllCloudData();
+    }
+
+    function openBooking(tableId, tableType, defaultPax) {
+      currentTable = String(tableId);
+      document.getElementById('modalTitle').innerText = '#' + tableId + ' (' + tableType + ')';
+      populateBookingMenuDropdown();
+      currentCart = [];
+
+      const data = bookings[tableId];
+      const btnDel = document.getElementById('btnRemoveBooking');
+      const now = new Date();
+      document.getElementById('guestInputTimestamp').value = `${now.toLocaleDateString('id-ID')} - ${now.toLocaleTimeString('id-ID')} WITA`;
+
+      if (data) {
+        document.getElementById('guestName').value = data.name || '';
+        document.getElementById('guestPhone').value = data.phone || '';
+        document.getElementById('guestPax').value = data.pax || defaultPax;
+        document.getElementById('guestDP').value = data.dp ? parseInt(data.dp, 10).toLocaleString('id-ID') : '';
+        document.getElementById('guestTime').value = data.time || '19:00 WITA';
+        document.getElementById('guestCreatedBy').value = data.created_by || '';
+        document.getElementById('guestNotes').value = data.notes || '';
+        if (data.cart_items) currentCart = JSON.parse(JSON.stringify(data.cart_items));
+        btnDel.style.display = 'inline-flex';
+      } else {
+        document.getElementById('guestName').value = '';
+        document.getElementById('guestPhone').value = '';
+        document.getElementById('guestPax').value = defaultPax;
+        document.getElementById('guestDP').value = '';
+        document.getElementById('guestCreatedBy').value = localStorage.getItem('last_staff_name') || '';
+        document.getElementById('guestNotes').value = '';
+        btnDel.style.display = 'none';
+      }
+      renderBookingCart();
+      document.getElementById('bookingModal').classList.add('open');
+    }
+
+    function closeBookingModal() { document.getElementById('bookingModal').classList.remove('open'); currentTable = null; }
+
+    function populateBookingMenuDropdown() {
+      const dropdown = document.getElementById('selectMasterMenuDropdown');
+      let html = '<option value="">-- Pilih Menu / Paket --</option>';
+      masterMenu.forEach(item => {
+        html += `<option value="${item.id}">${item.name} - Rp ${item.price.toLocaleString('id-ID')}</option>`;
+      });
+      dropdown.innerHTML = html;
+    }
+
+    function addCartItemFromDropdown() {
+      const dropdown = document.getElementById('selectMasterMenuDropdown');
+      const selectedId = parseInt(dropdown.value, 10);
+      if (!selectedId) return;
+      const menuItem = masterMenu.find(m => m.id === selectedId);
+      if (!menuItem) return;
+      const existing = currentCart.find(c => c.id === selectedId);
+      if (existing) existing.qty += 1;
+      else currentCart.push({ id: menuItem.id, name: menuItem.name, price: menuItem.price, qty: 1 });
+      dropdown.value = '';
+      renderBookingCart();
+    }
+
+    function addCustomCartItem() {
+      const name = document.getElementById('customMenuName').value.trim();
+      const rawPrice = document.getElementById('customMenuPrice').value.replace(/[^0-9]/g, '');
+      if (!name || !rawPrice) return;
+      currentCart.push({ id: 'custom-' + Date.now(), name, price: parseInt(rawPrice, 10), qty: 1 });
+      document.getElementById('customMenuName').value = '';
+      document.getElementById('customMenuPrice').value = '';
+      renderBookingCart();
+    }
+
+    function changeCartQty(id, delta) {
+      const item = currentCart.find(c => c.id === id);
+      if (item) {
+        item.qty += delta;
+        if (item.qty <= 0) currentCart = currentCart.filter(c => c.id !== id);
+      }
+      renderBookingCart();
+    }
+
+    function calculateCartTotal(cartArray) { return cartArray.reduce((sum, item) => sum + (item.price * item.qty), 0); }
+
+    function renderBookingCart() {
+      const container = document.getElementById('bookingCartItemsContainer');
+      const totalDisplay = document.getElementById('bookingCartTotalDisplay');
+      if (currentCart.length === 0) {
+        container.innerHTML = '<div style="font-size:0.75rem; color:var(--text-muted); text-align:center; padding:6px;">Belum ada menu dipilih.</div>';
+        totalDisplay.innerText = 'Rp 0';
+        updateBalanceDisplay();
+        return;
+      }
+      let html = '', grandTotal = 0;
+      currentCart.forEach(item => {
+        const subtotal = item.price * item.qty;
+        grandTotal += subtotal;
+        html += `
+          <div style="background:#ffffff; border:1px solid var(--border-color); border-radius:8px; padding:8px 10px; display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <strong style="color:#0f172a; font-size:0.8rem;">${item.name}</strong>
+              <div style="font-size:0.7rem; color:#059669;">Rp ${item.price.toLocaleString('id-ID')} × ${item.qty} = <strong>Rp ${subtotal.toLocaleString('id-ID')}</strong></div>
+            </div>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <button type="button" onclick="changeCartQty('${item.id}', -1)" style="background:#e2e8f0; border:none; width:24px; height:24px; border-radius:4px; cursor:pointer;"><i class="fa-solid fa-minus" style="font-size:0.65rem;"></i></button>
+              <span style="font-size:0.8rem; font-weight:700; width:16px; text-align:center;">${item.qty}</span>
+              <button type="button" onclick="changeCartQty('${item.id}', 1)" style="background:#e2e8f0; border:none; width:24px; height:24px; border-radius:4px; cursor:pointer;"><i class="fa-solid fa-plus" style="font-size:0.65rem;"></i></button>
+            </div>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+      totalDisplay.innerText = 'Rp ' + grandTotal.toLocaleString('id-ID');
+      updateBalanceDisplay();
+    }
+
+    function updateBalanceDisplay() {
+      const totalKonsumsi = calculateCartTotal(currentCart);
+      const rawDP = document.getElementById('guestDP').value.replace(/[^0-9]/g, '');
+      const dp = rawDP ? parseInt(rawDP, 10) : 0;
+      const balance = totalKonsumsi - dp;
+      const balanceEl = document.getElementById('bookingBalanceDisplay');
+      if (balance > 0) balanceEl.innerHTML = `<span style="color:#ef4444;">Kurang Rp ${balance.toLocaleString('id-ID')}</span>`;
+      else if (balance < 0) balanceEl.innerHTML = `<span style="color:#059669;">Kembalian Rp ${Math.abs(balance).toLocaleString('id-ID')}</span>`;
+      else balanceEl.innerHTML = `<span style="color:#059669;">LUNAS (Rp 0)</span>`;
+    }
+
+    async function saveBooking() {
+      const name = document.getElementById('guestName').value.trim();
+      const phone = document.getElementById('guestPhone').value.trim();
+      const rawDP = document.getElementById('guestDP').value.replace(/[^0-9]/g, '');
+      const dp = rawDP ? parseInt(rawDP, 10) : 0;
+      const totalKonsumsi = calculateCartTotal(currentCart);
+      const balance = totalKonsumsi - dp;
+      const staff = document.getElementById('guestCreatedBy').value.trim();
+
+      if (!name) { alert('Masukkan nama tamu.'); return; }
+      localStorage.setItem('last_staff_name', staff);
+
+      const payload = {
+        table_id: String(currentTable), guest_name: name, guest_phone: phone,
+        pax: parseInt(document.getElementById('guestPax').value, 10) || 10,
+        dp: dp, balance: balance, arrival_time: document.getElementById('guestTime').value,
+        created_by: staff, timestamp: document.getElementById('guestInputTimestamp').value,
+        notes: document.getElementById('guestNotes').value, cart_items: JSON.stringify(currentCart)
+      };
+
+      await _supabase.from('kq_table_bookings').upsert(payload, { onConflict: 'table_id' });
+      closeBookingModal();
+      await fetchAllCloudData();
+    }
+
+    async function deleteBooking() {
+      if (confirm('Batalkan reservasi #' + currentTable + '?')) {
+        await _supabase.from('kq_table_bookings').delete().eq('table_id', String(currentTable));
+        closeBookingModal();
+        await fetchAllCloudData();
+      }
+    }
+
+    function generateGuestBookingPDF() {
+      window.print();
+    }
+
+    function openMasterMenuModal() { document.getElementById('masterMenuModal').classList.add('open'); renderMasterMenuList(); }
+    function closeMasterMenuModal() { document.getElementById('masterMenuModal').classList.remove('open'); }
+
+    function addMasterMenuItem() {
+      const name = document.getElementById('menuItemName').value.trim();
+      const category = document.getElementById('menuItemCategory').value;
+      const rawPrice = document.getElementById('menuItemPrice').value.replace(/[^0-9]/g, '');
+      if (!name || !rawPrice) return;
+      masterMenu.push({ id: Date.now(), name, category, price: parseInt(rawPrice, 10) });
+      document.getElementById('menuItemName').value = '';
+      document.getElementById('menuItemPrice').value = '';
+      renderMasterMenuList();
+    }
+
+    function renderMasterMenuList() {
+      const container = document.getElementById('masterMenuListContent');
+      let html = '';
+      masterMenu.forEach(item => {
+        html += `<div style="background:#fff; border:1px solid var(--border-color); border-radius:6px; padding:8px; margin-bottom:4px; display:flex; justify-content:space-between; align-items:center;">
+          <div><strong>${item.name}</strong><br><small style="color:var(--text-muted);">${item.category} | Rp ${item.price.toLocaleString('id-ID')}</small></div>
+          <button onclick="masterMenu = masterMenu.filter(m => m.id !== ${item.id}); renderMasterMenuList();" style="background:#fee2e2; border:none; color:#991b1b; width:24px; height:24px; border-radius:4px; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+        </div>`;
+      });
+      container.innerHTML = html;
+    }
+
+    function openFDCBookingModal() { document.getElementById('fdcModal').classList.add('open'); }
+    function closeFDCModal() { document.getElementById('fdcModal').classList.remove('open'); }
+    function calculateFDCAmount() {
+      const pax = parseInt(document.getElementById('fdcPax').value, 10) || 1;
+      document.getElementById('fdcAmount').value = (pax * FDC_DEFAULT_PRICE).toLocaleString('id-ID');
+    }
+
+    async function saveFDCBooking() {
+      const name = document.getElementById('fdcName').value.trim();
+      const rawAmt = document.getElementById('fdcAmount').value.replace(/[^0-9]/g, '');
+      if (!name) return;
+      const payload = {
+        id: 'KQ-FDC-' + Date.now().toString().slice(-6),
+        guest_name: name, guest_phone: document.getElementById('fdcPhone').value,
+        pax: parseInt(document.getElementById('fdcPax').value, 10) || 1,
+        amount: rawAmt ? parseInt(rawAmt, 10) : FDC_DEFAULT_PRICE,
+        created_by: document.getElementById('fdcCreatedBy').value
+      };
+      await _supabase.from('kq_fdc_bookings').insert([payload]);
+      closeFDCModal();
+      await fetchAllCloudData();
+    }
+
+    function openFDCListModal() {
+      const container = document.getElementById('fdcListContent');
+      let html = '';
+      fdcBookings.forEach(item => {
+        html += `<div style="background:#fff; border:1px solid var(--border-color); border-radius:8px; padding:10px; margin-bottom:6px; display:flex; justify-content:space-between; align-items:center;">
+          <div><strong style="color:#9333ea;">${item.name}</strong> (${item.pax} Pax)<br><small>Rp ${(item.amount||0).toLocaleString('id-ID')}</small></div>
+          <button onclick="deleteFDC('${item.id}')" style="background:#fee2e2; border:none; color:#991b1b; width:26px; height:26px; border-radius:4px; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+        </div>`;
+      });
+      container.innerHTML = html || '<div style="text-align:center; color:var(--text-muted); padding:20px;">Belum ada pesanan FDC.</div>';
+      document.getElementById('fdcListModal').classList.add('open');
+    }
+    function closeFDCListModal() { document.getElementById('fdcListModal').classList.remove('open'); }
+    async function deleteFDC(id) { await _supabase.from('kq_fdc_bookings').delete().eq('id', id); openFDCListModal(); await fetchAllCloudData(); }
+
+    function openReportModal() {
+      const bookedKeys = Object.keys(bookings);
+      let tableRev = 0;
+      bookedKeys.forEach(k => { tableRev += (bookings[k].dp || 0); });
+      let fdcRev = 0, fdcPax = 0;
+      fdcBookings.forEach(f => { fdcRev += (f.amount || 0); fdcPax += (f.pax || 0); });
+      const grandGross = tableRev + fdcRev;
+
+      document.getElementById('repTotalGross').innerText = 'Rp ' + grandGross.toLocaleString('id-ID');
+      document.getElementById('repTablesBooked').innerText = bookedKeys.length;
+      document.getElementById('repTablesLeft').innerText = 60 - bookedKeys.length;
+      document.getElementById('repTablesBar').style.width = Math.round((bookedKeys.length / 60) * 100) + '%';
+      document.getElementById('repFDCPax').innerText = fdcPax + ' Pax';
+      document.getElementById('repFDCTotalRev').innerText = 'Rp ' + fdcRev.toLocaleString('id-ID') + ' Total FDC Revenue';
+      document.getElementById('reportModal').classList.add('open');
+    }
+    function closeReportModal() { document.getElementById('reportModal').classList.remove('open'); }
+
+    function refreshMapNodes() {
+      document.querySelectorAll('.spot').forEach(spot => {
+        const id = spot.dataset.id;
+        if (bookings[id]) spot.classList.add('is-booked');
+        else spot.classList.remove('is-booked');
+      });
+    }
+
+    function updateMetrics() {
+      const bookedKeys = Object.keys(bookings);
+      let tableDP = 0;
+      bookedKeys.forEach(k => { tableDP += (bookings[k].dp || 0); });
+      let fdcPaxTotal = 0, fdcAmountTotal = 0;
+      fdcBookings.forEach(item => { fdcPaxTotal += (item.pax || 0); fdcAmountTotal += (item.amount || 0); });
+
+      document.getElementById('statTablesBooked').innerText = bookedKeys.length;
+      document.getElementById('statFDCPaxTotal').innerText = fdcPaxTotal;
+      document.getElementById('statDPTotal').innerText = 'Rp ' + (tableDP + fdcAmountTotal).toLocaleString('id-ID');
+      document.getElementById('legendAvailText').innerText = `Tersedia: ${60 - bookedKeys.length} Meja`;
+      document.getElementById('legendBookedText').innerText = `${bookedKeys.length} Terisi`;
+    }
+
+    function formatCurrencyInput(el) {
+      let val = el.value.replace(/[^0-9]/g, '');
+      el.value = val ? parseInt(val, 10).toLocaleString('id-ID') : '';
+    }
+
+    async function downloadLayoutJPG() {
+      const loader = document.getElementById('loaderOverlay');
+      loader.style.display = 'flex';
+      const mapEl = document.getElementById('mapFrame');
+      const savedTransform = mapEl.style.transform;
+      mapEl.style.transform = 'scale(1)';
+      try {
+        const canvas = await html2canvas(mapEl, { scale: 2, useCORS: true, backgroundColor: '#111' });
+        const link = document.createElement('a');
+        link.download = `Ballroom_Layout_${new Date().toISOString().slice(0, 10)}.jpg`;
+        link.href = canvas.toDataURL('image/jpeg', 0.92);
+        link.click();
+      } catch (err) {
+        alert('Gagal mengekspor gambar.');
+      } finally {
+        mapEl.style.transform = savedTransform;
+        loader.style.display = 'none';
+      }
+    }
+
+    function exportReservationsCSV() {
+      let csv = 'Nomor Meja,Nama Tamu,WhatsApp,Pax,DP (IDR),Status Lunas/Kurang,Jam Tiba,Staff,Catatan\n';
+      Object.keys(bookings).forEach(k => {
+        const b = bookings[k];
+        csv += `"${k}","${b.name}","${b.phone}","${b.pax}","${b.dp}","${b.balance}","${b.time}","${b.created_by}","${(b.notes||'').replace(/"/g, '""')}"\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `Reservasi_Ballroom_${new Date().toISOString().slice(0, 10)}.csv`;
+      a.click();
+    }
+
+    function zoomMap(delta) { zoomLevel = Math.max(0.6, Math.min(2.2, zoomLevel + delta)); applyTransform(); }
+    function resetZoom() { zoomLevel = 1.0; applyTransform(); }
+    function applyTransform() { document.getElementById('mapFrame').style.transform = `scale(${zoomLevel})`; }
+    function loadLocalImage(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = evt => { document.getElementById('mainDenahImg').src = evt.target.result; };
+        reader.readAsDataURL(file);
+      }
+    }
+    function initGestures() {}
+  </script>
+</body>
+</html>
