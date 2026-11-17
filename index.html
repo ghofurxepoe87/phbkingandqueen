@@ -540,9 +540,9 @@
   <!-- VIEWPORT -->
   <main class="viewport-area" id="mapTouchArea">
     <div class="map-frame" id="mapFrame">
-      <!-- Terhubung otomatis ke file denah.jpg di repository Anda -->
+      <!-- Menggunakan link gambar langsung untuk memastikan gambar pasti muncul di Vercel -->
       <img id="mainDenahImg" 
-           src="denah.jpg" 
+           src="https://raw.githubusercontent.com/ghofurxepoe87/phbkingandqueen/main/denah.jpg" 
            alt="Ballroom - King & Queen 2027" 
            class="render-3d-img"
            crossorigin="anonymous"
@@ -930,15 +930,8 @@
     let currentTable = null;
     let zoomLevel = 1.0;
 
-    // Fallback otomatis jika format ekstensi berbeda
-    const possibleImageFiles = ['denah.jpg', 'denah.JPG', 'Denah.jpg'];
-    let imgAttemptIndex = 0;
-
     function handleImgFallback(img) {
-      if (imgAttemptIndex < possibleImageFiles.length) {
-        img.src = possibleImageFiles[imgAttemptIndex];
-        imgAttemptIndex++;
-      }
+      console.error('Gagal memuat gambar denah.');
     }
 
     window.addEventListener('DOMContentLoaded', async () => {
