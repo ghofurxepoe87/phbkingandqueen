@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
-  <title>Ballroom Utama - King & Queen OF THE NIGHT 2026</title>
+  <title>Ballroom Utama - King & Queen OF THE NIGHT 2027</title>
   
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="favicon.png">
@@ -550,7 +550,7 @@
            onerror="handleImgFallback(this)">
 
       <div class="hotspots-layer" id="hotspotsLayer">
-        <!-- Hotspots diinjeksikan secara dinamis berdasarkan posisi 3D ballroom -->
+        <!-- Hotspots diinjeksikan secara dinamis -->
       </div>
     </div>
   </main>
@@ -910,7 +910,6 @@
     }
 
     const DEFAULT_TABLE_CONFIGS = {};
-    // Distribusi posisi proporsional sesuai visualisasi 3D ballroom (panggung kiri, runway tengah, meja-meja bankuet)
     ALL_TABLE_IDS.forEach((id, index) => {
       let top = 15 + (Math.floor(index / 9) * 13);
       let left = 28 + ((index % 9) * 7.5);
@@ -931,6 +930,21 @@
     let currentCart = [];
     let currentTable = null;
     let zoomLevel = 1.0;
+
+    // Fallback otomatis jika nama file gambar memiliki variasi ekstensi/spasi
+    const possibleImageFiles = [
+      'Pesta Ballroom Mewah dengan Panggung Konser.png',
+      'pesta ballroom mewah dengan panggung konser.png',
+      'denah.jpg'
+    ];
+    let imgAttemptIndex = 0;
+
+    function handleImgFallback(img) {
+      if (imgAttemptIndex < possibleImageFiles.length) {
+        img.src = possibleImageFiles[imgAttemptIndex];
+        imgAttemptIndex++;
+      }
+    }
 
     window.addEventListener('DOMContentLoaded', async () => {
       await loadTableConfigsFromCloud();
@@ -1290,9 +1304,7 @@
       }
     }
 
-    function generateGuestBookingPDF() {
-      window.print();
-    }
+    function generateGuestBookingPDF() { window.print(); }
 
     function openMasterMenuModal() { document.getElementById('masterMenuModal').classList.add('open'); renderMasterMenuList(); }
     function closeMasterMenuModal() { document.getElementById('masterMenuModal').classList.remove('open'); }
