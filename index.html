@@ -200,7 +200,7 @@
       gap: 14px;
     }
 
-    /* SUB-NAV TAB BAR (VHP STYLE) */
+    /* SUB-NAV TAB BAR */
     .vhp-subnav {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
@@ -357,9 +357,7 @@
       padding-top: 4px;
     }
 
-    .greeter-results-box.active {
-      display: grid;
-    }
+    .greeter-results-box.active { display: grid; }
 
     .greeter-match-card {
       background: #f0f9ff;
@@ -514,7 +512,7 @@
     .kpi-card.red .kpi-icon { background: #fee2e2; color: #b91c1c; }
 
     .kpi-value {
-      font-size: 1.35rem;
+      font-size: 1.32rem;
       font-weight: 800;
       color: var(--text-main);
       line-height: 1.15;
@@ -716,7 +714,6 @@
       z-index: 5;
     }
 
-    /* HIGHLIGHT SAAT DICARI GREETER */
     .spot.is-highlighted {
       animation: pulseHighlight 1s infinite alternate;
       border: 3px solid #facc15 !important;
@@ -745,7 +742,7 @@
       width: 100%;
       border-collapse: collapse;
       font-size: 0.78rem;
-      min-width: 760px;
+      min-width: 820px;
     }
 
     table.vhp-table th {
@@ -784,6 +781,15 @@
       font-weight: 700;
       font-size: 0.72rem;
     }
+    .share-tag {
+      background: #fef3c7;
+      color: #b45309;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.65rem;
+      margin-left: 4px;
+    }
 
     /* MODAL */
     .modal-backdrop {
@@ -805,13 +811,13 @@
       border: 1px solid var(--border-color);
       border-radius: 12px;
       width: 100%;
-      max-width: 560px;
+      max-width: 580px;
       max-height: 92vh;
       overflow-y: auto;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
     }
 
-    .modal-container.wide-modal { max-width: 860px; }
+    .modal-container.wide-modal { max-width: 900px; }
 
     .modal-header {
       background: var(--vhp-blue);
@@ -833,6 +839,41 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
+    }
+
+    /* SHARING GUEST LIST INSIDE MODAL */
+    .sharing-box {
+      background: #f0f9ff;
+      border: 1.5px solid #38bdf8;
+      border-radius: 10px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .sharing-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .sharing-item-card {
+      background: #ffffff;
+      border: 1px solid #bae6fd;
+      border-radius: 8px;
+      padding: 8px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sharing-item-card.active-edit {
+      border: 2px solid var(--vhp-blue);
+      background: #e0f2fe;
     }
 
     .form-row { display: flex; flex-direction: column; gap: 5px; }
@@ -905,7 +946,7 @@
       display: block;
     }
     .exec-box strong {
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       font-weight: 800;
       color: var(--text-main);
       margin-top: 4px;
@@ -932,9 +973,6 @@
   </style>
 </head>
 <body>
-
-  <!-- DATALIST 200 NOMOR KAMAR PLATINUM HOTEL BALIKPAPAN -->
-  <datalist id="platinumRoomList"></datalist>
 
   <!-- VHP CLOUD STYLE TOP HEADER -->
   <header class="vhp-header">
@@ -976,7 +1014,7 @@
   <!-- MAIN WORKSPACE -->
   <main class="main-wrapper">
 
-    <!-- VHP NAVIGATION & ACTION BAR (TANPA FDC) -->
+    <!-- VHP NAVIGATION & ACTION BAR -->
     <div class="vhp-subnav">
       <div class="vhp-tabs-left">
         <button class="vhp-tab active" onclick="switchView('all', this)">
@@ -1000,7 +1038,7 @@
       </div>
     </div>
 
-    <!-- GREETER INSTANT SEARCH BAR (CARI NAMA TAMU / NO KAMAR / MEJA) -->
+    <!-- GREETER INSTANT SEARCH BAR -->
     <section class="greeter-search-card">
       <div class="search-bar-row">
         <div style="display:flex; align-items:center; gap:8px;">
@@ -1011,7 +1049,7 @@
         <div class="search-input-wrap">
           <i class="fa-solid fa-magnifying-glass"></i>
           <input type="text" id="greeterSearchInput"
-                 placeholder="Ketik Nama Tamu, Nomor Kamar (cth: 502 / 1018), atau Nomor Meja..."
+                 placeholder="Ketik Nama Tamu, Nomor Kamar (cth: 502 / 1012), atau Nomor Meja..."
                  oninput="handleGreeterSearch()">
           <button type="button" id="btnClearSearch" class="btn-clear-search" onclick="clearGreeterSearch()" title="Hapus Pencarian">
             <i class="fa-solid fa-xmark"></i>
@@ -1026,11 +1064,11 @@
       <div class="summary-header">
         <div>
           <div class="summary-title-row">
-            <h2>EXECUTIVE BALLROOM & ROOM INTEGRATION SUMMARY</h2>
-            <span class="tag-info-blue">35 ROUND TABLES (10 PAX/TABLE)</span>
-            <span class="tag-info-green">200 ROOM TYPES SYNCED</span>
+            <h2>EXECUTIVE BALLROOM & SHARING REVENUE SUMMARY</h2>
+            <span class="tag-info-blue">SHARING TABLE ENABLED</span>
+            <span class="tag-info-green">200 ROOMS SYNCED</span>
           </div>
-          <p class="summary-desc">Klik nomor meja pada denah untuk input reservasi, nomor kamar, dan tipe kamar otomatis. Hijau (&lt;10 Pax) • Merah (≥10 Pax).</p>
+          <p class="summary-desc">1 meja dapat diisi lebih dari 1 nama (Sharing). Total Revenue mencakup DP Umum + Alokasi Compulsory. Hijau (&lt;10 Pax) • Merah (≥10 Pax).</p>
         </div>
         <div class="date-pill-gold" id="todayDatePill">Event: 31 Dec 2026</div>
       </div>
@@ -1038,20 +1076,20 @@
       <div class="kpi-grid">
         <div class="kpi-card gold" onclick="openExecDashboardModal()">
           <div class="kpi-top">
-            <span class="kpi-label">TOTAL DP REVENUE</span>
+            <span class="kpi-label">TOTAL REVENUE (UMUM + COMPULSORY)</span>
             <div class="kpi-icon"><i class="fa-solid fa-coins"></i></div>
           </div>
-          <div class="kpi-value" id="statDPTotal">Rp 0</div>
-          <div class="kpi-sub">Klik untuk rincian laporan keuangan</div>
+          <div class="kpi-value" id="statTotalRevenue">Rp 0</div>
+          <div class="kpi-sub">Umum: <strong id="statSubCommRev">Rp 0</strong> • Comp: <strong id="statSubCompRev">Rp 0</strong></div>
         </div>
 
         <div class="kpi-card blue" onclick="openExecDashboardModal()">
           <div class="kpi-top">
-            <span class="kpi-label">OKUPANSI MEJA</span>
+            <span class="kpi-label">OKUPANSI MEJA & TAMU</span>
             <div class="kpi-icon"><i class="fa-solid fa-chair"></i></div>
           </div>
-          <div class="kpi-value"><span id="statTablesBooked">0</span> / <span id="statTotalTables">35</span></div>
-          <div class="kpi-sub"><span id="statTablesAvail">35</span> Meja Kosong • <strong id="statTotalPax">0</strong> Total Pax</div>
+          <div class="kpi-value"><span id="statTablesBooked">0</span> / <span id="statTotalTables">35</span> Meja</div>
+          <div class="kpi-sub"><strong id="statTotalPax">0</strong> Total Pax • <strong id="statTotalBookings">0</strong> Pemesan</div>
         </div>
 
         <div class="kpi-card green" onclick="scrollToDirectory()">
@@ -1060,7 +1098,7 @@
             <div class="kpi-icon"><i class="fa-solid fa-user-clock"></i></div>
           </div>
           <div class="kpi-value" id="statPartialCount">0 Meja</div>
-          <div class="kpi-sub">Masih Tersedia Kursi Tambahan</div>
+          <div class="kpi-sub">Bisa Tambah Tamu Sharing</div>
         </div>
 
         <div class="kpi-card red" onclick="scrollToDirectory()">
@@ -1069,7 +1107,7 @@
             <div class="kpi-icon"><i class="fa-solid fa-circle-check"></i></div>
           </div>
           <div class="kpi-value" id="statFullCount">0 Meja</div>
-          <div class="kpi-sub">In-House Rooms Linked: <strong id="statLinkedRooms">0</strong> Kamar</div>
+          <div class="kpi-sub">Kamar Terhubung: <strong id="statLinkedRooms">0</strong> Kamar</div>
         </div>
       </div>
     </section>
@@ -1116,22 +1154,22 @@
     <section class="directory-card" id="directorySection">
       <div class="floorplan-bar" style="background: #0f172a;">
         <div class="floorplan-bar-title">
-          <i class="fa-solid fa-list-ul"></i> LIVE GUEST & ROOM DIRECTORY
+          <i class="fa-solid fa-list-ul"></i> LIVE GUEST & SHARING TABLE DIRECTORY
         </div>
-        <span style="font-size: 0.72rem; color: #cbd5e1;">Klik baris untuk edit atau hapus</span>
+        <span style="font-size: 0.72rem; color: #cbd5e1;">Klik baris untuk mengelola meja atau tambah sharing</span>
       </div>
       <div class="table-responsive">
         <table class="vhp-table">
           <thead>
             <tr>
               <th>Meja</th>
-              <th>Status</th>
+              <th>Status Meja</th>
               <th>Nama Tamu</th>
+              <th>Segmen</th>
               <th>No. Kamar</th>
               <th>Type Kamar</th>
-              <th>WhatsApp / HP</th>
               <th>Pax</th>
-              <th>DP Masuk</th>
+              <th>Nominal / DP</th>
               <th>Staff</th>
             </tr>
           </thead>
@@ -1144,20 +1182,38 @@
 
   </main>
 
-  <!-- MODAL RESERVASI MEJA (DENGAN NOMOR KAMAR & TYPE KAMAR OTOMATIS) -->
+  <!-- MODAL RESERVASI MEJA (MENDUKUNG SHARING MULTI-NAMA & COMPULSORY AMOUNT) -->
   <div id="bookingModal" class="modal-backdrop">
     <div class="modal-container">
       <div class="modal-header">
-        <h3><i class="fa-solid fa-chair"></i> Reservasi Meja <span id="modalTitle">#1</span></h3>
+        <h3><i class="fa-solid fa-chair"></i> Meja <span id="modalTitle">#1</span> — <span id="modalTotalTablePax" style="font-weight:600; font-size:0.85rem;">0/10 Pax</span></h3>
         <button class="btn-x" onclick="closeBookingModal()"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
       <div class="modal-body">
+        <!-- DAFTAR TAMU SHARING DI MEJA INI -->
+        <div id="tableSharingSection" class="sharing-box" style="display:none;">
+          <div class="sharing-header">
+            <span style="font-size:0.76rem; font-weight:800; color:#035388;">
+              <i class="fa-solid fa-users"></i> Daftar Pemesan di Meja Ini (<span id="sharingGuestCount">0</span> Nama):
+            </span>
+            <button type="button" class="btn-save" style="padding:6px 10px; font-size:0.74rem; background:#059669;" onclick="prepareNewSharingGuest()">
+              <i class="fa-solid fa-user-plus"></i> + Tambah Tamu Sharing
+            </button>
+          </div>
+          <div id="sharingGuestsList" style="display:flex; flex-direction:column; gap:6px;"></div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding-bottom:6px;">
+          <strong id="formModeTitle" style="font-size:0.82rem; color:#035388;">Input Pemesan Baru</strong>
+          <span id="editingBadge" style="display:none; background:#fef3c7; color:#b45309; font-size:0.68rem; font-weight:700; padding:2px 8px; border-radius:6px;">Mode Edit Pemesan</span>
+        </div>
+
         <div class="form-row">
           <label><i class="fa-solid fa-id-card" style="color: var(--vhp-blue);"></i> Tipe Tamu / Status Reservasi *</label>
           <select id="guestType" class="inp-field" onchange="toggleInHouseFields()">
             <option value="Commercial Guest" selected>Tamu Komersial / Umum (Paid)</option>
-            <option value="Compulsory In-House">Compulsory In-House Guest (Complimentary)</option>
+            <option value="Compulsory In-House">Compulsory In-House Guest (Alokasi Custom)</option>
           </select>
         </div>
 
@@ -1166,16 +1222,17 @@
           <input type="text" id="guestName" class="inp-field" placeholder="Contoh: Mr. John Doe">
         </div>
 
-        <!-- NOMOR KAMAR & TYPE KAMAR OTOMATIS -->
+        <!-- DROPDOWN NOMOR KAMAR & TYPE KAMAR OTOMATIS -->
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: #f0f9ff; padding: 10px; border-radius: 10px; border: 1px solid #bae6fd;">
           <div class="form-row">
             <label><i class="fa-solid fa-door-closed" style="color: var(--vhp-blue);"></i> Nomor Kamar <span id="roomReqMark"></span></label>
-            <input type="text" id="guestRoomNo" list="platinumRoomList" class="inp-field"
-                   placeholder="Cth: 502 / 1018" oninput="autoFillRoomType('guestRoomNo', 'guestRoomType')">
+            <select id="guestRoomNo" class="inp-field" onchange="autoFillRoomType('guestRoomNo', 'guestRoomType')">
+              <option value="">-- Non-Room / Pilih Kamar --</option>
+            </select>
           </div>
           <div class="form-row">
             <label><i class="fa-solid fa-bed" style="color: var(--vhp-blue);"></i> Type Kamar (Otomatis)</label>
-            <input type="text" id="guestRoomType" class="inp-field" placeholder="Otomatis dari No. Kamar">
+            <input type="text" id="guestRoomType" class="inp-field" placeholder="Otomatis dari Kamar" readonly>
           </div>
         </div>
 
@@ -1185,12 +1242,12 @@
             <input type="text" id="guestPhone" class="inp-field" placeholder="0812-xxxx-xxxx">
           </div>
           <div class="form-row">
-            <label><i class="fa-solid fa-users"></i> Jumlah Pax (<span id="paxColorHint" style="color:#10b981;">&lt;10 Hijau</span>)</label>
-            <input type="number" id="guestPax" class="inp-field" value="10" min="1" oninput="updatePaxColorHint()">
+            <label><i class="fa-solid fa-users"></i> Jumlah Pax Pemesan Ini *</label>
+            <input type="number" id="guestPax" class="inp-field" value="5" min="1" oninput="updatePaxColorHint()">
           </div>
         </div>
 
-        <!-- KASIR MENU / PAKET BANQUET -->
+        <!-- KASIR MENU / PAKET BANQUET (UNTUK UMUM) -->
         <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 10px;" id="menuSectionBox">
           <label style="font-size: 0.78rem; font-weight: 800; color: var(--vhp-blue);">
             <i class="fa-solid fa-utensils"></i> Kasir Menu & Paket Banquet
@@ -1221,8 +1278,9 @@
           </div>
         </div>
 
+        <!-- NOMINAL DP (UMUM) ATAU COMPULSORY AMOUNT (COMPULSORY) -->
         <div class="form-row" id="dpRowBox">
-          <label><i class="fa-solid fa-money-bill-wave" style="color: #059669;"></i> Nominal DP / Uang Muka</label>
+          <label id="dpAmountLabel"><i class="fa-solid fa-money-bill-wave" style="color: #059669;"></i> Nominal DP / Uang Muka</label>
           <div class="money-input-box">
             <span>Rp</span>
             <input type="text" id="guestDP" class="inp-field" placeholder="Contoh: 1.000.000" onkeyup="formatCurrencyInput(this); updateBalanceDisplay();">
@@ -1231,7 +1289,7 @@
 
         <div style="background: #f8fafc; border: 1.5px dashed var(--vhp-blue); border-radius: 10px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center;">
           <div>
-            <div style="font-size: 0.7rem; font-weight: 800; color: var(--vhp-blue);">STATUS BILLING / BALANCE</div>
+            <div style="font-size: 0.7rem; font-weight: 800; color: var(--vhp-blue);" id="balanceTitleText">STATUS BILLING / BALANCE</div>
             <div style="font-size: 0.65rem; color: var(--text-muted);" id="balanceSubText">Total Konsumsi dikurangi DP</div>
           </div>
           <strong id="bookingBalanceDisplay" style="font-size: 0.98rem;">Rp 0</strong>
@@ -1259,11 +1317,11 @@
       </div>
 
       <div class="modal-footer">
-        <button id="btnRemoveBooking" class="btn-del" onclick="deleteBooking()" style="display: none;">
-          <i class="fa-solid fa-trash"></i> Hapus
+        <button id="btnRemoveBooking" class="btn-del" onclick="deleteCurrentGuestEntry()" style="display: none;">
+          <i class="fa-solid fa-trash"></i> Hapus Pemesan Ini
         </button>
         <div style="display: flex; gap: 8px; margin-left: auto;">
-          <button type="button" class="btn-vhp-outline" onclick="closeBookingModal()">Batal</button>
+          <button type="button" class="btn-vhp-outline" onclick="closeBookingModal()">Tutup</button>
           <button class="btn-save" onclick="saveBooking()">
             <i class="fa-solid fa-check"></i> Simpan ke Cloud
           </button>
@@ -1272,25 +1330,25 @@
     </div>
   </div>
 
-  <!-- MODAL REGISTRASI CEPAT -->
+  <!-- MODAL REGISTRASI CEPAT (DENGAN DROPDOWN KAMAR & COMPULSORY AMOUNT) -->
   <div id="registrationModal" class="modal-backdrop">
     <div class="modal-container">
       <div class="modal-header">
-        <h3><i class="fa-solid fa-file-pen"></i> Register Table Reservation</h3>
+        <h3><i class="fa-solid fa-file-pen"></i> Register Table Reservation (Baru / Sharing)</h3>
         <button class="btn-x" onclick="closeRegistrationModal()"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
       <div class="modal-body">
         <div class="form-row">
-          <label>Pilih Nomor Meja *</label>
+          <label>Pilih Nomor Meja (Bisa Pilih Meja Hijau untuk Sharing) *</label>
           <select id="regTableIdSelect" class="inp-field"></select>
         </div>
 
         <div class="form-row">
           <label>Tipe Tamu / Status</label>
-          <select id="regGuestType" class="inp-field">
+          <select id="regGuestType" class="inp-field" onchange="toggleRegFields()">
             <option value="Commercial Guest" selected>Tamu Komersial / Umum (Paid)</option>
-            <option value="Compulsory In-House">Compulsory In-House Guest (Complimentary)</option>
+            <option value="Compulsory In-House">Compulsory In-House Guest (Alokasi Custom)</option>
           </select>
         </div>
 
@@ -1302,12 +1360,13 @@
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: #f0f9ff; padding: 10px; border-radius: 10px; border: 1px solid #bae6fd;">
           <div class="form-row">
             <label>Nomor Kamar</label>
-            <input type="text" id="regGuestRoomNo" list="platinumRoomList" class="inp-field"
-                   placeholder="Cth: 502 / 1128" oninput="autoFillRoomType('regGuestRoomNo', 'regGuestRoomType')">
+            <select id="regGuestRoomNo" class="inp-field" onchange="autoFillRoomType('regGuestRoomNo', 'regGuestRoomType')">
+              <option value="">-- Non-Room / Pilih Kamar --</option>
+            </select>
           </div>
           <div class="form-row">
             <label>Type Kamar (Otomatis)</label>
-            <input type="text" id="regGuestRoomType" class="inp-field" placeholder="Otomatis dari No. Kamar">
+            <input type="text" id="regGuestRoomType" class="inp-field" placeholder="Otomatis dari Kamar" readonly>
           </div>
         </div>
 
@@ -1317,13 +1376,13 @@
             <input type="text" id="regGuestPhone" class="inp-field" placeholder="0812-xxxx-xxxx">
           </div>
           <div class="form-row">
-            <label>Jumlah Pax (&lt;10 Hijau, ≥10 Merah)</label>
-            <input type="number" id="regGuestPax" class="inp-field" value="10" min="1">
+            <label>Jumlah Pax Pemesan Ini *</label>
+            <input type="number" id="regGuestPax" class="inp-field" value="5" min="1">
           </div>
         </div>
 
         <div class="form-row">
-          <label>Nominal DP</label>
+          <label id="regAmountLabel">Nominal DP / Revenue Masuk</label>
           <div class="money-input-box">
             <span>Rp</span>
             <input type="text" id="regGuestDP" class="inp-field" placeholder="1.000.000" onkeyup="formatCurrencyInput(this)">
@@ -1357,7 +1416,7 @@
         <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding-bottom:10px; flex-wrap:wrap; gap:8px;">
           <div>
             <strong style="font-size:0.95rem; color:#035388;">PLATINUM HOTEL & CONVENTION HALL BALIKPAPAN</strong>
-            <div style="font-size:0.74rem; color:#64748b;">Laporan Real-Time Reservasi Meja & Integrasi Kamar — King & Queen 2027</div>
+            <div style="font-size:0.74rem; color:#64748b;">Laporan Real-Time Reservasi Meja, Sharing Guests & Alokasi Kamar — King & Queen 2027</div>
           </div>
           <span id="reportGeneratedAt" style="font-size:0.72rem; font-weight:700; color:#475569;"></span>
         </div>
@@ -1373,11 +1432,11 @@
             <strong id="execTotalPax">0 / 350 Pax</strong>
           </div>
           <div class="exec-box">
-            <span>Total DP Terkumpul</span>
-            <strong id="execTotalDP" style="color:#059669;">Rp 0</strong>
+            <span>Total Revenue (Umum + Comp)</span>
+            <strong id="execTotalRevenue" style="color:#059669;">Rp 0</strong>
           </div>
           <div class="exec-box">
-            <span>Sisa Tagihan (Balance)</span>
+            <span>Sisa Tagihan Umum (Balance)</span>
             <strong id="execTotalBalance" style="color:#d97706;">Rp 0</strong>
           </div>
         </div>
@@ -1386,7 +1445,7 @@
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
           <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:12px;">
             <div style="font-size:0.74rem; font-weight:800; color:#0f172a; margin-bottom:8px;">
-              <i class="fa-solid fa-users-rectangle" style="color:#035388;"></i> Segmentasi Tamu & Status Meja
+              <i class="fa-solid fa-coins" style="color:#035388;"></i> Rincian Revenue & Segmentasi
             </div>
             <div id="execSegmentBreakdown" style="font-size:0.76rem; display:flex; flex-direction:column; gap:6px;"></div>
           </div>
@@ -1399,13 +1458,13 @@
           </div>
         </div>
 
-        <!-- TABEL REKAP SELURUH RESERVASI -->
+        <!-- TABEL REKAP SELURUH PEMESAN (TERMASUK SHARING) -->
         <div>
           <div style="font-size:0.76rem; font-weight:800; color:#0f172a; margin-bottom:6px;">
-            <i class="fa-solid fa-table"></i> Rincian Lengkap Seluruh Meja Terisi
+            <i class="fa-solid fa-table"></i> Rincian Lengkap Seluruh Pemesan & Sharing Meja
           </div>
           <div class="table-responsive" style="border:1px solid #e2e8f0; border-radius:8px; max-height:260px; overflow-y:auto;">
-            <table class="vhp-table" style="min-width:620px;">
+            <table class="vhp-table" style="min-width:660px;">
               <thead>
                 <tr>
                   <th>Meja</th>
@@ -1413,7 +1472,7 @@
                   <th>Segmen</th>
                   <th>Kamar & Type</th>
                   <th>Pax</th>
-                  <th>DP Masuk</th>
+                  <th>Nominal / Alokasi</th>
                   <th>Staff</th>
                 </tr>
               </thead>
@@ -1489,7 +1548,7 @@
 
     const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    // MASTER DATA 200 KAMAR PLATINUM HOTEL BALIKPAPAN (DARI ROOM TYPE (2).XLSX)
+    // MASTER DATA 200 KAMAR PLATINUM HOTEL BALIKPAPAN
     const PLATINUM_ROOMS = {
       "501": "BSNT (T)", "502": "JSU (K)", "503": "BSNQ (Q)", "505": "DLXT (T)", "506": "DLXT (T)", "507": "DLXT (T)", "508": "DLXT (T)", "509": "BSNT (T)", "510": "EXS (K)", "511": "BSNT (T)", "512": "BSNT (T)", "515": "DLXT (T)", "516": "DLXQ (Q)", "517": "DLXT (T)", "518": "DLXQ (Q)", "519": "DLXT (T)", "520": "DLXQ (Q)", "521": "DLXT (T)", "522": "DLXQ (Q)", "523": "DLXT (T)", "525": "DLXT (T)", "526": "DLXQ (Q)", "527": "DLXT (T)", "528": "BSNQ (Q)", "529": "DLXT (T)", "530": "BSNQ (Q)", "531": "DLXT (T)", "532": "BSNQ (Q)", "533": "DLXT (T)", "535": "DLXT (T)", "536": "BSNQ (Q)", "537": "JSU (K)", "538": "BSNQ (Q)",
       "601": "BSNT (T)", "602": "JSU (K)", "603": "BSNQ (Q)", "605": "DLXT (T)", "606": "DLXT (T)", "607": "DLXT (T)", "608": "DLXT (T)", "609": "BSNT (T)", "610": "EXS (K)", "611": "BSNT (T)", "612": "DLXT (T)", "615": "DLXT (T)", "616": "DLXQ (Q)", "617": "DLXT (T)", "618": "DLXQ (Q)", "619": "DLXT (T)", "620": "DLXQ (Q)", "621": "DLXT (T)", "622": "DLXQ (Q)", "623": "DLXT (T)", "625": "DLXT (T)", "626": "DLXQ (Q)", "627": "DLXT (T)", "628": "DLXQ (Q)", "629": "DLXT (T)", "630": "DLXQ (Q)", "631": "DLXT (T)", "632": "DLXQ (Q)", "633": "DLXT (T)", "635": "DLXT (T)", "636": "DLXQ (Q)", "637": "JSU (K)", "638": "DLXQ (Q)",
@@ -1502,31 +1561,22 @@
 
     // KOORDINAT PRESISI TERKUNCI MENUTUPI LINGKARAN DENAH.PNG (35 MEJA)
     const LOCKED_TABLE_CONFIGS = {
-      // AREA ATAS
       '8':   { top: 21.8, left: 34.6, type: 'Banquet Table', pax: 10 },
       '6':   { top: 28.0, left: 36.1, type: 'Banquet Table', pax: 10 },
       '2':   { top: 34.1, left: 35.3, type: 'Banquet Table', pax: 10 },
-
       '10':  { top: 22.2, left: 44.0, type: 'Banquet Table', pax: 10 },
       '12':  { top: 33.9, left: 43.9, type: 'Banquet Table', pax: 10 },
-
       '16':  { top: 22.5, left: 52.3, type: 'Banquet Table', pax: 10 },
       '18':  { top: 29.4, left: 52.3, type: 'Banquet Table', pax: 10 },
-
       '22':  { top: 22.5, left: 60.1, type: 'Banquet Table', pax: 10 },
       '20':  { top: 29.9, left: 60.5, type: 'Banquet Table', pax: 10 },
-
       '24':  { top: 22.5, left: 68.0, type: 'Banquet Table', pax: 10 },
       '26':  { top: 34.1, left: 68.9, type: 'Banquet Table', pax: 10 },
-
       '32A': { top: 22.7, left: 75.4, type: 'Banquet Table', pax: 10 },
       '30A': { top: 28.8, left: 75.6, type: 'Banquet Table', pax: 10 },
       '28':  { top: 34.5, left: 76.8, type: 'Banquet Table', pax: 10 },
-
       '32B': { top: 23.6, left: 82.4, type: 'Banquet Table', pax: 10 },
       '30B': { top: 34.2, left: 84.7, type: 'Banquet Table', pax: 10 },
-
-      // AREA BAWAH
       '1':   { top: 52.4, left: 34.5, type: 'VIP Stage Side', pax: 10 },
       '7':   { top: 52.4, left: 43.4, type: 'Banquet Table', pax: 10 },
       '13':  { top: 63.0, left: 52.4, type: 'VIP Center', pax: 10 },
@@ -1534,13 +1584,11 @@
       '37':  { top: 52.2, left: 70.3, type: 'Banquet Table', pax: 10 },
       '35':  { top: 52.4, left: 79.1, type: 'Banquet Table', pax: 10 },
       '33':  { top: 52.0, left: 87.9, type: 'Banquet Table', pax: 10 },
-
       '3':   { top: 63.1, left: 33.7, type: 'VIP Stage Side', pax: 10 },
       '9':   { top: 63.1, left: 42.9, type: 'Banquet Table', pax: 10 },
       '21':  { top: 63.1, left: 71.3, type: 'Banquet Table', pax: 10 },
       '25':  { top: 63.4, left: 80.6, type: 'Banquet Table', pax: 10 },
       '31':  { top: 63.1, left: 89.8, type: 'Banquet Table', pax: 10 },
-
       '5':   { top: 74.8, left: 32.7, type: 'VIP Stage Side', pax: 10 },
       '11':  { top: 74.8, left: 42.3, type: 'Banquet Table', pax: 10 },
       '15':  { top: 74.8, left: 52.2, type: 'Banquet Table', pax: 10 },
@@ -1553,6 +1601,7 @@
     const ALL_TABLE_IDS = Object.keys(LOCKED_TABLE_CONFIGS);
     const TOTAL_TABLES_COUNT = ALL_TABLE_IDS.length;
 
+    // STRUKTUR BARU: bookings[tableId] = { guests: [ { id, name, phone, room_no, room_type, pax, dp, balance, time, notes, cart_items, created_by, timestamp, guest_type } ] }
     let bookings = {};
     let masterMenu = [
       { id: 1, name: 'VIP Gala Dinner Set Menu', category: 'Gala Dinner Package', price: 2500000 },
@@ -1561,26 +1610,26 @@
 
     let currentCart = [];
     let currentTable = null;
+    let editingGuestIndex = -1; // -1 = Tambah Tamu Baru di Meja; >= 0 = Edit Tamu ke-index
     let zoomLevel = 1.0;
 
-    function populateRoomDatalist() {
-      const dl = document.getElementById('platinumRoomList');
-      if (!dl) return;
-      let opts = '';
-      Object.keys(PLATINUM_ROOMS).forEach(rNum => {
-        opts += `<option value="${rNum}">${rNum} — ${PLATINUM_ROOMS[rNum]}</option>`;
+    // ISI DROPDOWN 200 NOMOR KAMAR
+    function populateRoomDropdowns() {
+      const sortedRooms = Object.keys(PLATINUM_ROOMS).sort((a, b) => Number(a) - Number(b));
+      let opts = '<option value="">-- Non-Room / Pilih Kamar --</option>';
+      sortedRooms.forEach(rNum => {
+        opts += `<option value="${rNum}">Kamar ${rNum} — ${PLATINUM_ROOMS[rNum]}</option>`;
       });
-      dl.innerHTML = opts;
+      const sel1 = document.getElementById('guestRoomNo');
+      const sel2 = document.getElementById('regGuestRoomNo');
+      if (sel1) sel1.innerHTML = opts;
+      if (sel2) sel2.innerHTML = opts;
     }
 
-    function autoFillRoomType(roomInputId, typeInputId) {
-      const rVal = document.getElementById(roomInputId).value.trim();
+    function autoFillRoomType(roomSelectId, typeInputId) {
+      const rVal = document.getElementById(roomSelectId).value;
       const typeEl = document.getElementById(typeInputId);
-      if (PLATINUM_ROOMS[rVal]) {
-        typeEl.value = PLATINUM_ROOMS[rVal];
-      } else if (rVal === '') {
-        typeEl.value = '';
-      }
+      typeEl.value = PLATINUM_ROOMS[rVal] || '';
     }
 
     function startLiveClock() {
@@ -1606,7 +1655,7 @@
 
     window.addEventListener('DOMContentLoaded', async () => {
       startLiveClock();
-      populateRoomDatalist();
+      populateRoomDropdowns();
       document.getElementById('statTotalTables').innerText = TOTAL_TABLES_COUNT;
       renderLockedHotspots();
       await fetchAllCloudData();
@@ -1632,33 +1681,58 @@
       layer.innerHTML = html;
     }
 
-    // EKSTRAK NOMOR KAMAR & TYPE KAMAR DARI NOTES SUPABASE
-    function parseRoomMetadata(rawNotes) {
-      let roomNo = '';
-      let roomType = '';
-      let cleanNotes = rawNotes || '';
+    // PARSING MULTI-GUEST SHARING DARI DATABASE SUPABASE (KOMPATIBEL DENGAN DATA LAMA & BARU)
+    function parseRowToGuests(row) {
+      let parsedCart = [];
+      try { if (row.cart_items) parsedCart = JSON.parse(row.cart_items); } catch(e){}
 
+      // Format V2 Multi-Sharing disimpan dalam cart_items sebagai { _v2_sharing: true, guests: [...] }
+      if (parsedCart && !Array.isArray(parsedCart) && parsedCart._v2_sharing && Array.isArray(parsedCart.guests)) {
+        return parsedCart.guests.map(g => ({
+          id: g.id || ('G-' + Math.random().toString(36).slice(2, 8)),
+          name: g.name || '',
+          phone: g.phone || '',
+          room_no: g.room_no || '',
+          room_type: g.room_type || (PLATINUM_ROOMS[g.room_no] || ''),
+          pax: Number(g.pax) || 0,
+          dp: Number(g.dp) || 0,
+          balance: Number(g.balance) || 0,
+          time: g.time || '19:00 WITA',
+          notes: g.notes || '',
+          cart_items: Array.isArray(g.cart_items) ? g.cart_items : [],
+          created_by: g.created_by || '',
+          timestamp: g.timestamp || '-',
+          guest_type: g.guest_type || 'Commercial Guest'
+        }));
+      }
+
+      // Kompatibilitas data tunggal lama
+      let roomNo = '', roomType = '', cleanNotes = row.notes || '';
       const rmMatch = cleanNotes.match(/\[ROOM:([^|\]]+)\|TYPE:([^\]]*)\]/);
       if (rmMatch) {
-        roomNo = rmMatch[1].trim();
-        roomType = rmMatch[2].trim();
+        roomNo = rmMatch[1].trim() === '-' ? '' : rmMatch[1].trim();
+        roomType = rmMatch[2].trim() === '-' ? '' : rmMatch[2].trim();
         cleanNotes = cleanNotes.replace(rmMatch[0], '').trim();
       }
       const isCompulsory = cleanNotes.includes('[COMPULSORY IN-HOUSE');
       cleanNotes = cleanNotes.replace(/^\[COMPULSORY IN-HOUSE[^\]]*\]\s*/, '').trim();
 
-      return { roomNo, roomType, cleanNotes, isCompulsory };
-    }
-
-    function buildEncodedNotes(gType, roomNo, roomType, userNotes) {
-      let prefix = '';
-      if (roomNo || roomType) {
-        prefix += `[ROOM:${roomNo || '-'}|TYPE:${roomType || '-'}] `;
-      }
-      if (gType === 'Compulsory In-House') {
-        prefix += `[COMPULSORY IN-HOUSE] `;
-      }
-      return (prefix + (userNotes || '')).trim();
+      return [{
+        id: 'G-LEGACY',
+        name: row.guest_name || '',
+        phone: row.guest_phone || '',
+        room_no: roomNo,
+        room_type: roomType || (PLATINUM_ROOMS[roomNo] || ''),
+        pax: Number(row.pax) || 0,
+        dp: Number(row.dp) || 0,
+        balance: Number(row.balance) || 0,
+        time: row.arrival_time || '19:00 WITA',
+        notes: cleanNotes,
+        cart_items: Array.isArray(parsedCart) ? parsedCart : [],
+        created_by: row.created_by || '',
+        timestamp: row.timestamp || '-',
+        guest_type: isCompulsory ? 'Compulsory In-House' : 'Commercial Guest'
+      }];
     }
 
     async function fetchAllCloudData() {
@@ -1673,26 +1747,10 @@
         if (tableData) {
           tableData.forEach(row => {
             const tid = String(row.table_id).trim();
-            let parsedCart = [];
-            try { if (row.cart_items) parsedCart = JSON.parse(row.cart_items); } catch(e){}
-            const meta = parseRoomMetadata(row.notes);
-            const autoType = meta.roomType || (PLATINUM_ROOMS[meta.roomNo] || '');
-
-            bookings[tid] = {
-              name: row.guest_name,
-              phone: row.guest_phone,
-              room_no: meta.roomNo,
-              room_type: autoType,
-              pax: Number(row.pax) || 0,
-              dp: Number(row.dp) || 0,
-              balance: Number(row.balance || 0),
-              time: row.arrival_time,
-              notes: meta.cleanNotes,
-              cart_items: parsedCart,
-              created_by: row.created_by || '',
-              timestamp: row.timestamp || '-',
-              guest_type: meta.isCompulsory ? 'Compulsory In-House' : 'Commercial Guest'
-            };
+            const guestsList = parseRowToGuests(row);
+            if (guestsList.length > 0) {
+              bookings[tid] = { guests: guestsList };
+            }
           });
         }
 
@@ -1712,6 +1770,44 @@
         .subscribe();
     }
 
+    // SIMPAN ARRAY GUESTS KE SUPABASE UNTUK SATU MEJA
+    async function persistTableGuestsToCloud(tableId, guestsArray) {
+      if (!guestsArray || guestsArray.length === 0) {
+        return await _supabase.from('kq_table_bookings').delete().eq('table_id', String(tableId));
+      }
+
+      const totalPax = guestsArray.reduce((s, g) => s + (Number(g.pax) || 0), 0);
+      const totalDP = guestsArray.reduce((s, g) => s + (Number(g.dp) || 0), 0);
+      const totalBal = guestsArray.reduce((s, g) => s + (Number(g.balance) || 0), 0);
+      const combinedNames = guestsArray.map(g => g.name).join(' & ');
+      const firstGuest = guestsArray[0];
+      const summaryNotes = guestsArray.map(g => {
+        const rm = g.room_no ? ` [Rm ${g.room_no}]` : '';
+        return `${g.name} (${g.pax}p${rm})`;
+      }).join(' | ');
+
+      const payload = {
+        table_id: String(tableId),
+        guest_name: combinedNames,
+        guest_phone: firstGuest.phone || '',
+        pax: totalPax,
+        dp: totalDP,
+        balance: totalBal,
+        arrival_time: firstGuest.time || '19:00 WITA',
+        created_by: guestsArray[guestsArray.length - 1].created_by || '',
+        timestamp: guestsArray[guestsArray.length - 1].timestamp || '',
+        notes: summaryNotes,
+        cart_items: JSON.stringify({ _v2_sharing: true, guests: guestsArray })
+      };
+
+      return await _supabase.from('kq_table_bookings').upsert(payload, { onConflict: 'table_id' });
+    }
+
+    function getTableTotalPax(tableId) {
+      if (!bookings[tableId] || !bookings[tableId].guests) return 0;
+      return bookings[tableId].guests.reduce((sum, g) => sum + (Number(g.pax) || 0), 0);
+    }
+
     function refreshMapNodes() {
       document.querySelectorAll('.spot').forEach(spot => {
         const id = spot.dataset.id;
@@ -1719,52 +1815,63 @@
         spot.classList.remove('is-full', 'is-partial');
         if (badge) badge.innerText = '';
 
-        if (bookings[id]) {
-          const pax = Number(bookings[id].pax) || 0;
-          if (pax >= 10) {
-            spot.classList.add('is-full');
-            if (badge) badge.innerText = `${pax}p`;
-          } else if (pax > 0) {
-            spot.classList.add('is-partial');
-            if (badge) badge.innerText = `${pax}/10`;
-          }
+        const totalPax = getTableTotalPax(id);
+        if (totalPax >= 10) {
+          spot.classList.add('is-full');
+          if (badge) badge.innerText = `${totalPax}p`;
+        } else if (totalPax > 0) {
+          spot.classList.add('is-partial');
+          if (badge) badge.innerText = `${totalPax}/10`;
         }
       });
     }
 
     function updateMetrics() {
-      const bookedKeys = ALL_TABLE_IDS.filter(k => bookings[k]);
+      const bookedKeys = ALL_TABLE_IDS.filter(k => bookings[k] && bookings[k].guests.length > 0);
       let partialCount = 0;
       let fullCount = 0;
-      let tableDP = 0;
+      let commRevenue = 0;
+      let compRevenue = 0;
       let totalPax = 0;
+      let totalBookingsCount = 0;
       let linkedRoomsCount = 0;
 
       bookedKeys.forEach(k => {
-        const b = bookings[k];
-        const pax = Number(b.pax) || 0;
-        totalPax += pax;
-        if (pax >= 10) fullCount++;
-        else if (pax > 0) partialCount++;
+        const guests = bookings[k].guests;
+        const tablePax = getTableTotalPax(k);
+        totalPax += tablePax;
+        totalBookingsCount += guests.length;
 
-        if (b.room_no && b.room_no !== '-') linkedRoomsCount++;
-        if (b.guest_type !== 'Compulsory In-House') {
-          tableDP += (b.dp || 0);
-        }
+        if (tablePax >= 10) fullCount++;
+        else if (tablePax > 0) partialCount++;
+
+        guests.forEach(g => {
+          if (g.room_no) linkedRoomsCount++;
+          const amt = Number(g.dp) || 0;
+          if (g.guest_type === 'Compulsory In-House') {
+            compRevenue += amt;
+          } else {
+            commRevenue += amt;
+          }
+        });
       });
 
-      const availCount = TOTAL_TABLES_COUNT - bookedKeys.length;
+      const grandRevenue = commRevenue + compRevenue;
       document.getElementById('statTablesBooked').innerText = bookedKeys.length;
-      document.getElementById('statTablesAvail').innerText = availCount;
       document.getElementById('statTotalPax').innerText = totalPax;
+      document.getElementById('statTotalBookings').innerText = totalBookingsCount;
       document.getElementById('statPartialCount').innerText = `${partialCount} Meja`;
       document.getElementById('statFullCount').innerText = `${fullCount} Meja`;
       document.getElementById('statLinkedRooms').innerText = linkedRoomsCount;
-      document.getElementById('statDPTotal').innerText = 'Rp ' + tableDP.toLocaleString('id-ID');
+
+      document.getElementById('statTotalRevenue').innerText = 'Rp ' + grandRevenue.toLocaleString('id-ID');
+      document.getElementById('statSubCommRev').innerText = 'Rp ' + commRevenue.toLocaleString('id-ID');
+      document.getElementById('statSubCompRev').innerText = 'Rp ' + compRevenue.toLocaleString('id-ID');
 
       document.getElementById('topPillBooked').innerText = bookedKeys.length;
-      document.getElementById('tabGuestCount').innerText = bookedKeys.length;
+      document.getElementById('tabGuestCount').innerText = totalBookingsCount;
 
+      const availCount = TOTAL_TABLES_COUNT - bookedKeys.length;
       document.getElementById('legendAvailText').innerText = `Kosong: ${availCount}`;
       document.getElementById('legendPartialText').innerText = `Terisi <10 Pax (Hijau): ${partialCount}`;
       document.getElementById('legendBookedText').innerText = `Penuh ≥10 Pax (Merah): ${fullCount}`;
@@ -1792,18 +1899,21 @@
 
       const matches = [];
       ALL_TABLE_IDS.forEach(id => {
-        const b = bookings[id];
         const cleanTableNum = id.replace(/[AB]/g, '').toLowerCase();
-        if (b) {
-          const matchName = (b.name || '').toLowerCase().includes(q);
-          const matchRoom = (b.room_no || '').toLowerCase().includes(q);
+        const guests = bookings[id] ? bookings[id].guests : [];
+        let tableMatched = false;
+
+        guests.forEach(g => {
+          const matchName = (g.name || '').toLowerCase().includes(q);
+          const matchRoom = (g.room_no || '').toLowerCase().includes(q);
           const matchTable = cleanTableNum === q || id.toLowerCase() === q;
           if (matchName || matchRoom || matchTable) {
-            matches.push({ id, b });
-            const spotEl = document.getElementById(`spot-${id}`);
-            if (spotEl) spotEl.classList.add('is-highlighted');
+            matches.push({ id, g, totalTablePax: getTableTotalPax(id), isSharing: guests.length > 1 });
+            tableMatched = true;
           }
-        } else if (cleanTableNum === q) {
+        });
+
+        if (tableMatched || cleanTableNum === q) {
           const spotEl = document.getElementById(`spot-${id}`);
           if (spotEl) spotEl.classList.add('is-highlighted');
         }
@@ -1811,16 +1921,17 @@
 
       if (matches.length > 0) {
         resultsBox.classList.add('active');
-        resultsBox.innerHTML = matches.map(({ id, b }) => {
-          const roomInfo = b.room_no && b.room_no !== '-'
-            ? `Kamar <strong>${b.room_no}</strong> (${b.room_type || '-'})`
+        resultsBox.innerHTML = matches.map(({ id, g, totalTablePax, isSharing }) => {
+          const roomInfo = g.room_no
+            ? `Kamar <strong>${g.room_no}</strong> (${g.room_type || '-'})`
             : 'Non-Room / External';
+          const shareBadge = isSharing ? `<span class="share-tag">Sharing (${totalTablePax}/10p)</span>` : '';
           return `
             <div class="greeter-match-card" onclick="focusTableOnMap('${id}')">
               <div>
-                <div style="font-size:0.84rem; font-weight:800; color:#0f172a;">${b.name}</div>
+                <div style="font-size:0.84rem; font-weight:800; color:#0f172a;">${g.name} ${shareBadge}</div>
                 <div style="font-size:0.72rem; color:#0369a1; margin-top:2px;">${roomInfo}</div>
-                <div style="font-size:0.7rem; color:#475569; margin-top:2px;">${b.pax} Pax • ${b.guest_type}</div>
+                <div style="font-size:0.7rem; color:#475569; margin-top:2px;">${g.pax} Pax • ${g.guest_type}</div>
               </div>
               <div class="table-badge-big">
                 <div style="font-size:0.58rem; font-weight:600; opacity:0.85;">MEJA</div>
@@ -1853,113 +1964,128 @@
 
     function renderDirectoryTable(filterQuery = '') {
       const tbody = document.getElementById('guestDirectoryBody');
-      let bookedKeys = ALL_TABLE_IDS.filter(k => bookings[k]);
+      const rows = [];
 
-      if (filterQuery) {
-        bookedKeys = bookedKeys.filter(id => {
-          const b = bookings[id];
-          return (b.name || '').toLowerCase().includes(filterQuery) ||
-                 (b.room_no || '').toLowerCase().includes(filterQuery) ||
-                 (b.room_type || '').toLowerCase().includes(filterQuery) ||
-                 id.toLowerCase().includes(filterQuery);
+      ALL_TABLE_IDS.forEach(id => {
+        if (!bookings[id]) return;
+        const guests = bookings[id].guests;
+        const totalTablePax = getTableTotalPax(id);
+        guests.forEach((g, idx) => {
+          if (filterQuery) {
+            const hay = `${id} ${g.name} ${g.room_no} ${g.room_type} ${g.guest_type}`.toLowerCase();
+            if (!hay.includes(filterQuery)) return;
+          }
+          rows.push({ id, g, idx, totalTablePax, isSharing: guests.length > 1 });
         });
-      }
+      });
 
-      if (bookedKeys.length === 0) {
+      if (rows.length === 0) {
         tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; color:#64748b; padding:18px;">${filterQuery ? 'Tidak ada data yang cocok dengan pencarian.' : 'Belum ada reservasi meja terdaftar. Klik nomor meja di denah untuk memulai.'}</td></tr>`;
         return;
       }
 
-      let html = '';
-      bookedKeys.forEach(id => {
-        const b = bookings[id];
+      tbody.innerHTML = rows.map(({ id, g, idx, totalTablePax, isSharing }) => {
         const t = LOCKED_TABLE_CONFIGS[id];
-        const isFull = Number(b.pax) >= 10;
+        const isFull = totalTablePax >= 10;
         const badgeHtml = isFull
-          ? `<span class="status-pill red">Penuh (${b.pax}p)</span>`
-          : `<span class="status-pill green">Terisi ${b.pax}/10</span>`;
-        const roomDisplay = b.room_no && b.room_no !== '-' ? `<span class="room-tag">${b.room_no}</span>` : '-';
-        const typeDisplay = b.room_type && b.room_type !== '-' ? `<strong>${b.room_type}</strong>` : '-';
+          ? `<span class="status-pill red">Penuh (${totalTablePax}p)</span>`
+          : `<span class="status-pill green">Terisi ${totalTablePax}/10</span>`;
+        const shareBadge = isSharing ? `<span class="share-tag">Sharing</span>` : '';
+        const roomDisplay = g.room_no ? `<span class="room-tag">${g.room_no}</span>` : '-';
+        const typeDisplay = g.room_type ? `<strong>${g.room_type}</strong>` : '-';
+        const segLabel = g.guest_type === 'Compulsory In-House'
+          ? `<span style="color:#0369a1; font-weight:700;">Compulsory</span>`
+          : `<span style="color:#059669; font-weight:700;">Umum</span>`;
 
-        html += `
-          <tr style="cursor:pointer;" onclick="openBooking('${id}', '${t.type}', ${t.pax})">
-            <td><strong>#${id}</strong></td>
+        return `
+          <tr style="cursor:pointer;" onclick="openBooking('${id}', '${t.type}', ${t.pax}, ${idx})">
+            <td><strong>#${id}</strong>${shareBadge}</td>
             <td>${badgeHtml}</td>
-            <td><strong>${b.name}</strong><br><small style="color:#64748b;">${b.guest_type}</small></td>
+            <td><strong>${g.name}</strong></td>
+            <td>${segLabel}</td>
             <td>${roomDisplay}</td>
             <td>${typeDisplay}</td>
-            <td>${b.phone || '-'}</td>
-            <td><strong>${b.pax}</strong> Pax</td>
-            <td style="color:#059669; font-weight:700;">Rp ${(b.dp || 0).toLocaleString('id-ID')}</td>
-            <td>${b.created_by || '-'}</td>
+            <td><strong>${g.pax}</strong> Pax</td>
+            <td style="color:#059669; font-weight:700;">Rp ${(g.dp || 0).toLocaleString('id-ID')}</td>
+            <td>${g.created_by || '-'}</td>
           </tr>
         `;
-      });
-      tbody.innerHTML = html;
+      }).join('');
     }
 
     // EXECUTIVE DASHBOARD MODAL
     function openExecDashboardModal() {
-      const bookedKeys = ALL_TABLE_IDS.filter(k => bookings[k]);
+      const bookedKeys = ALL_TABLE_IDS.filter(k => bookings[k] && bookings[k].guests.length > 0);
       const occPct = Math.round((bookedKeys.length / TOTAL_TABLES_COUNT) * 100);
 
       let totalPax = 0;
-      let totalDP = 0;
+      let commRevenue = 0;
+      let compRevenue = 0;
       let totalBalance = 0;
-      let commercialCount = 0;
-      let inHouseCount = 0;
+      let commercialGuests = 0;
+      let inHouseGuests = 0;
       let greenTables = 0;
       let redTables = 0;
+      let sharingTablesCount = 0;
       const roomTypeCounts = {};
 
       let rowsHtml = '';
       bookedKeys.forEach(id => {
-        const b = bookings[id];
-        const pax = Number(b.pax) || 0;
-        totalPax += pax;
-        if (pax >= 10) redTables++;
-        else if (pax > 0) greenTables++;
+        const guests = bookings[id].guests;
+        const tablePax = getTableTotalPax(id);
+        totalPax += tablePax;
+        if (tablePax >= 10) redTables++;
+        else if (tablePax > 0) greenTables++;
+        if (guests.length > 1) sharingTablesCount++;
 
-        if (b.guest_type === 'Compulsory In-House') {
-          inHouseCount++;
-        } else {
-          commercialCount++;
-          totalDP += (b.dp || 0);
-          if (b.balance > 0) totalBalance += b.balance;
-        }
+        guests.forEach(g => {
+          const pax = Number(g.pax) || 0;
+          const amt = Number(g.dp) || 0;
 
-        const rType = b.room_type && b.room_type !== '-' ? b.room_type : 'Non-Room / External';
-        roomTypeCounts[rType] = (roomTypeCounts[rType] || 0) + 1;
+          if (g.guest_type === 'Compulsory In-House') {
+            inHouseGuests++;
+            compRevenue += amt;
+          } else {
+            commercialGuests++;
+            commRevenue += amt;
+            if (g.balance > 0) totalBalance += g.balance;
+          }
 
-        const roomStr = b.room_no && b.room_no !== '-' ? `${b.room_no} (${b.room_type || '-'})` : '-';
-        rowsHtml += `
-          <tr>
-            <td><strong>#${id}</strong></td>
-            <td><strong>${b.name}</strong></td>
-            <td>${b.guest_type}</td>
-            <td>${roomStr}</td>
-            <td>${pax} Pax</td>
-            <td>Rp ${(b.dp || 0).toLocaleString('id-ID')}</td>
-            <td>${b.created_by || '-'}</td>
-          </tr>
-        `;
+          const rType = g.room_type ? g.room_type : 'Non-Room / External';
+          roomTypeCounts[rType] = (roomTypeCounts[rType] || 0) + 1;
+
+          const roomStr = g.room_no ? `${g.room_no} (${g.room_type || '-'})` : '-';
+          const shareMark = guests.length > 1 ? ' <span class="share-tag">Sharing</span>' : '';
+          rowsHtml += `
+            <tr>
+              <td><strong>#${id}</strong>${shareMark}</td>
+              <td><strong>${g.name}</strong></td>
+              <td>${g.guest_type === 'Compulsory In-House' ? 'Compulsory' : 'Umum'}</td>
+              <td>${roomStr}</td>
+              <td>${pax} Pax</td>
+              <td>Rp ${amt.toLocaleString('id-ID')}</td>
+              <td>${g.created_by || '-'}</td>
+            </tr>
+          `;
+        });
       });
 
+      const grandRevenue = commRevenue + compRevenue;
       document.getElementById('execTablesOccupied').innerText = `${bookedKeys.length} / ${TOTAL_TABLES_COUNT} (${occPct}%)`;
       document.getElementById('execTotalPax').innerText = `${totalPax} / ${TOTAL_TABLES_COUNT * 10} Pax`;
-      document.getElementById('execTotalDP').innerText = 'Rp ' + totalDP.toLocaleString('id-ID');
+      document.getElementById('execTotalRevenue').innerText = 'Rp ' + grandRevenue.toLocaleString('id-ID');
       document.getElementById('execTotalBalance').innerText = 'Rp ' + totalBalance.toLocaleString('id-ID');
 
       document.getElementById('execSegmentBreakdown').innerHTML = `
-        <div style="display:flex; justify-content:space-between;"><span>Commercial / Paid Guests:</span><strong>${commercialCount} Meja</strong></div>
-        <div style="display:flex; justify-content:space-between;"><span>Compulsory In-House Guests:</span><strong>${inHouseCount} Meja</strong></div>
-        <div style="display:flex; justify-content:space-between; color:#15803d;"><span>Meja Terisi &lt; 10 Pax (Hijau):</span><strong>${greenTables} Meja</strong></div>
-        <div style="display:flex; justify-content:space-between; color:#b91c1c;"><span>Meja Penuh ≥ 10 Pax (Merah):</span><strong>${redTables} Meja</strong></div>
+        <div style="display:flex; justify-content:space-between;"><span>Revenue Tamu Umum (${commercialGuests} Pemesan):</span><strong>Rp ${commRevenue.toLocaleString('id-ID')}</strong></div>
+        <div style="display:flex; justify-content:space-between;"><span>Alokasi Compulsory (${inHouseGuests} Pemesan):</span><strong>Rp ${compRevenue.toLocaleString('id-ID')}</strong></div>
+        <div style="display:flex; justify-content:space-between; color:#035388;"><span>Meja Sharing (&gt;1 Nama):</span><strong>${sharingTablesCount} Meja</strong></div>
+        <div style="display:flex; justify-content:space-between; color:#15803d;"><span>Meja Hijau (&lt;10p) / Merah (≥10p):</span><strong>${greenTables} Hijau • ${redTables} Merah</strong></div>
       `;
 
       const rtKeys = Object.keys(roomTypeCounts);
       document.getElementById('execRoomTypeBreakdown').innerHTML = rtKeys.length > 0
-        ? rtKeys.map(rt => `<div style="display:flex; justify-content:space-between;"><span>${rt}:</span><strong>${roomTypeCounts[rt]} Meja</strong></div>`).join('')
+        ? rtKeys.map(rt => `<div style="display:flex; justify-content:space-between;"><span>${rt}:</span><strong>${roomTypeCounts[rt]} Pemesan</strong></div>`).join('')
         : '<div style="color:#64748b;">Belum ada data tipe kamar terdaftar.</div>';
 
       document.getElementById('execReportTableBody').innerHTML = rowsHtml || '<tr><td colspan="7" style="text-align:center; padding:16px; color:#64748b;">Belum ada data reservasi untuk dilaporkan.</td></tr>';
@@ -1972,34 +2098,51 @@
     function closeExecDashboardModal() { document.getElementById('execDashboardModal').classList.remove('open'); }
 
     function updatePaxColorHint() {
-      const pax = parseInt(document.getElementById('guestPax').value, 10) || 0;
-      const hintEl = document.getElementById('paxColorHint');
-      if (pax >= 10) {
-        hintEl.innerText = '≥10 Merah (Penuh)';
-        hintEl.style.color = '#ef4444';
-      } else {
-        hintEl.innerText = '<10 Hijau (Masih Ada Slot)';
-        hintEl.style.color = '#10b981';
-      }
+      if (!currentTable) return;
+      const existingGuests = bookings[currentTable] ? bookings[currentTable].guests : [];
+      let otherPax = 0;
+      existingGuests.forEach((g, idx) => {
+        if (idx !== editingGuestIndex) otherPax += (Number(g.pax) || 0);
+      });
+      const inputPax = parseInt(document.getElementById('guestPax').value, 10) || 0;
+      const totalProjected = otherPax + inputPax;
+      document.getElementById('modalTotalTablePax').innerText = `Total Meja: ${totalProjected}/10 Pax (${totalProjected >= 10 ? 'Merah' : 'Hijau'})`;
     }
 
+    // TOGGLE FORM ANTARA UMUM VS COMPULSORY (AMOUNT ALOKASI CUSTOM)
     function toggleInHouseFields() {
       const gType = document.getElementById('guestType').value;
       const menuBox = document.getElementById('menuSectionBox');
-      const dpBox = document.getElementById('dpRowBox');
+      const dpLabel = document.getElementById('dpAmountLabel');
+      const dpInput = document.getElementById('guestDP');
       const reqMark = document.getElementById('roomReqMark');
+      const balTitle = document.getElementById('balanceTitleText');
 
       if (gType === 'Compulsory In-House') {
         reqMark.innerText = '*';
         menuBox.style.display = 'none';
-        dpBox.style.display = 'none';
+        dpLabel.innerHTML = `<i class="fa-solid fa-hand-holding-dollar" style="color: #035388;"></i> Nominal Alokasi Custom (Compulsory Amount) *`;
+        dpInput.placeholder = 'Contoh: 1.500.000';
+        balTitle.innerText = 'STATUS ALOKASI COMPULSORY';
         currentCart = [];
-        document.getElementById('guestDP').value = '0';
         updateBalanceDisplay();
       } else {
         reqMark.innerText = '';
         menuBox.style.display = 'flex';
-        dpBox.style.display = 'flex';
+        dpLabel.innerHTML = `<i class="fa-solid fa-money-bill-wave" style="color: #059669;"></i> Nominal DP / Uang Muka`;
+        dpInput.placeholder = 'Contoh: 1.000.000';
+        balTitle.innerText = 'STATUS BILLING / BALANCE';
+        updateBalanceDisplay();
+      }
+    }
+
+    function toggleRegFields() {
+      const gType = document.getElementById('regGuestType').value;
+      const lbl = document.getElementById('regAmountLabel');
+      if (gType === 'Compulsory In-House') {
+        lbl.innerText = 'Nominal Alokasi Custom (Compulsory Amount) *';
+      } else {
+        lbl.innerText = 'Nominal DP / Revenue Masuk';
       }
     }
 
@@ -2007,15 +2150,21 @@
       const select = document.getElementById('regTableIdSelect');
       let html = '<option value="">-- Pilih Nomor Meja --</option>';
       ALL_TABLE_IDS.forEach(id => {
-        const currentPax = bookings[id] ? bookings[id].pax : 0;
-        const statusInfo = currentPax === 0 ? 'Kosong' : (currentPax < 10 ? `Terisi ${currentPax}/10 (Hijau)` : `Penuh ${currentPax} Pax (Merah)`);
+        const currentPax = getTableTotalPax(id);
+        const guestCount = bookings[id] ? bookings[id].guests.length : 0;
+        const statusInfo = currentPax === 0
+          ? 'Kosong (0/10)'
+          : (currentPax < 10 ? `Hijau: ${currentPax}/10 Pax (${guestCount} Nama - Bisa Sharing)` : `Merah: Penuh ${currentPax}/10 Pax`);
         html += `<option value="${id}">Meja #${id} — [${statusInfo}]</option>`;
       });
       select.innerHTML = html;
+      document.getElementById('regGuestType').value = 'Commercial Guest';
+      toggleRegFields();
       document.getElementById('regGuestName').value = '';
       document.getElementById('regGuestRoomNo').value = '';
       document.getElementById('regGuestRoomType').value = '';
       document.getElementById('regGuestPhone').value = '';
+      document.getElementById('regGuestPax').value = '5';
       document.getElementById('regGuestDP').value = '';
       document.getElementById('regGuestCreatedBy').value = localStorage.getItem('last_staff_name') || '';
       document.getElementById('registrationModal').classList.add('open');
@@ -2027,35 +2176,40 @@
       const tid = document.getElementById('regTableIdSelect').value;
       const gType = document.getElementById('regGuestType').value;
       const name = document.getElementById('regGuestName').value.trim();
-      const roomNo = document.getElementById('regGuestRoomNo').value.trim();
+      const roomNo = document.getElementById('regGuestRoomNo').value;
       const roomType = document.getElementById('regGuestRoomType').value.trim() || (PLATINUM_ROOMS[roomNo] || '');
       const phone = document.getElementById('regGuestPhone').value.trim();
       const pax = parseInt(document.getElementById('regGuestPax').value, 10) || 1;
       const rawDP = document.getElementById('regGuestDP').value.replace(/[^0-9]/g, '');
-      const dp = (gType === 'Compulsory In-House') ? 0 : (rawDP ? parseInt(rawDP, 10) : 0);
+      const amountVal = rawDP ? parseInt(rawDP, 10) : 0;
       const staff = document.getElementById('regGuestCreatedBy').value.trim();
 
       if (!tid || !name) { alert('Lengkapi nomor meja dan nama tamu.'); return; }
+      if (gType === 'Compulsory In-House' && !roomNo) { alert('Pilih Nomor Kamar untuk tamu Compulsory In-House.'); return; }
       localStorage.setItem('last_staff_name', staff);
 
       const now = new Date();
       const timestamp = `${now.toLocaleDateString('id-ID')} - ${now.toLocaleTimeString('id-ID')} WITA`;
-      const encodedNotes = buildEncodedNotes(gType, roomNo, roomType, 'Registrasi Cepat');
 
-      const payload = {
-        table_id: String(tid),
-        guest_name: name,
-        guest_phone: phone,
+      const existingGuests = bookings[tid] ? [...bookings[tid].guests] : [];
+      existingGuests.push({
+        id: 'G-' + Date.now(),
+        name: name,
+        phone: phone,
+        room_no: roomNo,
+        room_type: roomType,
         pax: pax,
-        dp: dp,
+        dp: amountVal,
         balance: 0,
-        arrival_time: '19:00 WITA',
+        time: '19:00 WITA',
+        notes: 'Registrasi Cepat',
+        cart_items: [],
         created_by: staff,
         timestamp: timestamp,
-        notes: encodedNotes
-      };
+        guest_type: gType
+      });
 
-      const { error } = await _supabase.from('kq_table_bookings').upsert(payload, { onConflict: 'table_id' });
+      const { error } = await persistTableGuestsToCloud(tid, existingGuests);
       if (error) {
         alert('Gagal menyimpan ke database: ' + error.message);
         return;
@@ -2064,48 +2218,113 @@
       await fetchAllCloudData();
     }
 
-    function openBooking(tableId, tableType, defaultPax) {
+    // BUKA MODAL MEJA (MENDUKUNG LIHAT DAFTAR SHARING, EDIT PEMESAN, & TAMBAH PEMESAN SHARING BARU)
+    function openBooking(tableId, tableType, defaultPax, selectGuestIndex = 0) {
       currentTable = String(tableId);
       document.getElementById('modalTitle').innerText = '#' + tableId + ' (' + tableType + ')';
       populateBookingMenuDropdown();
-      currentCart = [];
 
-      const data = bookings[tableId];
-      const btnDel = document.getElementById('btnRemoveBooking');
+      const guests = bookings[tableId] ? bookings[tableId].guests : [];
+      renderSharingListInModal(guests, selectGuestIndex);
 
-      if (data) {
-        document.getElementById('guestType').value = data.guest_type || 'Commercial Guest';
-        toggleInHouseFields();
-        document.getElementById('guestName').value = data.name || '';
-        document.getElementById('guestRoomNo').value = data.room_no && data.room_no !== '-' ? data.room_no : '';
-        document.getElementById('guestRoomType').value = data.room_type && data.room_type !== '-' ? data.room_type : '';
-        document.getElementById('guestPhone').value = data.phone || '';
-        document.getElementById('guestPax').value = data.pax || defaultPax;
-        document.getElementById('guestDP').value = data.dp ? parseInt(data.dp, 10).toLocaleString('id-ID') : '';
-        document.getElementById('guestTime').value = data.time || '19:00 WITA';
-        document.getElementById('guestCreatedBy').value = data.created_by || '';
-        document.getElementById('guestNotes').value = data.notes || '';
-        if (data.cart_items) currentCart = JSON.parse(JSON.stringify(data.cart_items));
-        btnDel.style.display = 'inline-flex';
+      if (guests.length > 0 && selectGuestIndex >= 0 && guests[selectGuestIndex]) {
+        loadGuestIntoForm(selectGuestIndex);
       } else {
-        document.getElementById('guestType').value = 'Commercial Guest';
-        toggleInHouseFields();
-        document.getElementById('guestName').value = '';
-        document.getElementById('guestRoomNo').value = '';
-        document.getElementById('guestRoomType').value = '';
-        document.getElementById('guestPhone').value = '';
-        document.getElementById('guestPax').value = defaultPax;
-        document.getElementById('guestDP').value = '';
-        document.getElementById('guestCreatedBy').value = localStorage.getItem('last_staff_name') || '';
-        document.getElementById('guestNotes').value = '';
-        btnDel.style.display = 'none';
+        prepareNewSharingGuest();
       }
-      updatePaxColorHint();
-      renderBookingCart();
+
       document.getElementById('bookingModal').classList.add('open');
     }
 
-    function closeBookingModal() { document.getElementById('bookingModal').classList.remove('open'); currentTable = null; }
+    function renderSharingListInModal(guests, activeIdx) {
+      const box = document.getElementById('tableSharingSection');
+      const listEl = document.getElementById('sharingGuestsList');
+      const countEl = document.getElementById('sharingGuestCount');
+
+      if (!guests || guests.length === 0) {
+        box.style.display = 'none';
+        return;
+      }
+
+      box.style.display = 'flex';
+      countEl.innerText = guests.length;
+      listEl.innerHTML = guests.map((g, idx) => {
+        const isActive = idx === activeIdx ? 'active-edit' : '';
+        const rmInfo = g.room_no ? ` • Rm ${g.room_no}` : '';
+        return `
+          <div class="sharing-item-card ${isActive}">
+            <div style="cursor:pointer; flex:1;" onclick="loadGuestIntoForm(${idx})">
+              <strong style="font-size:0.8rem; color:#0f172a;">${idx + 1}. ${g.name}</strong>
+              <div style="font-size:0.7rem; color:#475569;">${g.pax} Pax${rmInfo} • Rp ${(g.dp || 0).toLocaleString('id-ID')} (${g.guest_type === 'Compulsory In-House' ? 'Compulsory' : 'Umum'})</div>
+            </div>
+            <button type="button" class="btn-vhp-outline" style="padding:4px 8px; font-size:0.7rem;" onclick="loadGuestIntoForm(${idx})">
+              <i class="fa-solid fa-pen"></i> Edit
+            </button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function loadGuestIntoForm(idx) {
+      const guests = bookings[currentTable] ? bookings[currentTable].guests : [];
+      const data = guests[idx];
+      if (!data) return;
+
+      editingGuestIndex = idx;
+      renderSharingListInModal(guests, idx);
+
+      document.getElementById('formModeTitle').innerText = `Edit Pemesan #${idx + 1}: ${data.name}`;
+      document.getElementById('editingBadge').style.display = 'inline-block';
+      document.getElementById('btnRemoveBooking').style.display = 'inline-flex';
+
+      document.getElementById('guestType').value = data.guest_type || 'Commercial Guest';
+      toggleInHouseFields();
+      document.getElementById('guestName').value = data.name || '';
+      document.getElementById('guestRoomNo').value = data.room_no || '';
+      document.getElementById('guestRoomType').value = data.room_type || (PLATINUM_ROOMS[data.room_no] || '');
+      document.getElementById('guestPhone').value = data.phone || '';
+      document.getElementById('guestPax').value = data.pax || 5;
+      document.getElementById('guestDP').value = data.dp ? parseInt(data.dp, 10).toLocaleString('id-ID') : '';
+      document.getElementById('guestTime').value = data.time || '19:00 WITA';
+      document.getElementById('guestCreatedBy').value = data.created_by || '';
+      document.getElementById('guestNotes').value = data.notes || '';
+      currentCart = data.cart_items ? JSON.parse(JSON.stringify(data.cart_items)) : [];
+
+      updatePaxColorHint();
+      renderBookingCart();
+    }
+
+    function prepareNewSharingGuest() {
+      const guests = bookings[currentTable] ? bookings[currentTable].guests : [];
+      editingGuestIndex = -1;
+      renderSharingListInModal(guests, -1);
+
+      const usedPax = getTableTotalPax(currentTable);
+      const remainingPax = Math.max(1, 10 - usedPax);
+
+      document.getElementById('formModeTitle').innerText = guests.length > 0
+        ? `Tambah Tamu Sharing Baru (Sisa Kapasitas: ${Math.max(0, 10 - usedPax)} Pax)`
+        : 'Input Pemesan Pertama di Meja Ini';
+      document.getElementById('editingBadge').style.display = 'none';
+      document.getElementById('btnRemoveBooking').style.display = 'none';
+
+      document.getElementById('guestType').value = 'Commercial Guest';
+      toggleInHouseFields();
+      document.getElementById('guestName').value = '';
+      document.getElementById('guestRoomNo').value = '';
+      document.getElementById('guestRoomType').value = '';
+      document.getElementById('guestPhone').value = '';
+      document.getElementById('guestPax').value = guests.length > 0 ? remainingPax : 10;
+      document.getElementById('guestDP').value = '';
+      document.getElementById('guestCreatedBy').value = localStorage.getItem('last_staff_name') || '';
+      document.getElementById('guestNotes').value = '';
+      currentCart = [];
+
+      updatePaxColorHint();
+      renderBookingCart();
+    }
+
+    function closeBookingModal() { document.getElementById('bookingModal').classList.remove('open'); currentTable = null; editingGuestIndex = -1; }
 
     function populateBookingMenuDropdown() {
       const dropdown = document.getElementById('selectMasterMenuDropdown');
@@ -2186,17 +2405,17 @@
       const gType = document.getElementById('guestType').value;
       const balanceEl = document.getElementById('bookingBalanceDisplay');
       const subTextEl = document.getElementById('balanceSubText');
+      const rawDP = document.getElementById('guestDP').value.replace(/[^0-9]/g, '');
+      const dp = rawDP ? parseInt(rawDP, 10) : 0;
 
       if (gType === 'Compulsory In-House') {
-        balanceEl.innerHTML = `<span style="color:var(--vhp-blue); font-weight:800;">COMPULSORY IN-HOUSE</span>`;
-        subTextEl.innerText = 'Fasilitas kamar hotel (Complimentary)';
+        balanceEl.innerHTML = `<span style="color:var(--vhp-blue); font-weight:800;">Rp ${dp.toLocaleString('id-ID')}</span>`;
+        subTextEl.innerText = 'Alokasi custom masuk ke Total Revenue';
         return;
       }
 
       subTextEl.innerText = 'Total Konsumsi dikurangi DP';
       const totalKonsumsi = calculateCartTotal(currentCart);
-      const rawDP = document.getElementById('guestDP').value.replace(/[^0-9]/g, '');
-      const dp = rawDP ? parseInt(rawDP, 10) : 0;
       const balance = totalKonsumsi - dp;
       if (balance > 0) balanceEl.innerHTML = `<span style="color:#ef4444;">Kurang Rp ${balance.toLocaleString('id-ID')}</span>`;
       else if (balance < 0) balanceEl.innerHTML = `<span style="color:#059669;">Lebih DP Rp ${Math.abs(balance).toLocaleString('id-ID')}</span>`;
@@ -2206,46 +2425,50 @@
     async function saveBooking() {
       const name = document.getElementById('guestName').value.trim();
       const gType = document.getElementById('guestType').value;
-      const roomNo = document.getElementById('guestRoomNo').value.trim();
+      const roomNo = document.getElementById('guestRoomNo').value;
       const roomType = document.getElementById('guestRoomType').value.trim() || (PLATINUM_ROOMS[roomNo] || '');
       const phone = document.getElementById('guestPhone').value.trim();
       const pax = parseInt(document.getElementById('guestPax').value, 10) || 1;
       const rawDP = document.getElementById('guestDP').value.replace(/[^0-9]/g, '');
-      const dp = (gType === 'Compulsory In-House') ? 0 : (rawDP ? parseInt(rawDP, 10) : 0);
+      const amountVal = rawDP ? parseInt(rawDP, 10) : 0;
       const totalKonsumsi = (gType === 'Compulsory In-House') ? 0 : calculateCartTotal(currentCart);
-      const balance = (gType === 'Compulsory In-House') ? 0 : (totalKonsumsi - dp);
+      const balance = (gType === 'Compulsory In-House') ? 0 : (totalKonsumsi - amountVal);
       const staff = document.getElementById('guestCreatedBy').value.trim();
 
       if (!name) { alert('Masukkan nama tamu.'); return; }
-      if (gType === 'Compulsory In-House' && !roomNo) { alert('Masukkan Nomor Kamar untuk tamu Compulsory In-House.'); return; }
+      if (gType === 'Compulsory In-House' && !roomNo) { alert('Pilih Nomor Kamar untuk tamu Compulsory In-House.'); return; }
       localStorage.setItem('last_staff_name', staff);
 
       const now = new Date();
       const timestamp = `${now.toLocaleDateString('id-ID')} - ${now.toLocaleTimeString('id-ID')} WITA`;
 
-      let userNotes = document.getElementById('guestNotes').value.trim();
-      if (gType !== 'Compulsory In-House' && currentCart.length > 0) {
-        const menuSummary = currentCart.map(c => `${c.name} (${c.qty}x)`).join(', ');
-        userNotes = menuSummary + (userNotes ? ' | ' + userNotes : '');
-      }
-
-      const encodedNotes = buildEncodedNotes(gType, roomNo, roomType, userNotes);
-
-      const payload = {
-        table_id: String(currentTable),
-        guest_name: name,
-        guest_phone: phone,
+      const guestObj = {
+        id: editingGuestIndex >= 0 && bookings[currentTable]?.guests[editingGuestIndex]?.id
+          ? bookings[currentTable].guests[editingGuestIndex].id
+          : 'G-' + Date.now(),
+        name: name,
+        phone: phone,
+        room_no: roomNo,
+        room_type: roomType,
         pax: pax,
-        dp: dp,
+        dp: amountVal,
         balance: balance,
-        arrival_time: document.getElementById('guestTime').value,
+        time: document.getElementById('guestTime').value,
+        notes: document.getElementById('guestNotes').value.trim(),
+        cart_items: JSON.parse(JSON.stringify(currentCart)),
         created_by: staff,
         timestamp: timestamp,
-        notes: encodedNotes,
-        cart_items: JSON.stringify(currentCart)
+        guest_type: gType
       };
 
-      const { error } = await _supabase.from('kq_table_bookings').upsert(payload, { onConflict: 'table_id' });
+      const updatedGuests = bookings[currentTable] ? [...bookings[currentTable].guests] : [];
+      if (editingGuestIndex >= 0 && updatedGuests[editingGuestIndex]) {
+        updatedGuests[editingGuestIndex] = guestObj;
+      } else {
+        updatedGuests.push(guestObj);
+      }
+
+      const { error } = await persistTableGuestsToCloud(currentTable, updatedGuests);
       if (error) {
         alert('Gagal menyimpan ke database: ' + error.message);
         return;
@@ -2254,16 +2477,19 @@
       await fetchAllCloudData();
     }
 
-    async function deleteBooking() {
-      if (confirm('Batalkan reservasi Meja #' + currentTable + '?')) {
-        const { error } = await _supabase.from('kq_table_bookings').delete().eq('table_id', String(currentTable));
-        if (error) {
-          alert('Gagal menghapus data: ' + error.message);
-          return;
-        }
-        closeBookingModal();
-        await fetchAllCloudData();
+    async function deleteCurrentGuestEntry() {
+      if (editingGuestIndex < 0 || !bookings[currentTable]) return;
+      const targetName = bookings[currentTable].guests[editingGuestIndex]?.name || 'pemesan ini';
+      if (!confirm(`Hapus reservasi atas nama "${targetName}" dari Meja #${currentTable}?`)) return;
+
+      const updatedGuests = bookings[currentTable].guests.filter((_, idx) => idx !== editingGuestIndex);
+      const { error } = await persistTableGuestsToCloud(currentTable, updatedGuests);
+      if (error) {
+        alert('Gagal menghapus data: ' + error.message);
+        return;
       }
+      closeBookingModal();
+      await fetchAllCloudData();
     }
 
     function openMasterMenuModal() { document.getElementById('masterMenuModal').classList.add('open'); renderMasterMenuList(); }
@@ -2318,12 +2544,17 @@
     }
 
     function exportReservationsCSV() {
-      let csv = 'Nomor Meja,Status Warna,Tipe Tamu,Nama Tamu,Nomor Kamar,Type Kamar,WhatsApp/HP,Pax,DP (IDR),Status Billing,Jam Tiba,Staff,Catatan\n';
+      let csv = 'Nomor Meja,Status Meja,Sharing,Tipe Tamu,Nama Tamu,Nomor Kamar,Type Kamar,WhatsApp/HP,Pax,Nominal/DP (IDR),Jam Tiba,Staff,Catatan\n';
       ALL_TABLE_IDS.forEach(k => {
-        const b = bookings[k];
-        if (!b) return;
-        const statusWarna = (Number(b.pax) >= 10) ? 'Merah (Penuh)' : 'Hijau (<10 Pax)';
-        csv += `"${k}","${statusWarna}","${b.guest_type}","${b.name}","${b.room_no || '-'}","${b.room_type || '-'}","${b.phone || '-'}","${b.pax}","${b.dp}","${b.balance}","${b.time}","${b.created_by}","${(b.notes||'').replace(/"/g, '""')}"\n`;
+        if (!bookings[k]) return;
+        const guests = bookings[k].guests;
+        const totalPax = getTableTotalPax(k);
+        const statusWarna = totalPax >= 10 ? 'Merah (Penuh)' : 'Hijau (<10 Pax)';
+        const isShare = guests.length > 1 ? 'Ya' : 'Tidak';
+
+        guests.forEach(g => {
+          csv += `"${k}","${statusWarna}","${isShare}","${g.guest_type}","${g.name}","${g.room_no || '-'}","${g.room_type || '-'}","${g.phone || '-'}","${g.pax}","${g.dp}","${g.time}","${g.created_by}","${(g.notes||'').replace(/"/g, '""')}"\n`;
+        });
       });
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const a = document.createElement('a');
