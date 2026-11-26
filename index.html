@@ -26,9 +26,10 @@
       --text-main: #1e293b;
       --text-muted: #64748b;
       --gold-primary: #d4af37;
-      --gold-grad: linear-gradient(135deg, #fce08a 0%, #d4af37 50%, #856108 100%);
+      --green-partial: #10b981;
+      --green-glow: rgba(16, 185, 129, 0.45);
       --red-booked: #ef4444;
-      --red-glow: rgba(239, 68, 68, 0.4);
+      --red-glow: rgba(239, 68, 68, 0.45);
       --purple-fdc: #9333ea;
       --emerald-accent: #059669;
       --border-color: #cbd5e1;
@@ -47,7 +48,6 @@
       background: var(--bg-page);
       color: var(--text-main);
       min-height: 100vh;
-      min-height: -webkit-fill-available;
       display: flex;
       flex-direction: column;
       overflow-x: hidden;
@@ -71,119 +71,38 @@
       gap: 12px;
     }
 
-    .brand-section {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
+    .brand-section { display: flex; align-items: center; gap: 12px; }
     .brand-logo-frame {
-      width: 140px;
-      height: 52px;
-      background: #ffffff;
-      border: 2px solid var(--gold-primary);
-      border-radius: 8px;
-      padding: 3px 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.25);
-      overflow: hidden;
+      width: 140px; height: 52px; background: #ffffff;
+      border: 2px solid var(--gold-primary); border-radius: 8px;
+      padding: 3px 6px; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; overflow: hidden;
     }
+    .brand-logo-frame img { width: 100%; height: 100%; object-fit: contain; }
+    .brand-title h1 { font-family: 'Cinzel', serif; font-size: 1.05rem; font-weight: 800; color: #ffffff; }
+    .brand-title p { font-size: 0.7rem; color: #e2e8f0; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 3px; font-weight: 600; }
+    .event-badge { background: rgba(212, 175, 55, 0.25); border: 1px solid var(--gold-primary); color: #fce08a; padding: 2px 8px; border-radius: 12px; font-size: 0.62rem; font-weight: 700; }
 
-    .brand-logo-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    .brand-title h1 {
-      font-family: 'Cinzel', serif;
-      font-size: 1.05rem;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-      color: #ffffff;
-      line-height: 1.2;
-    }
-
-    .brand-title p {
-      font-size: 0.7rem;
-      color: #e2e8f0;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-top: 3px;
-      font-weight: 600;
-    }
-
-    .event-badge {
-      background: rgba(212, 175, 55, 0.25);
-      border: 1px solid var(--gold-primary);
-      color: #fce08a;
-      padding: 2px 8px;
-      border-radius: 12px;
-      font-size: 0.62rem;
-      font-weight: 700;
-    }
-
-    .hdr-controls {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .metrics-group {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-    }
-
+    .hdr-controls { display: flex; flex-direction: column; gap: 8px; }
+    .metrics-group { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
     .metric-card-lg {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 8px;
-      padding: 8px 12px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-      backdrop-filter: blur(4px);
-      min-height: 48px;
+      background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px; padding: 8px 12px; display: flex; align-items: center; gap: 10px;
+      cursor: pointer; backdrop-filter: blur(4px); min-height: 48px;
     }
-
     .metric-card-lg i { font-size: 1.15rem; color: var(--gold-primary); }
     .metric-card-lg .txt-wrap { display: flex; flex-direction: column; line-height: 1.2; }
     .metric-card-lg .txt-wrap span { font-size: 0.58rem; color: #cbd5e1; text-transform: uppercase; font-weight: 700; }
     .metric-card-lg .txt-wrap strong { font-size: 0.9rem; font-family: 'Cinzel', serif; color: #fff; }
 
-    .btn-action-group {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-    }
-
+    .btn-action-group { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
     .btn-action {
-      border: none;
-      padding: 10px 8px;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 0.75rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      color: #fff;
-      touch-action: manipulation;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-      transition: all 0.2s ease;
-      min-height: 44px;
+      border: none; padding: 10px 8px; border-radius: 8px; font-weight: 700; font-size: 0.75rem;
+      cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      color: #fff; touch-action: manipulation; box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      transition: all 0.2s ease; min-height: 44px;
     }
-
     .btn-action:active { transform: scale(0.97); }
-
     .btn-dashboard { background: #0284c7; }
     .btn-fdc { background: #9333ea; }
     .btn-menu { background: #b45309; }
@@ -193,214 +112,109 @@
     .btn-csv { background: #d97706; color: #fff; }
 
     .toolbar-bar {
-      max-width: 1850px;
-      margin: 10px auto 0;
-      padding: 0 16px;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
+      max-width: 1850px; margin: 10px auto 0; padding: 0 16px; width: 100%;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
     }
 
     .legend-tag {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: #ffffff;
-      padding: 8px 14px;
-      border-radius: 20px;
-      border: 1px solid var(--border-color);
-      font-size: 0.7rem;
-      font-weight: 600;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      display: flex; align-items: center; gap: 12px; background: #ffffff;
+      padding: 8px 14px; border-radius: 20px; border: 1px solid var(--border-color);
+      font-size: 0.72rem; font-weight: 600; box-shadow: 0 2px 5px rgba(0,0,0,0.05); flex-wrap: wrap;
     }
 
-    .dot-node { width: 9px; height: 9px; border-radius: 50%; }
-    .dot-node.avail { background: #0284c7; }
-    .dot-node.booked { background: #ef4444; }
+    .dot-node { width: 10px; height: 10px; border-radius: 50%; }
+    .dot-node.avail { background: #d4af37; }
+    .dot-node.partial { background: var(--green-partial); }
+    .dot-node.booked { background: var(--red-booked); }
 
-    .zoom-group {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
+    .zoom-group { display: flex; align-items: center; gap: 6px; }
     .btn-tool-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      background: #ffffff;
-      border: 1px solid var(--border-color);
-      color: var(--text-main);
-      font-size: 0.85rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      width: 36px; height: 36px; border-radius: 8px; background: #ffffff;
+      border: 1px solid var(--border-color); color: var(--text-main); font-size: 0.85rem;
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
     }
 
     .viewport-area {
-      flex: 1;
-      position: relative;
-      overflow: hidden;
-      touch-action: pan-x pan-y pinch-zoom;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px;
+      flex: 1; position: relative; overflow: hidden; touch-action: pan-x pan-y pinch-zoom;
+      display: flex; align-items: center; justify-content: center; padding: 10px;
     }
 
     .map-frame {
-      width: 100%;
-      max-width: 1400px;
-      position: relative;
-      transform-origin: center center;
-      transition: transform 0.12s ease-out;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-      border-radius: 10px;
-      overflow: hidden;
-      background: #111;
-      border: 2px solid var(--gold-primary);
+      width: 100%; max-width: 1400px; position: relative; transform-origin: center center;
+      transition: transform 0.12s ease-out; box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+      border-radius: 10px; overflow: hidden; background: #111; border: 2px solid var(--gold-primary);
     }
 
-    .render-3d-img {
-      width: 100%;
-      height: auto;
-      display: block;
-      pointer-events: none;
-    }
+    .render-3d-img { width: 100%; height: auto; display: block; pointer-events: none; }
+    .hotspots-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
-    .hotspots-layer {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-
+    /* STYLE SPOT MEJA: DEFAULT, HIJAU (< 10 PAX), MERAH (>= 10 PAX) */
     .spot {
-      position: absolute;
-      cursor: grab;
-      border-radius: 50%;
-      background: rgba(212, 175, 55, 0.35);
-      border: 1.5px dashed var(--gold-primary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.52rem;
-      font-weight: 800;
-      color: #fff;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.9);
-      -webkit-tap-highlight-color: transparent;
-      touch-action: none;
-      transition: background 0.2s ease;
+      position: absolute; cursor: grab; border-radius: 50%;
+      background: rgba(255, 255, 255, 0.88);
+      border: 2px solid var(--gold-primary);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      font-size: 0.72rem; font-weight: 800; color: #1e293b;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+      touch-action: none; transition: all 0.2s ease;
+      line-height: 1;
     }
 
-    .spot:active { cursor: grabbing; }
-
-    .spot:hover {
-      background: rgba(212, 175, 55, 0.7);
-      border-color: #fff;
-      z-index: 10;
+    .spot .pax-badge {
+      font-size: 0.45rem;
+      font-weight: 700;
+      margin-top: 1px;
     }
 
+    .spot:hover { transform: scale(1.12); z-index: 10; }
+
+    /* WARNA HIJAU: Terisi kurang dari 10 Pax */
+    .spot.is-partial {
+      background: rgba(16, 185, 129, 0.94) !important;
+      border: 2px solid #047857 !important;
+      box-shadow: 0 0 12px var(--green-glow), inset 0 0 6px rgba(255,255,255,0.5) !important;
+      color: #ffffff !important;
+      z-index: 4;
+    }
+
+    /* WARNA MERAH: Terisi 10 Pax atau lebih (Full) */
     .spot.is-booked {
-      background: rgba(239, 68, 68, 0.88) !important;
-      border: 2px solid #b91c1c !important;
-      box-shadow: 0 0 12px var(--red-glow), inset 0 0 6px rgba(255,255,255,0.6) !important;
-      color: #fff !important;
+      background: rgba(239, 68, 68, 0.94) !important;
+      border: 2px solid #991b1b !important;
+      box-shadow: 0 0 12px var(--red-glow), inset 0 0 6px rgba(255,255,255,0.5) !important;
+      color: #ffffff !important;
       z-index: 5;
     }
 
     /* MODAL */
     .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.75);
-      backdrop-filter: blur(5px);
-      z-index: 100;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 12px;
+      position: fixed; inset: 0; background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(5px); z-index: 100; display: none;
+      align-items: center; justify-content: center; padding: 12px;
     }
-
     .modal-backdrop.open { display: flex; }
-
     .modal-container {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      width: 100%;
-      max-width: 520px;
-      max-height: 90vh;
-      overflow-y: auto;
+      background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px;
+      width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
     }
-
-    .modal-header {
-      background: #f8fafc;
-      padding: 14px 18px;
-      border-bottom: 1px solid var(--border-color);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
+    .modal-header { background: #f8fafc; padding: 14px 18px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
     .modal-header h3 { font-family: 'Cinzel', serif; font-size: 1rem; color: #0f172a; font-weight: 700; }
     .btn-x { background: transparent; border: none; color: var(--text-muted); font-size: 1.3rem; cursor: pointer; padding: 4px; }
-
-    .modal-body {
-      padding: 16px 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
+    .modal-body { padding: 16px 18px; display: flex; flex-direction: column; gap: 12px; }
     .form-row { display: flex; flex-direction: column; gap: 5px; }
     .form-row label { font-size: 0.78rem; font-weight: 700; color: #334155; display: flex; align-items: center; gap: 6px; }
-
     .inp-field {
-      background: #ffffff;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 11px 12px;
-      color: var(--text-main);
-      font-size: 0.9rem;
-      outline: none;
-      width: 100%;
-      font-family: inherit;
+      background: #ffffff; border: 1px solid var(--border-color); border-radius: 8px;
+      padding: 11px 12px; color: var(--text-main); font-size: 0.9rem; outline: none; width: 100%; font-family: inherit;
     }
-
     .inp-field:focus { border-color: var(--header-bg); box-shadow: 0 0 0 3px rgba(30, 41, 59, 0.15); }
-
     .money-input-box { position: relative; }
-    .money-input-box span {
-      position: absolute;
-      left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--header-bg);
-      font-weight: 700;
-      font-size: 0.9rem;
-    }
+    .money-input-box span { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--header-bg); font-weight: 700; font-size: 0.9rem; }
     .money-input-box input { padding-left: 38px; width: 100%; }
-
-    .modal-footer {
-      padding: 14px 18px;
-      background: #f8fafc;
-      border-top: 1px solid var(--border-color);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
+    .modal-footer { padding: 14px 18px; background: #f8fafc; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
     .btn-modal-del { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; padding: 10px 14px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer; }
-    .btn-modal-save { background: #1e293b; color: #fff; border: none; padding: 10px 18px; border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 2px 6px rgba(30,41,59,0.3); }
+    .btn-modal-save { background: #1e293b; color: #fff; border: none; padding: 10px 18px; border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; }
 
     .dash-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
     .dash-card { background: #f8fafc; border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 6px; }
@@ -408,31 +222,11 @@
     .dash-card .card-lbl { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; display: flex; align-items: center; gap: 6px; }
     .dash-card .card-val { font-size: 1.2rem; font-weight: 800; color: #0f172a; font-family: 'Cinzel', serif; }
     .dash-card .card-sub { font-size: 0.7rem; color: var(--text-muted); }
-
     .occupancy-bar-wrap { width: 100%; height: 7px; background: #e2e8f0; border-radius: 4px; overflow: hidden; margin-top: 4px; }
     .occupancy-bar { height: 100%; width: 0%; transition: width 0.4s ease; background: var(--gold-primary); }
 
-    .loader-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.85);
-      z-index: 200;
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-    }
-
-    .spinner {
-      width: 44px;
-      height: 44px;
-      border: 4px solid rgba(255, 255, 255, 0.2);
-      border-top-color: var(--gold-primary);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-
+    .loader-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.85); z-index: 200; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
+    .spinner { width: 44px; height: 44px; border: 4px solid rgba(255, 255, 255, 0.2); border-top-color: var(--gold-primary); border-radius: 50%; animation: spin 0.8s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
     @media (min-width: 992px) {
@@ -441,7 +235,6 @@
       .metric-card-lg { min-width: 140px; }
       .btn-action-group { display: flex; flex-wrap: wrap; }
       .btn-reg { grid-column: auto; }
-      .toolbar-bar { margin: 12px auto 0; }
     }
   </style>
 </head>
@@ -453,7 +246,7 @@
       <div class="brand-section">
         <div class="brand-logo-frame">
           <img src="Logo.png" alt="Logo Platinum Hotel"
-                onerror="this.onerror=null; this.src='logo.png'; this.addEventListener('error', () => { this.src='favicon.png'; });">
+               onerror="this.onerror=null; this.src='logo.png'; this.addEventListener('error', () => { this.src='favicon.png'; });">
         </div>
         <div class="brand-title">
           <h1>Platinum Hotel & Convention Hall</h1>
@@ -470,7 +263,7 @@
             <i class="fa-solid fa-chair"></i>
             <div class="txt-wrap">
               <span>Meja Terisi</span>
-              <strong><span id="statTablesBooked">0</span><span style="font-size:0.75rem; color:#cbd5e1;"> / 60</span></strong>
+              <strong><span id="statTablesBooked">0</span><span id="statTotalTables" style="font-size:0.75rem; color:#cbd5e1;"> / 29</span></strong>
             </div>
           </div>
 
@@ -521,9 +314,10 @@
   <!-- TOOLBAR -->
   <div class="toolbar-bar">
     <div class="legend-tag">
-      <div style="display:flex; align-items:center; gap:6px;"><div class="dot-node avail"></div> <span id="legendAvailText">Tersedia: 60 Meja</span></div>
-      <div style="display:flex; align-items:center; gap:6px;"><div class="dot-node booked"></div> <span id="legendBookedText">0 Terisi</span></div>
-      <div style="color: var(--gold-primary); font-size: 0.7rem; font-weight: 700;"><i class="fa-solid fa-cloud"></i> Sinkronisasi Cloud Aktif</div>
+      <div style="display:flex; align-items:center; gap:6px;"><div class="dot-node avail"></div> <span id="legendAvailText">Kosong: 29</span></div>
+      <div style="display:flex; align-items:center; gap:6px;"><div class="dot-node partial"></div> <span id="legendPartialText">Terisi &lt;10 Pax: 0</span></div>
+      <div style="display:flex; align-items:center; gap:6px;"><div class="dot-node booked"></div> <span id="legendBookedText">Penuh (&ge;10 Pax): 0</span></div>
+      <div style="color: var(--gold-primary); font-size: 0.7rem; font-weight: 700;"><i class="fa-solid fa-cloud"></i> Cloud Aktif</div>
     </div>
     
     <div class="zoom-group">
@@ -541,29 +335,26 @@
   <main class="viewport-area" id="mapTouchArea">
     <div class="map-frame" id="mapFrame">
       <img id="mainDenahImg" 
-           src="denah (2).png" 
+           src="denah.jpg" 
            alt="Ballroom - King & Queen 2027" 
            class="render-3d-img"
-           crossorigin="anonymous"
-           onerror="handleImgFallback(this)">
+           crossorigin="anonymous">
 
-      <div class="hotspots-layer" id="hotspotsLayer">
-        <!-- Hotspots diinjeksikan secara dinamis -->
-      </div>
+      <div class="hotspots-layer" id="hotspotsLayer"></div>
     </div>
   </main>
 
-  <!-- MODAL RESERVASI MEJA DENGAN OPSI COMPULSORY IN-HOUSE -->
+  <!-- MODAL RESERVASI MEJA -->
   <div id="bookingModal" class="modal-backdrop">
     <div class="modal-container">
       <div class="modal-header">
-        <h3><i class="fa-solid fa-chair" style="color: var(--gold-primary);"></i> Reservasi <span id="modalTitle">#T01</span></h3>
+        <h3><i class="fa-solid fa-chair" style="color: var(--gold-primary);"></i> Reservasi Meja <span id="modalTitle">#1</span></h3>
         <button class="btn-x" onclick="closeBookingModal()"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
       <div class="modal-body">
         <div class="form-row">
-          <label><i class="fa-solid id-card" style="color: #0284c7;"></i> Tipe Tamu / Status Reservasi *</label>
+          <label><i class="fa-solid fa-id-card" style="color: #0284c7;"></i> Tipe Tamu / Status Reservasi *</label>
           <select id="guestType" class="inp-field" onchange="toggleInHouseFields()">
             <option value="Commercial Guest" selected>Tamu Komersial / Umum (Paid)</option>
             <option value="Compulsory In-House">Compulsory In-House Guest (Complimentary)</option>
@@ -577,12 +368,12 @@
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
           <div class="form-row">
-            <label><i class="fa-solid fa-door-closed" style="color: #b45309;" id="phoneOrRoomLbl"></i> <span id="phoneRoomText">WhatsApp / HP *</span></label>
-            <input type="text" id="guestPhone" class="inp-field" placeholder="0812-xxxx-xxxx / No. Kamar">
+            <label><i class="fa-solid fa-door-closed" style="color: #b45309;"></i> <span id="phoneRoomText">WhatsApp / HP *</span></label>
+            <input type="text" id="guestPhone" class="inp-field" placeholder="0812-xxxx-xxxx">
           </div>
           <div class="form-row">
-            <label><i class="fa-solid fa-users"></i> Jumlah Pax</label>
-            <input type="number" id="guestPax" class="inp-field" value="10" min="1">
+            <label><i class="fa-solid fa-users"></i> Jumlah Pax (<span id="paxColorHint" style="color:#10b981;">&lt;10 Hijau</span>)</label>
+            <input type="number" id="guestPax" class="inp-field" value="10" min="1" oninput="updatePaxColorHint()">
           </div>
         </div>
 
@@ -603,7 +394,7 @@
 
           <div style="display: grid; grid-template-columns: 1.3fr 1.2fr auto; gap: 6px;">
             <input type="text" id="customMenuName" class="inp-field" placeholder="Nama Menu Custom">
-            <input type="text" id="customMenuPrice" class="inp-field" placeholder="Harga Murni (Cth: 500000)" onkeyup="formatCurrencyInput(this)">
+            <input type="text" id="customMenuPrice" class="inp-field" placeholder="Harga (Cth: 500000)" onkeyup="formatCurrencyInput(this)">
             <button type="button" class="btn-action" style="background: #9333ea; color: #fff; padding: 0 12px;" onclick="addCustomCartItem()">
               <i class="fa-solid fa-plus"></i> Custom
             </button>
@@ -656,8 +447,8 @@
         </div>
 
         <div class="form-row">
-          <label><i class="fa-solid fa-note-sticky"></i> Catatan Khusus / No. Kamar</label>
-          <input type="text" id="guestNotes" class="inp-field" placeholder="Cth: No. Kamar 502 / Special request...">
+          <label><i class="fa-solid fa-note-sticky"></i> Catatan Khusus / Tambahan</label>
+          <input type="text" id="guestNotes" class="inp-field" placeholder="Cth: Request kursi tambahan / alergi makanan...">
         </div>
       </div>
 
@@ -666,7 +457,7 @@
           <i class="fa-solid fa-trash"></i> Hapus
         </button>
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-          <button type="button" class="btn-action" onclick="generateGuestBookingPDF()" style="background: #0284c7; color:#fff; min-height: 42px; padding: 8px 14px;">
+          <button type="button" class="btn-action" onclick="window.print()" style="background: #0284c7; color:#fff; min-height: 42px; padding: 8px 14px;">
             <i class="fa-solid fa-file-pdf"></i> Cetak PDF
           </button>
           <button class="btn-modal-save" onclick="saveBooking()">
@@ -677,7 +468,7 @@
     </div>
   </div>
 
-  <!-- MODAL REGISTRASI -->
+  <!-- MODAL REGISTRASI CEPAT -->
   <div id="registrationModal" class="modal-backdrop">
     <div class="modal-container">
       <div class="modal-header">
@@ -689,12 +480,12 @@
         <div class="form-row">
           <label><i class="fa-solid fa-tag"></i> Pilih Nomor Meja *</label>
           <select id="regTableIdSelect" class="inp-field">
-            <option value="">-- Pilih Meja Kosong --</option>
+            <option value="">-- Pilih Meja --</option>
           </select>
         </div>
 
         <div class="form-row">
-          <label><i class="fa-solid id-card" style="color: #0284c7;"></i> Tipe Tamu / Status</label>
+          <label><i class="fa-solid fa-id-card" style="color: #0284c7;"></i> Tipe Tamu / Status</label>
           <select id="regGuestType" class="inp-field">
             <option value="Commercial Guest" selected>Tamu Komersial / Umum (Paid)</option>
             <option value="Compulsory In-House">Compulsory In-House Guest (Complimentary)</option>
@@ -709,10 +500,10 @@
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
           <div class="form-row">
             <label><i class="fa-brands fa-whatsapp"></i> WhatsApp / No. Kamar *</label>
-            <input type="text" id="regGuestPhone" class="inp-field" placeholder="0812-xxxx-xxxx / No. Kamar">
+            <input type="text" id="regGuestPhone" class="inp-field" placeholder="0812-xxxx-xxxx">
           </div>
           <div class="form-row">
-            <label><i class="fa-solid fa-users"></i> Jumlah Pax</label>
+            <label><i class="fa-solid fa-users"></i> Jumlah Pax (&lt;10 Hijau, &ge;10 Merah)</label>
             <input type="number" id="regGuestPax" class="inp-field" value="10" min="1">
           </div>
         </div>
@@ -734,7 +525,7 @@
       <div class="modal-footer">
         <button class="btn-modal-del" style="background:#e2e8f0; color:#475569; border:none;" onclick="closeRegistrationModal()">Batal</button>
         <button class="btn-modal-save" onclick="saveRegistrationBooking()">
-          <i class="fa-solid fa-check"></i> Simpan & Ubah Merah
+          <i class="fa-solid fa-check"></i> Simpan Reservasi
         </button>
       </div>
     </div>
@@ -850,17 +641,17 @@
           <div class="dash-card hero-card">
             <div class="card-lbl"><i class="fa-solid fa-coins" style="color: var(--gold-primary);"></i> Total Gross Revenue (Meja + FDC)</div>
             <div class="card-val" id="repTotalGross" style="color: #0f172a;">Rp 0</div>
-            <div class="card-sub">Akumulasi seluruh transaksi reservasi 60 meja & tiket standing</div>
+            <div class="card-sub">Akumulasi seluruh transaksi reservasi meja & tiket standing</div>
           </div>
 
           <div class="dash-card">
             <div class="card-lbl"><i class="fa-solid fa-chair" style="color: #0284c7;"></i> Okupansi Meja Ballroom</div>
-            <div><span id="repTablesBooked" style="color: #0284c7; font-size: 1.25rem; font-weight: 800;">0</span> <span style="font-size:0.75rem; color:var(--text-muted);">/ 60 Meja</span></div>
+            <div><span id="repTablesBooked" style="color: #0284c7; font-size: 1.25rem; font-weight: 800;">0</span> <span id="repTotalCap" style="font-size:0.75rem; color:var(--text-muted);">/ 29 Meja</span></div>
             <div class="occupancy-bar-wrap">
               <div id="repTablesBar" class="occupancy-bar"></div>
             </div>
             <div class="card-sub" style="margin-top: 4px;">
-              Tersisa: <strong id="repTablesLeft" style="color:#0284c7;">60</strong> Meja
+              Tersisa Kosong: <strong id="repTablesLeft" style="color:#0284c7;">29</strong> Meja
             </div>
           </div>
 
@@ -915,84 +706,61 @@
     const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     const FDC_DEFAULT_PRICE = 150000;
 
-    const ALL_TABLE_IDS = [];
-    for (let i = 1; i <= 54; i++) {
-      ALL_TABLE_IDS.push('T' + (i < 10 ? '0' + i : i));
-    }
-    for (let i = 1; i <= 6; i++) {
-      ALL_TABLE_IDS.push('R' + i);
-    }
+    // KOORDINAT & NOMOR MEJA DISESUAIKAN DENGAN DENAH BARU (29 MEJA)
+    const DEFAULT_TABLE_CONFIGS = {
+      // AREA ATAS (SEBELAH ATAS JALUR TENGAH)
+      '8':   { top: 19.5, left: 32.8, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
+      '6':   { top: 26.0, left: 34.4, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
+      '2':   { top: 32.0, left: 33.4, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
+      
+      '10':  { top: 20.0, left: 42.6, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
+      '12':  { top: 31.8, left: 42.2, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
+      
+      '16':  { top: 20.5, left: 50.8, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
+      '18':  { top: 27.6, left: 50.6, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
+      
+      '22':  { top: 20.8, left: 58.6, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
+      '20':  { top: 28.0, left: 58.6, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
+      
+      '24':  { top: 20.8, left: 66.8, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
+      '26':  { top: 32.0, left: 67.2, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
+      
+      '32A': { top: 20.8, left: 73.8, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
+      '30A': { top: 26.8, left: 73.8, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
+      '28':  { top: 32.2, left: 74.8, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
+      
+      '32B': { top: 21.4, left: 80.8, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
+      '30B': { top: 32.2, left: 83.2, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
 
-    const DEFAULT_TABLE_CONFIGS = {};
+      // AREA BAWAH (SEBELAH BAWAH JALUR TENGAH)
+      // Baris 1 Bawah
+      '1':   { top: 50.5, left: 32.4, w: 3.6, h: 5.6, type: 'VIP Stage Side', pax: 10 },
+      '7':   { top: 50.5, left: 41.4, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
+      '13':  { top: 50.5, left: 50.4, w: 3.6, h: 5.6, type: 'VIP Center', pax: 10 },
+      '17':  { top: 50.5, left: 59.2, w: 3.6, h: 5.6, type: 'VIP Center', pax: 10 },
+      '37':  { top: 50.2, left: 68.2, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
+      '35':  { top: 50.5, left: 77.2, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
+      '33':  { top: 50.2, left: 86.2, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
 
-    const row1Coords = [
-      {top: 6.2, left: 24.2}, {top: 6.2, left: 33.2}, {top: 6.2, left: 42.1},
-      {top: 6.2, left: 51.0}, {top: 6.2, left: 59.9}, {top: 6.2, left: 68.8},
-      {top: 6.2, left: 77.8}, {top: 6.2, left: 86.8}, {top: 6.2, left: 95.8}
-    ];
-    for(let i=0; i<9; i++) {
-      DEFAULT_TABLE_CONFIGS['T' + (i+1 < 10 ? '0'+(i+1) : i+1)] = { top: row1Coords[i].top, left: row1Coords[i].left, w: 3.6, h: 6.2, type: 'Banquet Table', pax: 10 };
-    }
+      // Baris 2 Bawah
+      '3':   { top: 61.5, left: 31.8, w: 3.6, h: 5.6, type: 'VIP Stage Side', pax: 10 },
+      '9':   { top: 61.5, left: 41.2, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
+      '15':  { top: 73.2, left: 50.4, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
+      '21':  { top: 61.5, left: 68.8, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
+      '25':  { top: 61.8, left: 78.2, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
+      '31':  { top: 61.5, left: 87.6, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
 
-    const row2Coords = [
-      {top: 25.5, left: 26.2}, {top: 25.5, left: 35.5}, {top: 25.5, left: 44.8},
-      {top: 25.5, left: 54.2}, {top: 25.5, left: 63.5}, {top: 25.5, left: 72.8},
-      {top: 25.5, left: 82.2}, {top: 25.5, left: 91.5}
-    ];
-    DEFAULT_TABLE_CONFIGS['T10'] = { top: 25.5, left: 16.8, w: 3.6, h: 6.2, type: 'Banquet Table', pax: 10 };
-    for(let i=0; i<8; i++) {
-      DEFAULT_TABLE_CONFIGS['T' + (i+11)] = { top: row2Coords[i].top, left: row2Coords[i].left, w: 3.6, h: 6.2, type: 'Banquet Table', pax: 10 };
-    }
+      // Baris 3 Bawah (Paling Depan)
+      '5':   { top: 73.2, left: 31.0, w: 3.6, h: 5.6, type: 'VIP Stage Side', pax: 10 },
+      '11':  { top: 73.2, left: 40.6, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
+      '19':  { top: 73.2, left: 60.0, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
+      '23':  { top: 73.2, left: 69.6, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
+      '27':  { top: 73.2, left: 79.2, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
+      '29':  { top: 73.2, left: 88.8, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 }
+    };
 
-    const row3Coords = [
-      {top: 42.5, left: 20.5}, {top: 42.5, left: 29.8}, {top: 42.5, left: 39.2},
-      {top: 42.5, left: 61.2}, {top: 42.5, left: 70.5}, {top: 42.5, left: 79.8}, {top: 42.5, left: 89.2}
-    ];
-    DEFAULT_TABLE_CONFIGS['T19'] = { top: 42.5, left: 20.5, w: 3.6, h: 6.2, type: 'Banquet Table', pax: 10 };
-    DEFAULT_TABLE_CONFIGS['T20'] = { top: 42.5, left: 29.8, w: 3.6, h: 6.2, type: 'Banquet Table', pax: 10 };
-    DEFAULT_TABLE_CONFIGS['T21'] = { top: 42.5, left: 39.2, w: 3.6, h: 6.2, type: 'Banquet Table', pax: 10 };
-    DEFAULT_TABLE_CONFIGS['T22'] = { top: 42.5, left: 47.8, w: 3.6, h: 6.2, type: 'VIP Table', pax: 10 };
-    DEFAULT_TABLE_CONFIGS['T23'] = { top: 42.5, left: 52.8, w: 3.6, h: 6.2, type: 'VIP Table', pax: 10 };
-    for(let i=3; i<7; i++) {
-      DEFAULT_TABLE_CONFIGS['T' + (i+21)] = { top: row3Coords[i].top, left: row3Coords[i].left, w: 3.6, h: 6.2, type: 'Banquet Table', pax: 10 };
-    }
-
-    const row4Coords = [
-      {top: 56.5, left: 24.5}, {top: 56.5, left: 34.2}, {top: 56.5, left: 43.8},
-      {top: 56.5, left: 53.5}, {top: 56.5, left: 63.2}, {top: 56.5, left: 72.8},
-      {top: 56.5, left: 82.5}, {top: 56.5, left: 92.2}
-    ];
-    DEFAULT_TABLE_CONFIGS['T28'] = { top: 56.5, left: 14.8, w: 3.6, h: 6.2, type: 'Banquet Table', pax: 10 };
-    for(let i=0; i<8; i++) {
-      DEFAULT_TABLE_CONFIGS['T' + (i+29)] = { top: row4Coords[i].top, left: row4Coords[i].left, w: 3.6, h: 6.2, type: 'Banquet Table', pax: 10 };
-    }
-
-    const row5Coords = [
-      {top: 70.5, left: 22.8}, {top: 70.5, left: 32.5}, {top: 70.5, left: 42.2},
-      {top: 70.5, left: 52.0}, {top: 70.5, left: 61.8}, {top: 70.5, left: 71.5},
-      {top: 70.5, left: 81.2}, {top: 70.5, left: 91.0}
-    ];
-    DEFAULT_TABLE_CONFIGS['T37'] = { top: 70.5, left: 13.0, w: 3.6, h: 6.2, type: 'Banquet Table', pax: 10 };
-    for(let i=0; i<8; i++) {
-      DEFAULT_TABLE_CONFIGS['T' + (i+38)] = { top: row5Coords[i].top, left: row5Coords[i].left, w: 3.6, h: 6.2, type: 'Banquet Table', pax: 10 };
-    }
-
-    const row6Coords = [
-      {top: 86.5, left: 22.8}, {top: 86.5, left: 32.5}, {top: 86.5, left: 42.2},
-      {top: 86.5, left: 52.0}, {top: 86.5, left: 61.8}, {top: 86.5, left: 71.5},
-      {top: 86.5, left: 81.2}, {top: 86.5, left: 91.0}
-    ];
-    DEFAULT_TABLE_CONFIGS['T46'] = { top: 86.5, left: 13.0, w: 3.6, h: 6.2, type: 'Banquet Table', pax: 10 };
-    for(let i=0; i<8; i++) {
-      DEFAULT_TABLE_CONFIGS['T' + (i+47)] = { top: row6Coords[i].top, left: row6Coords[i].left, w: 3.6, h: 6.2, type: 'Banquet Table', pax: 10 };
-    }
-
-    DEFAULT_TABLE_CONFIGS['R1'] = { top: 29.5, left: 3.5, w: 7.5, h: 4.5, type: 'VIP Long Table', pax: 12 };
-    DEFAULT_TABLE_CONFIGS['R2'] = { top: 57.5, left: 3.5, w: 7.5, h: 4.5, type: 'VIP Long Table', pax: 12 };
-    DEFAULT_TABLE_CONFIGS['R3'] = { top: 31.5, left: 16.5, w: 5.5, h: 4.5, type: 'Buffet / Special', pax: 8 };
-    DEFAULT_TABLE_CONFIGS['R4'] = { top: 76.5, left: 3.5, w: 6.5, h: 5.5, type: 'Stage VIP Lounge', pax: 6 };
-    DEFAULT_TABLE_CONFIGS['R5'] = { top: 12.5, left: 3.5, w: 5.5, h: 4.5, type: 'VIP Side', pax: 8 };
-    DEFAULT_TABLE_CONFIGS['R6'] = { top: 18.5, left: 3.5, w: 5.5, h: 4.5, type: 'VIP Side', pax: 8 };
+    const ALL_TABLE_IDS = Object.keys(DEFAULT_TABLE_CONFIGS);
+    const TOTAL_TABLES_COUNT = ALL_TABLE_IDS.length;
 
     let tableConfigs = {};
     let bookings = {};
@@ -1006,15 +774,12 @@
     let currentTable = null;
     let zoomLevel = 1.0;
 
-    function handleImgFallback(img) {
-      console.error('Gagal memuat gambar denah.');
-    }
-
     window.addEventListener('DOMContentLoaded', async () => {
+      document.getElementById('statTotalTables').innerText = ' / ' + TOTAL_TABLES_COUNT;
+      document.getElementById('repTotalCap').innerText = '/ ' + TOTAL_TABLES_COUNT + ' Meja';
       await loadTableConfigsFromCloud();
       renderHotspots();
       await fetchAllCloudData();
-      initGestures();
       subscribeRealtime();
     });
 
@@ -1040,7 +805,7 @@
       } catch (err) {}
 
       ALL_TABLE_IDS.forEach(id => {
-        if (!tableConfigs[id] && DEFAULT_TABLE_CONFIGS[id]) {
+        if (!tableConfigs[id]) {
           tableConfigs[id] = { id, ...DEFAULT_TABLE_CONFIGS[id] };
         }
       });
@@ -1058,14 +823,12 @@
     }
 
     async function resetHotspotsPosition() {
-      if (confirm('Kembalikan posisi meja ke default presisi denah ballroom?')) {
+      if (confirm('Kembalikan posisi semua nomor meja ke posisi awal denah?')) {
         try { await _supabase.from('kq_table_positions').delete().neq('table_id', 'XXX'); } catch(e) {}
         tableConfigs = {};
         ALL_TABLE_IDS.forEach(id => {
-          if (DEFAULT_TABLE_CONFIGS[id]) {
-            tableConfigs[id] = { id, ...DEFAULT_TABLE_CONFIGS[id] };
-            saveTableConfigToCloud(id);
-          }
+          tableConfigs[id] = { id, ...DEFAULT_TABLE_CONFIGS[id] };
+          saveTableConfigToCloud(id);
         });
         renderHotspots();
         refreshMapNodes();
@@ -1078,19 +841,23 @@
       ALL_TABLE_IDS.forEach(id => {
         const t = tableConfigs[id] || DEFAULT_TABLE_CONFIGS[id];
         if (!t) return;
-        const isBookedClass = bookings[id] ? 'is-booked' : '';
+        const labelText = id.replace(/[AB]/g, ''); // Menampilkan angka 30 / 32 bersih di lingkaran
         html += `
-          <div id="spot-${id}" class="spot ${isBookedClass}" 
+          <div id="spot-${id}" class="spot" 
                style="top: ${t.top}%; left: ${t.left}%; width: ${t.w}%; height: ${t.h}%;"
                data-id="${id}"
                onmousedown="initDrag(event, '${id}')"
                ontouchstart="initDrag(event, '${id}')"
-               onclick="handleSpotClick(event, '${id}')">${id}</div>
+               onclick="handleSpotClick(event, '${id}')">
+            <span>${labelText}</span>
+            <span class="pax-badge" id="badge-${id}"></span>
+          </div>
         `;
       });
       layer.innerHTML = html;
     }
 
+    // DRAG AND DROP KOORDINAT MEJA
     let draggingId = null, startX = 0, startY = 0, origTop = 0, origLeft = 0, hasDragged = false;
 
     function initDrag(e, id) {
@@ -1149,7 +916,7 @@
             let parsedCart = [];
             try { if (row.cart_items) parsedCart = JSON.parse(row.cart_items); } catch(e){}
             bookings[tid] = {
-              name: row.guest_name, phone: row.guest_phone, pax: row.pax,
+              name: row.guest_name, phone: row.guest_phone, pax: Number(row.pax) || 0,
               dp: Number(row.dp), balance: Number(row.balance || 0),
               time: row.arrival_time, notes: row.notes, cart_items: parsedCart,
               created_by: row.created_by || '', timestamp: row.timestamp || '-',
@@ -1176,6 +943,67 @@
         .subscribe();
     }
 
+    // LOGIKA PEMBARUAN WARNA: HIJAU (< 10 PAX) VS MERAH (>= 10 PAX)
+    function refreshMapNodes() {
+      document.querySelectorAll('.spot').forEach(spot => {
+        const id = spot.dataset.id;
+        const badge = document.getElementById(`badge-${id}`);
+        spot.classList.remove('is-booked', 'is-partial');
+        if (badge) badge.innerText = '';
+
+        if (bookings[id]) {
+          const pax = Number(bookings[id].pax) || 0;
+          if (pax >= 10) {
+            spot.classList.add('is-booked'); // Merah
+            if (badge) badge.innerText = `${pax}p`;
+          } else if (pax > 0) {
+            spot.classList.add('is-partial'); // Hijau
+            if (badge) badge.innerText = `${pax}/10`;
+          }
+        }
+      });
+    }
+
+    function updateMetrics() {
+      const bookedKeys = ALL_TABLE_IDS.filter(k => bookings[k]);
+      let partialCount = 0;
+      let fullCount = 0;
+      let tableDP = 0;
+
+      bookedKeys.forEach(k => { 
+        const pax = Number(bookings[k].pax) || 0;
+        if (pax >= 10) fullCount++;
+        else if (pax > 0) partialCount++;
+
+        if (bookings[k].guest_type !== 'Compulsory In-House') {
+          tableDP += (bookings[k].dp || 0); 
+        }
+      });
+
+      let fdcPaxTotal = 0, fdcAmountTotal = 0;
+      fdcBookings.forEach(item => { fdcPaxTotal += (item.pax || 0); fdcAmountTotal += (item.amount || 0); });
+
+      document.getElementById('statTablesBooked').innerText = bookedKeys.length;
+      document.getElementById('statFDCPaxTotal').innerText = fdcPaxTotal;
+      document.getElementById('statDPTotal').innerText = 'Rp ' + (tableDP + fdcAmountTotal).toLocaleString('id-ID');
+      
+      document.getElementById('legendAvailText').innerText = `Kosong: ${TOTAL_TABLES_COUNT - bookedKeys.length}`;
+      document.getElementById('legendPartialText').innerText = `Terisi <10 Pax: ${partialCount}`;
+      document.getElementById('legendBookedText').innerText = `Penuh (≥10 Pax): ${fullCount}`;
+    }
+
+    function updatePaxColorHint() {
+      const pax = parseInt(document.getElementById('guestPax').value, 10) || 0;
+      const hintEl = document.getElementById('paxColorHint');
+      if (pax >= 10) {
+        hintEl.innerText = '≥10 Merah (Penuh)';
+        hintEl.style.color = '#ef4444';
+      } else {
+        hintEl.innerText = '<10 Hijau (Masih Ada Slot)';
+        hintEl.style.color = '#10b981';
+      }
+    }
+
     function toggleInHouseFields() {
       const gType = document.getElementById('guestType').value;
       const menuBox = document.getElementById('menuSectionBox');
@@ -1200,9 +1028,11 @@
 
     function openRegistrationModal() {
       const select = document.getElementById('regTableIdSelect');
-      let html = '<option value="">-- Pilih Meja Kosong --</option>';
+      let html = '<option value="">-- Pilih Nomor Meja --</option>';
       ALL_TABLE_IDS.forEach(id => {
-        if (!bookings[id]) html += `<option value="${id}">Meja #${id}</option>`;
+        const currentPax = bookings[id] ? bookings[id].pax : 0;
+        const statusInfo = currentPax === 0 ? 'Kosong' : (currentPax < 10 ? `Terisi ${currentPax}/10 (Hijau)` : `Penuh ${currentPax} Pax (Merah)`);
+        html += `<option value="${id}">Meja #${id} — [${statusInfo}]</option>`;
       });
       select.innerHTML = html;
       document.getElementById('regGuestName').value = '';
@@ -1219,7 +1049,7 @@
       const gType = document.getElementById('regGuestType').value;
       const name = document.getElementById('regGuestName').value.trim();
       const phone = document.getElementById('regGuestPhone').value.trim();
-      const pax = parseInt(document.getElementById('regGuestPax').value, 10) || 10;
+      const pax = parseInt(document.getElementById('regGuestPax').value, 10) || 1;
       const rawDP = document.getElementById('regGuestDP').value.replace(/[^0-9]/g, '');
       const dp = (gType === 'Compulsory In-House') ? 0 : (rawDP ? parseInt(rawDP, 10) : 0);
       const staff = document.getElementById('regGuestCreatedBy').value.trim();
@@ -1276,6 +1106,7 @@
         document.getElementById('guestNotes').value = '';
         btnDel.style.display = 'none';
       }
+      updatePaxColorHint();
       renderBookingCart();
       document.getElementById('bookingModal').classList.add('open');
     }
@@ -1382,6 +1213,7 @@
       const name = document.getElementById('guestName').value.trim();
       const gType = document.getElementById('guestType').value;
       const phone = document.getElementById('guestPhone').value.trim();
+      const pax = parseInt(document.getElementById('guestPax').value, 10) || 1;
       const rawDP = document.getElementById('guestDP').value.replace(/[^0-9]/g, '');
       const dp = (gType === 'Compulsory In-House') ? 0 : (rawDP ? parseInt(rawDP, 10) : 0);
       const totalKonsumsi = (gType === 'Compulsory In-House') ? 0 : calculateCartTotal(currentCart);
@@ -1401,8 +1233,7 @@
 
       const payload = {
         table_id: String(currentTable), guest_name: name, guest_phone: phone,
-        pax: parseInt(document.getElementById('guestPax').value, 10) || 10,
-        dp: dp, balance: balance, arrival_time: document.getElementById('guestTime').value,
+        pax: pax, dp: dp, balance: balance, arrival_time: document.getElementById('guestTime').value,
         created_by: staff, timestamp: document.getElementById('guestInputTimestamp').value,
         notes: finalNotes, cart_items: JSON.stringify(currentCart),
         guest_type: gType
@@ -1414,14 +1245,12 @@
     }
 
     async function deleteBooking() {
-      if (confirm('Batalkan reservasi #' + currentTable + '?')) {
+      if (confirm('Batalkan reservasi Meja #' + currentTable + '?')) {
         await _supabase.from('kq_table_bookings').delete().eq('table_id', String(currentTable));
         closeBookingModal();
         await fetchAllCloudData();
       }
     }
-
-    function generateGuestBookingPDF() { window.print(); }
 
     function openMasterMenuModal() { document.getElementById('masterMenuModal').classList.add('open'); renderMasterMenuList(); }
     function closeMasterMenuModal() { document.getElementById('masterMenuModal').classList.remove('open'); }
@@ -1488,7 +1317,7 @@
     async function deleteFDC(id) { await _supabase.from('kq_fdc_bookings').delete().eq('id', id); openFDCListModal(); await fetchAllCloudData(); }
 
     function openReportModal() {
-      const bookedKeys = Object.keys(bookings);
+      const bookedKeys = ALL_TABLE_IDS.filter(k => bookings[k]);
       let tableRev = 0;
       bookedKeys.forEach(k => { 
         if (bookings[k].guest_type !== 'Compulsory In-House') {
@@ -1501,39 +1330,13 @@
 
       document.getElementById('repTotalGross').innerText = 'Rp ' + grandGross.toLocaleString('id-ID');
       document.getElementById('repTablesBooked').innerText = bookedKeys.length;
-      document.getElementById('repTablesLeft').innerText = 60 - bookedKeys.length;
-      document.getElementById('repTablesBar').style.width = Math.round((bookedKeys.length / 60) * 100) + '%';
+      document.getElementById('repTablesLeft').innerText = TOTAL_TABLES_COUNT - bookedKeys.length;
+      document.getElementById('repTablesBar').style.width = Math.round((bookedKeys.length / TOTAL_TABLES_COUNT) * 100) + '%';
       document.getElementById('repFDCPax').innerText = fdcPax + ' Pax';
       document.getElementById('repFDCTotalRev').innerText = 'Rp ' + fdcRev.toLocaleString('id-ID') + ' Total FDC Revenue';
       document.getElementById('reportModal').classList.add('open');
     }
     function closeReportModal() { document.getElementById('reportModal').classList.remove('open'); }
-
-    function refreshMapNodes() {
-      document.querySelectorAll('.spot').forEach(spot => {
-        const id = spot.dataset.id;
-        if (bookings[id]) spot.classList.add('is-booked');
-        else spot.classList.remove('is-booked');
-      });
-    }
-
-    function updateMetrics() {
-      const bookedKeys = Object.keys(bookings);
-      let tableDP = 0;
-      bookedKeys.forEach(k => { 
-        if (bookings[k].guest_type !== 'Compulsory In-House') {
-          tableDP += (bookings[k].dp || 0); 
-        }
-      });
-      let fdcPaxTotal = 0, fdcAmountTotal = 0;
-      fdcBookings.forEach(item => { fdcPaxTotal += (item.pax || 0); fdcAmountTotal += (item.amount || 0); });
-
-      document.getElementById('statTablesBooked').innerText = bookedKeys.length;
-      document.getElementById('statFDCPaxTotal').innerText = fdcPaxTotal;
-      document.getElementById('statDPTotal').innerText = 'Rp ' + (tableDP + fdcAmountTotal).toLocaleString('id-ID');
-      document.getElementById('legendAvailText').innerText = `Tersedia: ${60 - bookedKeys.length} Meja`;
-      document.getElementById('legendBookedText').innerText = `${bookedKeys.length} Terisi`;
-    }
 
     function formatCurrencyInput(el) {
       let val = el.value.replace(/[^0-9]/g, '');
@@ -1553,7 +1356,7 @@
         link.href = canvas.toDataURL('image/jpeg', 0.92);
         link.click();
       } catch (err) {
-        alert('Gagal mengekspor gambar.');
+        alert('Gagal mengekspor gambar. Pastikan gambar denah diakses melalui web server/hosting.');
       } finally {
         mapEl.style.transform = savedTransform;
         loader.style.display = 'none';
@@ -1561,10 +1364,11 @@
     }
 
     function exportReservationsCSV() {
-      let csv = 'Nomor Meja,Tipe Tamu,Nama Tamu,WhatsApp/No.Kamar,Pax,DP (IDR),Status Billing,Jam Tiba,Staff,Catatan\n';
+      let csv = 'Nomor Meja,Status Warna,Tipe Tamu,Nama Tamu,WhatsApp/No.Kamar,Pax,DP (IDR),Status Billing,Jam Tiba,Staff,Catatan\n';
       Object.keys(bookings).forEach(k => {
         const b = bookings[k];
-        csv += `"${k}","${b.guest_type || 'Commercial'}","${b.name}","${b.phone}","${b.pax}","${b.dp}","${b.balance}","${b.time}","${b.created_by}","${(b.notes||'').replace(/"/g, '""')}"\n`;
+        const statusWarna = (Number(b.pax) >= 10) ? 'Merah (Penuh)' : 'Hijau (<10 Pax)';
+        csv += `"${k}","${statusWarna}","${b.guest_type || 'Commercial'}","${b.name}","${b.phone}","${b.pax}","${b.dp}","${b.balance}","${b.time}","${b.created_by}","${(b.notes||'').replace(/"/g, '""')}"\n`;
       });
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const a = document.createElement('a');
@@ -1584,7 +1388,6 @@
         reader.readAsDataURL(file);
       }
     }
-    function initGestures() {}
   </script>
 </body>
 </html>
