@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
-  <title>Ballroom Utama - King & Queen OF THE NIGHT 2027</title>
+  <title>Ballroom Command - King & Queen of the Night 2027 | Platinum Balikpapan</title>
   
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="favicon.png">
@@ -11,7 +11,7 @@
   <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- Supabase JS Client & HTML2Canvas -->
@@ -20,19 +20,18 @@
 
   <style>
     :root {
-      --bg-page: #f1f5f9;
-      --header-bg: #1e293b;
+      --vhp-blue: #035388;
+      --vhp-blue-dark: #023e66;
+      --vhp-blue-light: #e0f2fe;
+      --bg-page: #f4f7f9;
       --card-bg: #ffffff;
-      --text-main: #1e293b;
+      --text-main: #0f172a;
       --text-muted: #64748b;
-      --gold-primary: #d4af37;
+      --border-color: #e2e8f0;
+      --gold-accent: #d97706;
       --green-partial: #10b981;
-      --green-glow: rgba(16, 185, 129, 0.45);
-      --red-booked: #ef4444;
-      --red-glow: rgba(239, 68, 68, 0.45);
-      --purple-fdc: #9333ea;
-      --emerald-accent: #059669;
-      --border-color: #cbd5e1;
+      --red-full: #ef4444;
+      --purple-fdc: #7c3aed;
     }
 
     * {
@@ -40,11 +39,10 @@
       margin: 0;
       padding: 0;
       -webkit-tap-highlight-color: transparent;
-      user-select: none;
     }
 
     body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg-page);
       color: var(--text-main);
       min-height: 100vh;
@@ -53,305 +51,927 @@
       overflow-x: hidden;
     }
 
-    header {
-      background: var(--header-bg);
-      border-bottom: 3px solid rgba(212, 175, 55, 0.8);
-      padding: 12px 16px;
+    /* TOP VHP COMMAND HEADER */
+    .vhp-header {
+      background: linear-gradient(180deg, #045b94 0%, #034b7a 100%);
+      color: #ffffff;
+      padding: 12px 18px;
+      box-shadow: 0 2px 10px rgba(3, 83, 136, 0.25);
       position: sticky;
       top: 0;
       z-index: 60;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
     }
 
-    .hdr-wrap {
-      max-width: 1850px;
+    .vhp-header-inner {
+      max-width: 1480px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
 
-    .brand-section { display: flex; align-items: center; gap: 12px; }
-    .brand-logo-frame {
-      width: 140px; height: 52px; background: #ffffff;
-      border: 2px solid var(--gold-primary); border-radius: 8px;
-      padding: 3px 6px; display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; overflow: hidden;
-    }
-    .brand-logo-frame img { width: 100%; height: 100%; object-fit: contain; }
-    .brand-title h1 { font-family: 'Cinzel', serif; font-size: 1.05rem; font-weight: 800; color: #ffffff; }
-    .brand-title p { font-size: 0.7rem; color: #e2e8f0; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 3px; font-weight: 600; }
-    .event-badge { background: rgba(212, 175, 55, 0.25); border: 1px solid var(--gold-primary); color: #fce08a; padding: 2px 8px; border-radius: 12px; font-size: 0.62rem; font-weight: 700; }
-
-    .hdr-controls { display: flex; flex-direction: column; gap: 8px; }
-    .metrics-group { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-    .metric-card-lg {
-      background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 8px; padding: 8px 12px; display: flex; align-items: center; gap: 10px;
-      cursor: pointer; backdrop-filter: blur(4px); min-height: 48px;
-    }
-    .metric-card-lg i { font-size: 1.15rem; color: var(--gold-primary); }
-    .metric-card-lg .txt-wrap { display: flex; flex-direction: column; line-height: 1.2; }
-    .metric-card-lg .txt-wrap span { font-size: 0.58rem; color: #cbd5e1; text-transform: uppercase; font-weight: 700; }
-    .metric-card-lg .txt-wrap strong { font-size: 0.9rem; font-family: 'Cinzel', serif; color: #fff; }
-
-    .btn-action-group { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-    .btn-action {
-      border: none; padding: 10px 8px; border-radius: 8px; font-weight: 700; font-size: 0.75rem;
-      cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-      color: #fff; touch-action: manipulation; box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-      transition: all 0.2s ease; min-height: 44px;
-    }
-    .btn-action:active { transform: scale(0.97); }
-    .btn-dashboard { background: #0284c7; }
-    .btn-fdc { background: #9333ea; }
-    .btn-menu { background: #b45309; }
-    .btn-reg { background: #0891b2; grid-column: span 2; }
-    .btn-reset-pos { background: #991b1b; }
-    .btn-jpg { background: #059669; }
-    .btn-csv { background: #d97706; color: #fff; }
-
-    .toolbar-bar {
-      max-width: 1850px; margin: 10px auto 0; padding: 0 16px; width: 100%;
-      display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+    .vhp-brand-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
-    .legend-tag {
-      display: flex; align-items: center; gap: 12px; background: #ffffff;
-      padding: 8px 14px; border-radius: 20px; border: 1px solid var(--border-color);
-      font-size: 0.72rem; font-weight: 600; box-shadow: 0 2px 5px rgba(0,0,0,0.05); flex-wrap: wrap;
+    .vhp-brand-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
-    .dot-node { width: 10px; height: 10px; border-radius: 50%; }
-    .dot-node.avail { background: #d4af37; }
-    .dot-node.partial { background: var(--green-partial); }
-    .dot-node.booked { background: var(--red-booked); }
-
-    .zoom-group { display: flex; align-items: center; gap: 6px; }
-    .btn-tool-icon {
-      width: 36px; height: 36px; border-radius: 8px; background: #ffffff;
-      border: 1px solid var(--border-color); color: var(--text-main); font-size: 0.85rem;
-      display: flex; align-items: center; justify-content: center; cursor: pointer;
+    .vhp-logo-box {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 4px 10px;
+      height: 46px;
+      min-width: 115px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
     }
 
-    .viewport-area {
-      flex: 1; position: relative; overflow: hidden; touch-action: pan-x pan-y pinch-zoom;
-      display: flex; align-items: center; justify-content: center; padding: 10px;
+    .vhp-logo-box img {
+      max-height: 36px;
+      max-width: 120px;
+      object-fit: contain;
+    }
+
+    .vhp-title-group h1 {
+      font-size: 1.08rem;
+      font-weight: 800;
+      letter-spacing: -0.2px;
+      line-height: 1.2;
+      color: #ffffff;
+    }
+
+    .vhp-sub-badges {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 5px;
+      flex-wrap: wrap;
+    }
+
+    .badge-pill-dark {
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 3px 9px;
+      border-radius: 6px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+
+    .badge-sync {
+      background: #16a34a;
+      color: #ffffff;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .badge-sync.error {
+      background: #dc2626;
+    }
+
+    .badge-clock {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #e0f2fe;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .vhp-top-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-vhp-top {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s ease;
+      min-height: 38px;
+    }
+
+    .btn-vhp-top:hover { background: rgba(255, 255, 255, 0.22); }
+    .btn-vhp-top.white-pill {
+      background: #ffffff;
+      color: var(--vhp-blue);
+      border-color: #ffffff;
+    }
+
+    .pill-count {
+      background: var(--vhp-blue);
+      color: #ffffff;
+      padding: 1px 6px;
+      border-radius: 10px;
+      font-size: 0.68rem;
+    }
+
+    /* MAIN CONTAINER */
+    .main-wrapper {
+      max-width: 1480px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 14px 16px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* SUB-NAV TAB BAR (VHP STYLE) */
+    .vhp-subnav {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+    }
+
+    .vhp-tabs-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+      scrollbar-width: none;
+    }
+    .vhp-tabs-left::-webkit-scrollbar { display: none; }
+
+    .vhp-tab {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 8px 13px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+
+    .vhp-tab:hover { background: #f1f5f9; color: var(--text-main); }
+    .vhp-tab.active {
+      background: var(--vhp-blue);
+      color: #ffffff;
+    }
+
+    .vhp-tabs-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-vhp-outline {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-vhp-primary {
+      background: var(--vhp-blue);
+      border: 1px solid var(--vhp-blue);
+      color: #ffffff;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 2px 5px rgba(3, 83, 136, 0.2);
+    }
+
+    .btn-vhp-primary:hover { background: var(--vhp-blue-dark); }
+
+    /* EXECUTIVE SUMMARY PANEL */
+    .summary-panel {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+    }
+
+    .summary-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .summary-title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .summary-title-row h2 {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: 0.2px;
+    }
+
+    .tag-info-blue {
+      background: #e0f2fe;
+      color: #0369a1;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    .tag-info-green {
+      background: #dcfce7;
+      color: #15803d;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    .summary-desc {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .date-pill-gold {
+      background: #fefce8;
+      border: 1px solid #fde047;
+      color: #a16207;
+      padding: 5px 12px;
+      border-radius: 8px;
+      font-size: 0.74rem;
+      font-weight: 700;
+    }
+
+    /* 4 KPI CARDS (VHP STYLE) */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    @media (min-width: 900px) {
+      .kpi-grid { grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    }
+
+    .kpi-card {
+      border-radius: 10px;
+      padding: 14px;
+      border: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+
+    .kpi-card:hover { transform: translateY(-2px); }
+    .kpi-card.gold { background: #fffdf7; border-color: #fde68a; }
+    .kpi-card.blue { background: #f8fbff; border-color: #bae6fd; }
+    .kpi-card.green { background: #f6fef9; border-color: #bbf7d0; }
+    .kpi-card.red { background: #fff8f8; border-color: #fecaca; }
+
+    .kpi-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .kpi-label {
+      font-size: 0.66rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .kpi-card.gold .kpi-label { color: #b45309; }
+    .kpi-card.blue .kpi-label { color: #0369a1; }
+    .kpi-card.green .kpi-label { color: #15803d; }
+    .kpi-card.red .kpi-label { color: #b91c1c; }
+
+    .kpi-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+    }
+
+    .kpi-card.gold .kpi-icon { background: #fef3c7; color: #b45309; }
+    .kpi-card.blue .kpi-icon { background: #e0f2fe; color: #0369a1; }
+    .kpi-card.green .kpi-icon { background: #dcfce7; color: #15803d; }
+    .kpi-card.red .kpi-icon { background: #fee2e2; color: #b91c1c; }
+
+    .kpi-value {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.15;
+    }
+
+    .kpi-sub {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* FLOOR PLAN CARD */
+    .floorplan-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+    }
+
+    .floorplan-bar {
+      background: var(--vhp-blue);
+      color: #ffffff;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .floorplan-bar-title {
+      font-size: 0.82rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .lock-badge {
+      background: rgba(255, 255, 255, 0.18);
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .floorplan-legend-bar {
+      background: #f8fafc;
+      border-bottom: 1px solid var(--border-color);
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .legend-items {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      font-size: 0.74rem;
+      font-weight: 700;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dot-ind {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(0, 0, 0, 0.15);
+    }
+    .dot-ind.empty { background: #ffffff; border-color: #d97706; }
+    .dot-ind.partial { background: var(--green-partial); }
+    .dot-ind.full { background: var(--red-full); }
+
+    .zoom-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-zoom {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    /* VIEWPORT DENAH & HOTSPOT TERKUNCI */
+    .viewport-scroll {
+      width: 100%;
+      overflow-x: auto;
+      background: #0f172a;
+      display: flex;
+      justify-content: center;
+      padding: 10px;
     }
 
     .map-frame {
-      width: 100%; max-width: 1400px; position: relative; transform-origin: center center;
-      transition: transform 0.12s ease-out; box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-      border-radius: 10px; overflow: hidden; background: #111; border: 2px solid var(--gold-primary);
+      position: relative;
+      width: 100%;
+      max-width: 1360px;
+      min-width: 680px; /* Menjaga rasio dan keterbacaan di layar kecil HP dengan scroll halus */
+      transform-origin: top center;
+      transition: transform 0.15s ease;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     }
 
-    .render-3d-img { width: 100%; height: auto; display: block; pointer-events: none; }
-    .hotspots-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    @media (min-width: 768px) {
+      .map-frame { min-width: 100%; }
+    }
 
-    /* STYLE SPOT MEJA: DEFAULT, HIJAU (< 10 PAX), MERAH (>= 10 PAX) */
+    .render-3d-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .hotspots-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* TITIK MEJA TERKUNCI (TIDAK BISA DIGESER) */
     .spot {
-      position: absolute; cursor: grab; border-radius: 50%;
-      background: rgba(255, 255, 255, 0.9);
-      border: 2px solid var(--gold-primary);
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      font-size: 0.72rem; font-weight: 800; color: #1e293b;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.5);
-      touch-action: none; transition: all 0.2s ease;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      width: 3.35%;
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.96);
+      border: 2px solid #d97706;
+      color: #0f172a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: clamp(0.62rem, 1.05vw, 0.85rem);
       line-height: 1;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.55);
+      transition: transform 0.15s ease, background 0.2s ease, color 0.2s ease;
+      user-select: none;
+      -webkit-user-select: none;
+      z-index: 3;
     }
 
-    .spot .pax-badge { font-size: 0.45rem; font-weight: 700; margin-top: 1px; }
-    .spot:hover { transform: scale(1.12); z-index: 10; }
+    .spot:hover, .spot:active {
+      transform: translate(-50%, -50%) scale(1.14);
+      z-index: 10;
+    }
 
-    /* WARNA HIJAU: Terisi kurang dari 10 Pax */
+    .spot .pax-tag {
+      font-size: clamp(0.42rem, 0.65vw, 0.54rem);
+      font-weight: 700;
+      margin-top: 1px;
+      opacity: 0.95;
+    }
+
+    /* HIJAU: Terisi kurang dari 10 Pax */
     .spot.is-partial {
-      background: rgba(16, 185, 129, 0.94) !important;
-      border: 2px solid #047857 !important;
-      box-shadow: 0 0 12px var(--green-glow), inset 0 0 6px rgba(255,255,255,0.5) !important;
+      background: var(--green-partial) !important;
+      border-color: #065f46 !important;
       color: #ffffff !important;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.75) !important;
       z-index: 4;
     }
 
-    /* WARNA MERAH: Terisi 10 Pax atau lebih (Full) */
-    .spot.is-booked {
-      background: rgba(239, 68, 68, 0.94) !important;
-      border: 2px solid #991b1b !important;
-      box-shadow: 0 0 12px var(--red-glow), inset 0 0 6px rgba(255,255,255,0.5) !important;
+    /* MERAH: Terisi 10 Pax atau lebih */
+    .spot.is-full {
+      background: var(--red-full) !important;
+      border-color: #991b1b !important;
       color: #ffffff !important;
+      box-shadow: 0 0 12px rgba(239, 68, 68, 0.75) !important;
       z-index: 5;
     }
 
+    /* TABEL DIREKTORI RESERVASI DI BAWAH DENAH */
+    .directory-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table.vhp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+      min-width: 650px;
+    }
+
+    table.vhp-table th {
+      background: #f8fafc;
+      color: var(--text-muted);
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: 0.68rem;
+      text-align: left;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    table.vhp-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #f1f5f9;
+      color: var(--text-main);
+    }
+
+    table.vhp-table tr:hover td { background: #f8fafc; }
+
+    .status-pill {
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      display: inline-block;
+    }
+    .status-pill.green { background: #dcfce7; color: #15803d; }
+    .status-pill.red { background: #fee2e2; color: #b91c1c; }
+
     /* MODAL */
     .modal-backdrop {
-      position: fixed; inset: 0; background: rgba(15, 23, 42, 0.75);
-      backdrop-filter: blur(5px); z-index: 100; display: none;
-      align-items: center; justify-content: center; padding: 12px;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
     }
+
     .modal-backdrop.open { display: flex; }
+
     .modal-container {
-      background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px;
-      width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 520px;
+      max-height: 90vh;
+      overflow-y: auto;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
     }
-    .modal-header { background: #f8fafc; padding: 14px 18px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
-    .modal-header h3 { font-family: 'Cinzel', serif; font-size: 1rem; color: #0f172a; font-weight: 700; }
-    .btn-x { background: transparent; border: none; color: var(--text-muted); font-size: 1.3rem; cursor: pointer; padding: 4px; }
-    .modal-body { padding: 16px 18px; display: flex; flex-direction: column; gap: 12px; }
+
+    .modal-header {
+      background: var(--vhp-blue);
+      color: #ffffff;
+      padding: 14px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h3 { font-size: 0.98rem; font-weight: 800; }
+    .btn-x { background: transparent; border: none; color: #ffffff; font-size: 1.25rem; cursor: pointer; padding: 4px; }
+
+    .modal-body {
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
     .form-row { display: flex; flex-direction: column; gap: 5px; }
-    .form-row label { font-size: 0.78rem; font-weight: 700; color: #334155; display: flex; align-items: center; gap: 6px; }
+    .form-row label { font-size: 0.76rem; font-weight: 700; color: #334155; display: flex; align-items: center; gap: 6px; }
+
     .inp-field {
-      background: #ffffff; border: 1px solid var(--border-color); border-radius: 8px;
-      padding: 11px 12px; color: var(--text-main); font-size: 0.9rem; outline: none; width: 100%; font-family: inherit;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 10px 12px;
+      color: var(--text-main);
+      font-size: 16px; /* Mencegah auto-zoom pada Safari iOS */
+      outline: none;
+      width: 100%;
+      font-family: inherit;
     }
-    .inp-field:focus { border-color: var(--header-bg); box-shadow: 0 0 0 3px rgba(30, 41, 59, 0.15); }
+
+    .inp-field:focus { border-color: var(--vhp-blue); box-shadow: 0 0 0 3px rgba(3, 83, 136, 0.15); }
+
     .money-input-box { position: relative; }
-    .money-input-box span { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--header-bg); font-weight: 700; font-size: 0.9rem; }
-    .money-input-box input { padding-left: 38px; width: 100%; }
-    .modal-footer { padding: 14px 18px; background: #f8fafc; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
-    .btn-modal-del { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; padding: 10px 14px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer; }
-    .btn-modal-save { background: #1e293b; color: #fff; border: none; padding: 10px 18px; border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; }
-
-    .dash-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-    .dash-card { background: #f8fafc; border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 6px; }
-    .dash-card.hero-card { grid-column: span 2; background: linear-gradient(135deg, rgba(212,175,55,0.1) 0%, rgba(248,250,252,1) 100%); border-color: var(--gold-primary); }
-    .dash-card .card-lbl { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; display: flex; align-items: center; gap: 6px; }
-    .dash-card .card-val { font-size: 1.2rem; font-weight: 800; color: #0f172a; font-family: 'Cinzel', serif; }
-    .dash-card .card-sub { font-size: 0.7rem; color: var(--text-muted); }
-    .occupancy-bar-wrap { width: 100%; height: 7px; background: #e2e8f0; border-radius: 4px; overflow: hidden; margin-top: 4px; }
-    .occupancy-bar { height: 100%; width: 0%; transition: width 0.4s ease; background: var(--gold-primary); }
-
-    .loader-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.85); z-index: 200; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
-    .spinner { width: 44px; height: 44px; border: 4px solid rgba(255, 255, 255, 0.2); border-top-color: var(--gold-primary); border-radius: 50%; animation: spin 0.8s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    @media (min-width: 992px) {
-      .hdr-wrap { flex-direction: row; align-items: center; justify-content: space-between; }
-      .metrics-group { display: flex; }
-      .metric-card-lg { min-width: 140px; }
-      .btn-action-group { display: flex; flex-wrap: wrap; }
-      .btn-reg { grid-column: auto; }
+    .money-input-box span {
+      position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+      color: var(--vhp-blue); font-weight: 700; font-size: 0.88rem;
     }
+    .money-input-box input { padding-left: 38px; }
+
+    .modal-footer {
+      padding: 12px 18px;
+      background: #f8fafc;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-del {
+      background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5;
+      padding: 10px 14px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer;
+    }
+
+    .btn-save {
+      background: var(--vhp-blue); color: #ffffff; border: none;
+      padding: 10px 18px; border-radius: 8px; font-size: 0.84rem; font-weight: 700;
+      cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+    }
+
+    .loader-overlay {
+      position: fixed; inset: 0; background: rgba(15, 23, 42, 0.8); z-index: 200;
+      display: none; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+    }
+    .spinner {
+      width: 40px; height: 40px; border: 4px solid rgba(255, 255, 255, 0.25);
+      border-top-color: #38bdf8; border-radius: 50%; animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <div class="hdr-wrap">
-      <div class="brand-section">
-        <div class="brand-logo-frame">
-          <img src="Logo.png" alt="Logo Platinum Hotel"
-               onerror="this.onerror=null; this.src='logo.png'; this.addEventListener('error', () => { this.style.display='none'; });">
-        </div>
-        <div class="brand-title">
-          <h1>Platinum Hotel & Convention Hall</h1>
-          <p>
-            <span>MAIN BALLROOM</span>
-            <span class="event-badge"><i class="fa-solid fa-crown"></i> KING & QUEEN 2027</span>
-          </p>
-        </div>
-      </div>
-
-      <div class="hdr-controls">
-        <div class="metrics-group">
-          <div class="metric-card-lg" onclick="openReportModal()" title="Lihat Inventaris Meja">
-            <i class="fa-solid fa-chair"></i>
-            <div class="txt-wrap">
-              <span>Meja Terisi</span>
-              <strong><span id="statTablesBooked">0</span><span id="statTotalTables" style="font-size:0.75rem; color:#cbd5e1;"> / 35</span></strong>
-            </div>
+  <!-- VHP CLOUD STYLE TOP HEADER -->
+  <header class="vhp-header">
+    <div class="vhp-header-inner">
+      <div class="vhp-brand-row">
+        <div class="vhp-brand-left">
+          <div class="vhp-logo-box">
+            <img src="Logo.png" alt="Platinum Hotel"
+                 onerror="this.onerror=null; this.src='logo.png'; this.addEventListener('error', () => { this.style.display='none'; });">
           </div>
-
-          <div class="metric-card-lg" onclick="openFDCListModal()" title="Lihat Tamu Tiket FDC">
-            <i class="fa-solid fa-ticket" style="color: #e879f9;"></i>
-            <div class="txt-wrap">
-              <span>FDC Guests</span>
-              <strong><span id="statFDCPaxTotal">0</span><span style="font-size:0.75rem; color:#cbd5e1;"> Pax</span></strong>
-            </div>
-          </div>
-
-          <div class="metric-card-lg" onclick="openReportModal()" title="Lihat Rincian Pendapatan">
-            <i class="fa-solid fa-money-bill-wave" style="color: #34d399;"></i>
-            <div class="txt-wrap">
-              <span>Total Gross Rev</span>
-              <strong id="statDPTotal">Rp 0</strong>
+          <div class="vhp-title-group">
+            <h1>Banquet & Ballroom Command Center</h1>
+            <div class="vhp-sub-badges">
+              <span class="badge-pill-dark">PLATINUM BALIKPAPAN • KING & QUEEN 2027</span>
+              <span id="cloudStatusBadge" class="badge-sync"><i class="fa-solid fa-circle-notch fa-spin"></i> Connecting Cloud...</span>
+              <span class="badge-clock"><i class="fa-regular fa-clock"></i> <span id="liveWitaClock">--:--:-- WITA</span></span>
             </div>
           </div>
         </div>
 
-        <div class="btn-action-group">
-          <button class="btn-action btn-dashboard" onclick="openReportModal()">
-            <i class="fa-solid fa-chart-pie"></i> Report
+        <div class="vhp-top-actions">
+          <button class="btn-vhp-top white-pill" onclick="scrollToDirectory()">
+            <i class="fa-solid fa-chair"></i> Terisi <span class="pill-count" id="topPillBooked">0</span>
           </button>
-          <button class="btn-action btn-fdc" onclick="openFDCBookingModal()">
-            <i class="fa-solid fa-user-plus"></i> + FDC
+          <button class="btn-vhp-top" onclick="openFDCListModal()">
+            <i class="fa-solid fa-ticket"></i> <span id="topPillFDC">0</span> FDC Pax
           </button>
-          <button class="btn-action btn-menu" onclick="openMasterMenuModal()">
-            <i class="fa-solid fa-utensils"></i> Master Menu
+          <button class="btn-vhp-top" onclick="downloadLayoutJPG()">
+            <i class="fa-solid fa-camera"></i> Export JPG
           </button>
-          <button class="btn-action btn-reg" onclick="openRegistrationModal()">
-            <i class="fa-solid fa-file-pen"></i> + Input Meja
-          </button>
-          <button class="btn-action btn-reset-pos" onclick="resetHotspotsPosition()" title="Reset Posisi Kotak">
-            <i class="fa-solid fa-arrows-rotate"></i> Reset Meja
-          </button>
-          <button class="btn-action btn-jpg" onclick="downloadLayoutJPG()">
-            <i class="fa-solid fa-file-image"></i> Share JPG
-          </button>
-          <button class="btn-action btn-csv" onclick="exportReservationsCSV()">
-            <i class="fa-solid fa-file-csv"></i> CSV
+          <button class="btn-vhp-top" onclick="exportReservationsCSV()">
+            <i class="fa-solid fa-file-excel"></i> Export CSV
           </button>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- TOOLBAR -->
-  <div class="toolbar-bar">
-    <div class="legend-tag">
-      <div style="display:flex; align-items:center; gap:6px;"><div class="dot-node avail"></div> <span id="legendAvailText">Kosong: 35</span></div>
-      <div style="display:flex; align-items:center; gap:6px;"><div class="dot-node partial"></div> <span id="legendPartialText">Terisi &lt;10 Pax: 0</span></div>
-      <div style="display:flex; align-items:center; gap:6px;"><div class="dot-node booked"></div> <span id="legendBookedText">Penuh (&ge;10 Pax): 0</span></div>
-      <div id="cloudStatusBadge" style="color: #64748b; font-size: 0.7rem; font-weight: 700;"><i class="fa-solid fa-spinner fa-spin"></i> Menghubungkan Cloud...</div>
-    </div>
-    
-    <div class="zoom-group">
-      <label class="btn-tool-icon" title="Pilih Gambar Denah dari Perangkat">
-        <i class="fa-solid fa-image"></i>
-        <input type="file" id="localImgPicker" accept="image/*" style="display: none;" onchange="loadLocalImage(event)">
-      </label>
-      <button class="btn-tool-icon" onclick="zoomMap(0.1)"><i class="fa-solid fa-plus"></i></button>
-      <button class="btn-tool-icon" onclick="zoomMap(-0.1)"><i class="fa-solid fa-minus"></i></button>
-      <button class="btn-tool-icon" onclick="resetZoom()"><i class="fa-solid fa-arrows-rotate"></i></button>
-    </div>
-  </div>
+  <!-- MAIN WORKSPACE -->
+  <main class="main-wrapper">
 
-  <!-- VIEWPORT -->
-  <main class="viewport-area" id="mapTouchArea">
-    <div class="map-frame" id="mapFrame">
-      <!-- SESUAI FILE DI GITHUB: denah.png -->
-      <img id="mainDenahImg" 
-           src="denah.png" 
-           alt="Ballroom - King & Queen 2027" 
-           class="render-3d-img"
-           crossorigin="anonymous"
-           onerror="this.onerror=null; this.src='denah.jpg';">
+    <!-- VHP NAVIGATION & ACTION BAR -->
+    <div class="vhp-subnav">
+      <div class="vhp-tabs-left">
+        <button class="vhp-tab active" onclick="switchView('all', this)">
+          <i class="fa-solid fa-table-cells-large"></i> Floor Plan & Dashboard
+        </button>
+        <button class="vhp-tab" onclick="scrollToDirectory()">
+          <i class="fa-solid fa-address-book"></i> Guest Directory <span style="background:#e2e8f0; color:#0f172a; padding:1px 6px; border-radius:10px; font-size:0.68rem;" id="tabGuestCount">0</span>
+        </button>
+        <button class="vhp-tab" onclick="openFDCListModal()">
+          <i class="fa-solid fa-ticket"></i> FDC Standing List
+        </button>
+        <button class="vhp-tab" onclick="openMasterMenuModal()">
+          <i class="fa-solid fa-utensils"></i> Banquet Packages
+        </button>
+      </div>
 
-      <div class="hotspots-layer" id="hotspotsLayer"></div>
+      <div class="vhp-tabs-right">
+        <button class="btn-vhp-outline" onclick="openFDCBookingModal()">
+          <i class="fa-solid fa-ticket" style="color: var(--purple-fdc);"></i> + Input FDC
+        </button>
+        <button class="btn-vhp-primary" onclick="openRegistrationModal()">
+          <i class="fa-solid fa-plus"></i> Register Table
+        </button>
+      </div>
     </div>
+
+    <!-- EXECUTIVE INTELLIGENCE SUMMARY (4 KPI CARDS) -->
+    <section class="summary-panel">
+      <div class="summary-header">
+        <div>
+          <div class="summary-title-row">
+            <h2>EXECUTIVE BALLROOM & REVENUE SUMMARY</h2>
+            <span class="tag-info-blue">35 ROUND TABLES (10 PAX/TABLE)</span>
+            <span class="tag-info-green"><i class="fa-solid fa-lock"></i> FIXED LAYOUT LOCKED</span>
+          </div>
+          <p class="summary-desc">Klik langsung pada nomor meja di denah untuk mencatat atau memperbarui reservasi tamu. Hijau (&lt;10 Pax) • Merah (≥10 Pax).</p>
+        </div>
+        <div class="date-pill-gold" id="todayDatePill">Event: 31 Dec 2026</div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card gold" onclick="scrollToDirectory()">
+          <div class="kpi-top">
+            <span class="kpi-label">TOTAL GROSS REVENUE</span>
+            <div class="kpi-icon"><i class="fa-solid fa-coins"></i></div>
+          </div>
+          <div class="kpi-value" id="statDPTotal">Rp 0</div>
+          <div class="kpi-sub">DP Meja + Tiket FDC Terkumpul</div>
+        </div>
+
+        <div class="kpi-card blue" onclick="scrollToDirectory()">
+          <div class="kpi-top">
+            <span class="kpi-label">OKUPANSI MEJA</span>
+            <div class="kpi-icon"><i class="fa-solid fa-chair"></i></div>
+          </div>
+          <div class="kpi-value"><span id="statTablesBooked">0</span> / <span id="statTotalTables">35</span></div>
+          <div class="kpi-sub"><span id="statTablesAvail">35</span> Meja Masih Kosong</div>
+        </div>
+
+        <div class="kpi-card green" onclick="scrollToDirectory()">
+          <div class="kpi-top">
+            <span class="kpi-label">TERISI &lt; 10 PAX (HIJAU)</span>
+            <div class="kpi-icon"><i class="fa-solid fa-user-clock"></i></div>
+          </div>
+          <div class="kpi-value" id="statPartialCount">0 Meja</div>
+          <div class="kpi-sub">Masih Tersedia Kursi Tambahan</div>
+        </div>
+
+        <div class="kpi-card red" onclick="openFDCListModal()">
+          <div class="kpi-top">
+            <span class="kpi-label">PENUH ≥ 10 PAX (MERAH)</span>
+            <div class="kpi-icon"><i class="fa-solid fa-circle-check"></i></div>
+          </div>
+          <div class="kpi-value" id="statFullCount">0 Meja</div>
+          <div class="kpi-sub">FDC Standing: <strong id="statFDCPaxTotal">0</strong> Pax</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE FLOOR PLAN CARD -->
+    <section class="floorplan-card">
+      <div class="floorplan-bar">
+        <div class="floorplan-bar-title">
+          <i class="fa-solid fa-map-location-dot"></i> MAIN BALLROOM SEATING MAP — KING & QUEEN 2027
+        </div>
+        <div class="lock-badge">
+          <i class="fa-solid fa-lock"></i> Posisi Nomor Terkunci Presisi
+        </div>
+      </div>
+
+      <div class="floorplan-legend-bar">
+        <div class="legend-items">
+          <div class="legend-item"><span class="dot-ind empty"></span> <span id="legendAvailText">Kosong: 35</span></div>
+          <div class="legend-item"><span class="dot-ind partial"></span> <span id="legendPartialText">Terisi &lt;10 Pax (Hijau): 0</span></div>
+          <div class="legend-item"><span class="dot-ind full"></span> <span id="legendBookedText">Penuh ≥10 Pax (Merah): 0</span></div>
+        </div>
+
+        <div class="zoom-controls">
+          <button class="btn-zoom" onclick="zoomMap(0.15)" title="Perbesar"><i class="fa-solid fa-plus"></i></button>
+          <button class="btn-zoom" onclick="zoomMap(-0.15)" title="Perkecil"><i class="fa-solid fa-minus"></i></button>
+          <button class="btn-zoom" onclick="resetZoom()" title="Reset Zoom"><i class="fa-solid fa-arrows-rotate"></i></button>
+        </div>
+      </div>
+
+      <div class="viewport-scroll">
+        <div class="map-frame" id="mapFrame">
+          <img id="mainDenahImg"
+               src="denah.png"
+               alt="Denah Ballroom King & Queen 2027"
+               class="render-3d-img"
+               crossorigin="anonymous"
+               onerror="this.onerror=null; this.src='denah.jpg';">
+          <div class="hotspots-layer" id="hotspotsLayer"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GUEST DIRECTORY TABLE -->
+    <section class="directory-card" id="directorySection">
+      <div class="floorplan-bar" style="background: #0f172a;">
+        <div class="floorplan-bar-title">
+          <i class="fa-solid fa-list-ul"></i> LIVE RESERVATION DIRECTORY
+        </div>
+        <span style="font-size: 0.72rem; color: #cbd5e1;">Klik baris untuk edit atau hapus</span>
+      </div>
+      <div class="table-responsive">
+        <table class="vhp-table">
+          <thead>
+            <tr>
+              <th>Meja</th>
+              <th>Status Kapasitas</th>
+              <th>Nama Tamu</th>
+              <th>Kontak / Kamar</th>
+              <th>Pax</th>
+              <th>DP Masuk</th>
+              <th>Staff</th>
+            </tr>
+          </thead>
+          <tbody id="guestDirectoryBody">
+            <tr><td colspan="7" style="text-align:center; color:#64748b; padding:18px;">Memuat data reservasi...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
   </main>
 
   <!-- MODAL RESERVASI MEJA -->
   <div id="bookingModal" class="modal-backdrop">
     <div class="modal-container">
       <div class="modal-header">
-        <h3><i class="fa-solid fa-chair" style="color: var(--gold-primary);"></i> Reservasi Meja <span id="modalTitle">#1</span></h3>
+        <h3><i class="fa-solid fa-chair"></i> Reservasi Meja <span id="modalTitle">#1</span></h3>
         <button class="btn-x" onclick="closeBookingModal()"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
       <div class="modal-body">
         <div class="form-row">
-          <label><i class="fa-solid fa-id-card" style="color: #0284c7;"></i> Tipe Tamu / Status Reservasi *</label>
+          <label><i class="fa-solid fa-id-card" style="color: var(--vhp-blue);"></i> Tipe Tamu / Status Reservasi *</label>
           <select id="guestType" class="inp-field" onchange="toggleInHouseFields()">
             <option value="Commercial Guest" selected>Tamu Komersial / Umum (Paid)</option>
             <option value="Compulsory In-House">Compulsory In-House Guest (Complimentary)</option>
@@ -365,7 +985,7 @@
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
           <div class="form-row">
-            <label><i class="fa-solid fa-door-closed" style="color: #b45309;"></i> <span id="phoneRoomText">WhatsApp / HP *</span></label>
+            <label><i class="fa-solid fa-phone"></i> <span id="phoneRoomText">WhatsApp / HP *</span></label>
             <input type="text" id="guestPhone" class="inp-field" placeholder="0812-xxxx-xxxx">
           </div>
           <div class="form-row">
@@ -376,7 +996,7 @@
 
         <!-- KASIR MENU / PAKET BANQUET -->
         <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 10px;" id="menuSectionBox">
-          <label style="font-size: 0.8rem; font-weight: 700; color: #b45309; display: flex; align-items: center; gap: 6px;">
+          <label style="font-size: 0.78rem; font-weight: 800; color: var(--vhp-blue);">
             <i class="fa-solid fa-utensils"></i> Kasir Menu & Paket Banquet
           </label>
 
@@ -384,26 +1004,24 @@
             <select id="selectMasterMenuDropdown" class="inp-field" style="flex: 1;">
               <option value="">-- Pilih Menu / Paket --</option>
             </select>
-            <button type="button" class="btn-action" style="background: #0284c7; color: #fff; padding: 0 16px; min-height: 44px;" onclick="addCartItemFromDropdown()">
-              <i class="fa-solid fa-plus"></i> Tambah
+            <button type="button" class="btn-save" style="padding: 0 14px;" onclick="addCartItemFromDropdown()">
+              <i class="fa-solid fa-plus"></i>
             </button>
           </div>
 
           <div style="display: grid; grid-template-columns: 1.3fr 1.2fr auto; gap: 6px;">
-            <input type="text" id="customMenuName" class="inp-field" placeholder="Nama Menu Custom">
-            <input type="text" id="customMenuPrice" class="inp-field" placeholder="Harga (Cth: 500000)" onkeyup="formatCurrencyInput(this)">
-            <button type="button" class="btn-action" style="background: #9333ea; color: #fff; padding: 0 12px;" onclick="addCustomCartItem()">
-              <i class="fa-solid fa-plus"></i> Custom
+            <input type="text" id="customMenuName" class="inp-field" placeholder="Menu Custom">
+            <input type="text" id="customMenuPrice" class="inp-field" placeholder="Harga (500000)" onkeyup="formatCurrencyInput(this)">
+            <button type="button" class="btn-save" style="background: var(--purple-fdc); padding: 0 12px;" onclick="addCustomCartItem()">
+              <i class="fa-solid fa-plus"></i>
             </button>
           </div>
 
-          <div id="bookingCartItemsContainer" style="display: flex; flex-direction: column; gap: 6px; max-height: 150px; overflow-y: auto;">
-            <div style="font-size: 0.75rem; color: var(--text-muted); text-align: center; padding: 6px;">Belum ada menu dipilih.</div>
-          </div>
+          <div id="bookingCartItemsContainer" style="display: flex; flex-direction: column; gap: 6px; max-height: 140px; overflow-y: auto;"></div>
 
-          <div style="background: #ffffff; border: 1px solid #10b981; border-radius: 8px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;">
-            <span style="font-size: 0.78rem; font-weight: 700; color: #059669;">Total Estimasi Menu:</span>
-            <strong id="bookingCartTotalDisplay" style="font-size: 1rem; font-family: 'Cinzel', serif; color: #059669;">Rp 0</strong>
+          <div style="background: #ffffff; border: 1px solid #10b981; border-radius: 8px; padding: 8px 12px; display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 0.76rem; font-weight: 700; color: #059669;">Total Estimasi Menu:</span>
+            <strong id="bookingCartTotalDisplay" style="font-size: 0.95rem; color: #059669;">Rp 0</strong>
           </div>
         </div>
 
@@ -415,12 +1033,12 @@
           </div>
         </div>
 
-        <div style="background: #f8fafc; border: 1.5px dashed var(--header-bg); border-radius: 10px; padding: 12px; display: flex; justify-content: space-between; align-items: center;">
+        <div style="background: #f8fafc; border: 1.5px dashed var(--vhp-blue); border-radius: 10px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center;">
           <div>
-            <div style="font-size: 0.72rem; font-weight: 700; color: var(--header-bg); text-transform: uppercase;"><i class="fa-solid fa-scale-balanced"></i> Status Billing / Balance</div>
+            <div style="font-size: 0.7rem; font-weight: 800; color: var(--vhp-blue);">STATUS BILLING / BALANCE</div>
             <div style="font-size: 0.65rem; color: var(--text-muted);" id="balanceSubText">Total Konsumsi dikurangi DP</div>
           </div>
-          <strong id="bookingBalanceDisplay" style="font-size: 1.05rem; font-family: 'Cinzel', serif; color: #0f172a;">Rp 0</strong>
+          <strong id="bookingBalanceDisplay" style="font-size: 0.98rem;">Rp 0</strong>
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
@@ -439,25 +1057,18 @@
         </div>
 
         <div class="form-row">
-          <label><i class="fa-solid fa-calendar-days"></i> Waktu Input</label>
-          <input type="text" id="guestInputTimestamp" class="inp-field" readonly style="background: #f1f5f9;">
-        </div>
-
-        <div class="form-row">
           <label><i class="fa-solid fa-note-sticky"></i> Catatan Khusus / Tambahan</label>
-          <input type="text" id="guestNotes" class="inp-field" placeholder="Cth: Request kursi tambahan / alergi makanan...">
+          <input type="text" id="guestNotes" class="inp-field" placeholder="Cth: Request kursi tambahan / alergi...">
         </div>
       </div>
 
       <div class="modal-footer">
-        <button id="btnRemoveBooking" class="btn-modal-del" onclick="deleteBooking()" style="display: none;">
+        <button id="btnRemoveBooking" class="btn-del" onclick="deleteBooking()" style="display: none;">
           <i class="fa-solid fa-trash"></i> Hapus
         </button>
-        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-          <button type="button" class="btn-action" onclick="window.print()" style="background: #0284c7; color:#fff; min-height: 42px; padding: 8px 14px;">
-            <i class="fa-solid fa-file-pdf"></i> Cetak PDF
-          </button>
-          <button class="btn-modal-save" onclick="saveBooking()">
+        <div style="display: flex; gap: 8px; margin-left: auto;">
+          <button type="button" class="btn-vhp-outline" onclick="closeBookingModal()">Batal</button>
+          <button class="btn-save" onclick="saveBooking()">
             <i class="fa-solid fa-check"></i> Simpan ke Cloud
           </button>
         </div>
@@ -469,20 +1080,18 @@
   <div id="registrationModal" class="modal-backdrop">
     <div class="modal-container">
       <div class="modal-header">
-        <h3><i class="fa-solid fa-file-pen" style="color: var(--gold-primary);"></i> Input Meja Fleksibel</h3>
+        <h3><i class="fa-solid fa-file-pen"></i> Register Table Reservation</h3>
         <button class="btn-x" onclick="closeRegistrationModal()"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
       <div class="modal-body">
         <div class="form-row">
-          <label><i class="fa-solid fa-tag"></i> Pilih Nomor Meja *</label>
-          <select id="regTableIdSelect" class="inp-field">
-            <option value="">-- Pilih Meja --</option>
-          </select>
+          <label>Pilih Nomor Meja *</label>
+          <select id="regTableIdSelect" class="inp-field"></select>
         </div>
 
         <div class="form-row">
-          <label><i class="fa-solid fa-id-card" style="color: #0284c7;"></i> Tipe Tamu / Status</label>
+          <label>Tipe Tamu / Status</label>
           <select id="regGuestType" class="inp-field">
             <option value="Commercial Guest" selected>Tamu Komersial / Umum (Paid)</option>
             <option value="Compulsory In-House">Compulsory In-House Guest (Complimentary)</option>
@@ -490,23 +1099,23 @@
         </div>
 
         <div class="form-row">
-          <label><i class="fa-solid fa-user"></i> Nama Tamu *</label>
+          <label>Nama Tamu *</label>
           <input type="text" id="regGuestName" class="inp-field" placeholder="Contoh: Mr. John Doe">
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
           <div class="form-row">
-            <label><i class="fa-brands fa-whatsapp"></i> WhatsApp / No. Kamar *</label>
+            <label>WhatsApp / No. Kamar *</label>
             <input type="text" id="regGuestPhone" class="inp-field" placeholder="0812-xxxx-xxxx">
           </div>
           <div class="form-row">
-            <label><i class="fa-solid fa-users"></i> Jumlah Pax (&lt;10 Hijau, &ge;10 Merah)</label>
+            <label>Jumlah Pax (&lt;10 Hijau, ≥10 Merah)</label>
             <input type="number" id="regGuestPax" class="inp-field" value="10" min="1">
           </div>
         </div>
 
         <div class="form-row">
-          <label><i class="fa-solid fa-money-bill-wave" style="color: #059669;"></i> Nominal DP *</label>
+          <label>Nominal DP *</label>
           <div class="money-input-box">
             <span>Rp</span>
             <input type="text" id="regGuestDP" class="inp-field" placeholder="1.000.000" onkeyup="formatCurrencyInput(this)">
@@ -514,14 +1123,14 @@
         </div>
 
         <div class="form-row">
-          <label><i class="fa-solid fa-user-tag"></i> Created By (Staff) *</label>
+          <label>Created By (Staff) *</label>
           <input type="text" id="regGuestCreatedBy" class="inp-field" placeholder="Nama staff...">
         </div>
       </div>
 
       <div class="modal-footer">
-        <button class="btn-modal-del" style="background:#e2e8f0; color:#475569; border:none;" onclick="closeRegistrationModal()">Batal</button>
-        <button class="btn-modal-save" onclick="saveRegistrationBooking()">
+        <button class="btn-vhp-outline" onclick="closeRegistrationModal()">Batal</button>
+        <button class="btn-save" onclick="saveRegistrationBooking()">
           <i class="fa-solid fa-check"></i> Simpan Reservasi
         </button>
       </div>
@@ -532,19 +1141,17 @@
   <div id="masterMenuModal" class="modal-backdrop">
     <div class="modal-container">
       <div class="modal-header">
-        <h3 style="color: #b45309;"><i class="fa-solid fa-utensils"></i> Master Menu & Paket Banquet</h3>
+        <h3><i class="fa-solid fa-utensils"></i> Banquet Packages & Menu</h3>
         <button class="btn-x" onclick="closeMasterMenuModal()"><i class="fa-solid fa-xmark"></i></button>
       </div>
-
       <div class="modal-body">
         <div class="form-row">
-          <label><i class="fa-solid fa-tag"></i> Nama Menu / Paket *</label>
+          <label>Nama Menu / Paket *</label>
           <input type="text" id="menuItemName" class="inp-field" placeholder="Contoh: Paket VIP Gala Dinner">
         </div>
-
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
           <div class="form-row">
-            <label><i class="fa-solid fa-folder"></i> Kategori</label>
+            <label>Kategori</label>
             <select id="menuItemCategory" class="inp-field">
               <option value="Gala Dinner Package">Gala Dinner Package</option>
               <option value="Beverage & Wine">Beverage & Wine</option>
@@ -552,118 +1159,64 @@
             </select>
           </div>
           <div class="form-row">
-            <label><i class="fa-solid fa-money-bill"></i> Harga (IDR) *</label>
+            <label>Harga (IDR) *</label>
             <div class="money-input-box">
               <span>Rp</span>
               <input type="text" id="menuItemPrice" class="inp-field" placeholder="2.500.000" onkeyup="formatCurrencyInput(this)">
             </div>
           </div>
         </div>
-
-        <button class="btn-action btn-menu" style="width:100%; justify-content:center; margin-top:4px;" onclick="addMasterMenuItem()">
-          <i class="fa-solid fa-plus"></i> Tambah ke Master Menu
+        <button class="btn-save" style="width:100%; justify-content:center;" onclick="addMasterMenuItem()">
+          <i class="fa-solid fa-plus"></i> Tambah Paket
         </button>
-
-        <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 10px 0;">
-
-        <div style="font-size:0.8rem; font-weight:700; color:#334155; margin-bottom:4px;">Daftar Master Menu Aktif:</div>
-        <div id="masterMenuListContent" style="max-height: 180px; overflow-y: auto;"></div>
+        <div id="masterMenuListContent" style="max-height: 180px; overflow-y: auto; margin-top:6px;"></div>
       </div>
-
       <div class="modal-footer">
-        <button class="btn-modal-del" style="background:#e2e8f0; color:#475569; border:none;" onclick="closeMasterMenuModal()">Tutup</button>
+        <button class="btn-vhp-outline" onclick="closeMasterMenuModal()">Tutup</button>
       </div>
     </div>
   </div>
 
-  <!-- MODAL FDC -->
+  <!-- MODAL INPUT FDC -->
   <div id="fdcModal" class="modal-backdrop">
     <div class="modal-container">
-      <div class="modal-header">
-        <h3><i class="fa-solid fa-ticket" style="color: #9333ea;"></i> Input Tiket FDC (Standing Party)</h3>
+      <div class="modal-header" style="background: var(--purple-fdc);">
+        <h3><i class="fa-solid fa-ticket"></i> Input Tiket FDC (Standing Party)</h3>
         <button class="btn-x" onclick="closeFDCModal()"><i class="fa-solid fa-xmark"></i></button>
       </div>
-
       <div class="modal-body">
         <div class="form-row">
-          <label><i class="fa-solid fa-user"></i> Nama Tamu *</label>
+          <label>Nama Tamu *</label>
           <input type="text" id="fdcName" class="inp-field" placeholder="Nama pemesan FDC">
         </div>
-
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
           <div class="form-row">
-            <label><i class="fa-brands fa-whatsapp"></i> WhatsApp / HP *</label>
+            <label>WhatsApp / HP *</label>
             <input type="tel" id="fdcPhone" class="inp-field" placeholder="0812-xxxx-xxxx">
           </div>
           <div class="form-row">
-            <label><i class="fa-solid fa-users"></i> Jumlah Tiket (Pax) *</label>
+            <label>Jumlah Tiket (Pax) *</label>
             <input type="number" id="fdcPax" class="inp-field" value="1" min="1" oninput="calculateFDCAmount()">
           </div>
         </div>
-
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
           <div class="form-row">
-            <label><i class="fa-solid fa-money-bill-wave" style="color: #059669;"></i> Total FDC (@ Rp 150rb) *</label>
+            <label>Total FDC (@ Rp 150rb) *</label>
             <div class="money-input-box">
               <span>Rp</span>
               <input type="text" id="fdcAmount" class="inp-field" placeholder="150.000" onkeyup="formatCurrencyInput(this)">
             </div>
           </div>
           <div class="form-row">
-            <label><i class="fa-solid fa-user-tag"></i> Created By *</label>
+            <label>Created By *</label>
             <input type="text" id="fdcCreatedBy" class="inp-field" placeholder="Nama staff...">
           </div>
         </div>
       </div>
-
       <div class="modal-footer">
-        <button class="btn-modal-del" style="background:#e2e8f0; color:#475569; border:none;" onclick="closeFDCModal()">Batal</button>
-        <button class="btn-modal-save" style="background: #9333ea;" onclick="saveFDCBooking()">
+        <button class="btn-vhp-outline" onclick="closeFDCModal()">Batal</button>
+        <button class="btn-save" style="background: var(--purple-fdc);" onclick="saveFDCBooking()">
           <i class="fa-solid fa-check"></i> Simpan Tiket FDC
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL EXECUTIVE DASHBOARD -->
-  <div id="reportModal" class="modal-backdrop">
-    <div class="modal-container">
-      <div class="modal-header">
-        <h3><i class="fa-solid fa-chart-line" style="color: var(--header-bg);"></i> Event Executive Dashboard</h3>
-        <button class="btn-x" onclick="closeReportModal()"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-
-      <div class="modal-body">
-        <div class="dash-grid">
-          <div class="dash-card hero-card">
-            <div class="card-lbl"><i class="fa-solid fa-coins" style="color: var(--gold-primary);"></i> Total Gross Revenue (Meja + FDC)</div>
-            <div class="card-val" id="repTotalGross" style="color: #0f172a;">Rp 0</div>
-            <div class="card-sub">Akumulasi seluruh transaksi reservasi meja & tiket standing</div>
-          </div>
-
-          <div class="dash-card">
-            <div class="card-lbl"><i class="fa-solid fa-chair" style="color: #0284c7;"></i> Okupansi Meja Ballroom</div>
-            <div><span id="repTablesBooked" style="color: #0284c7; font-size: 1.25rem; font-weight: 800;">0</span> <span id="repTotalCap" style="font-size:0.75rem; color:var(--text-muted);">/ 35 Meja</span></div>
-            <div class="occupancy-bar-wrap">
-              <div id="repTablesBar" class="occupancy-bar"></div>
-            </div>
-            <div class="card-sub" style="margin-top: 4px;">
-              Tersisa Kosong: <strong id="repTablesLeft" style="color:#0284c7;">35</strong> Meja
-            </div>
-          </div>
-
-          <div class="dash-card">
-            <div class="card-lbl"><i class="fa-solid fa-ticket" style="color: #9333ea;"></i> FDC Standing Ticket</div>
-            <div class="card-val" id="repFDCPax" style="font-size: 1.05rem; color: #9333ea;">0 Pax</div>
-            <div class="card-sub" id="repFDCTotalRev">Rp 0 Total FDC Revenue</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="modal-footer">
-        <button class="btn-modal-del" style="background:#e2e8f0; color:#475569; border:none;" onclick="closeReportModal()">Tutup</button>
-        <button class="btn-action btn-csv" onclick="exportReservationsCSV()" style="background: #1e293b;">
-          <i class="fa-solid fa-download"></i> Unduh CSV
         </button>
       </div>
     </div>
@@ -672,18 +1225,16 @@
   <!-- MODAL DAFTAR FDC -->
   <div id="fdcListModal" class="modal-backdrop">
     <div class="modal-container">
-      <div class="modal-header">
-        <h3><i class="fa-solid fa-list-check" style="color: #9333ea;"></i> Daftar Pesanan FDC (Standing)</h3>
+      <div class="modal-header" style="background: var(--purple-fdc);">
+        <h3><i class="fa-solid fa-list-check"></i> Daftar Pesanan FDC (Standing)</h3>
         <button class="btn-x" onclick="closeFDCListModal()"><i class="fa-solid fa-xmark"></i></button>
       </div>
-
       <div class="modal-body" style="max-height: 60vh; overflow-y: auto;">
         <div id="fdcListContent"></div>
       </div>
-
       <div class="modal-footer">
-        <button class="btn-modal-del" style="background:#e2e8f0; color:#475569; border:none;" onclick="closeFDCListModal()">Tutup</button>
-        <button class="btn-action btn-fdc" onclick="closeFDCListModal(); openFDCBookingModal();">
+        <button class="btn-vhp-outline" onclick="closeFDCListModal()">Tutup</button>
+        <button class="btn-save" style="background: var(--purple-fdc);" onclick="closeFDCListModal(); openFDCBookingModal();">
           + Tambah FDC Baru
         </button>
       </div>
@@ -693,7 +1244,7 @@
   <!-- LOADER -->
   <div id="loaderOverlay" class="loader-overlay">
     <div class="spinner"></div>
-    <div style="color: #ffffff; font-weight: 700; font-size: 0.95rem;">Menyiapkan Gambar Denah JPG...</div>
+    <div style="color: #ffffff; font-weight: 700; font-size: 0.9rem;">Memproses Gambar Denah JPG...</div>
   </div>
 
   <script>
@@ -703,60 +1254,59 @@
     const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     const FDC_DEFAULT_PRICE = 150000;
 
-    // KOORDINAT & NOMOR MEJA SESUAI GAMBAR DENAH (35 MEJA)
-    const DEFAULT_TABLE_CONFIGS = {
+    // KOORDINAT TITIK PUSAT (CENTER X/Y) PRESISI SESUAI LINGKARAN PUTIH DI DENAH.PNG (TERKUNCI PERMANEN)
+    const LOCKED_TABLE_CONFIGS = {
       // AREA ATAS
-      '8':   { top: 19.5, left: 32.8, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
-      '6':   { top: 26.0, left: 34.4, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
-      '2':   { top: 32.0, left: 33.4, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
-      
-      '10':  { top: 20.0, left: 42.6, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
-      '12':  { top: 31.8, left: 42.2, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
-      
-      '16':  { top: 20.5, left: 50.8, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
-      '18':  { top: 27.6, left: 50.6, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
-      
-      '22':  { top: 20.8, left: 58.6, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
-      '20':  { top: 28.0, left: 58.6, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
-      
-      '24':  { top: 20.8, left: 66.8, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
-      '26':  { top: 32.0, left: 67.2, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
-      
-      '32A': { top: 20.8, left: 73.8, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
-      '30A': { top: 26.8, left: 73.8, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
-      '28':  { top: 32.2, left: 74.8, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
-      
-      '32B': { top: 21.4, left: 80.8, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
-      '30B': { top: 32.2, left: 83.2, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
+      '8':   { top: 15.8, left: 22.1, type: 'Banquet Table', pax: 10 },
+      '6':   { top: 22.8, left: 23.8, type: 'Banquet Table', pax: 10 },
+      '2':   { top: 29.4, left: 23.0, type: 'Banquet Table', pax: 10 },
+
+      '10':  { top: 16.0, left: 34.4, type: 'Banquet Table', pax: 10 },
+      '12':  { top: 29.3, left: 34.2, type: 'Banquet Table', pax: 10 },
+
+      '16':  { top: 16.5, left: 44.8, type: 'Banquet Table', pax: 10 },
+      '18':  { top: 24.4, left: 44.8, type: 'Banquet Table', pax: 10 },
+
+      '22':  { top: 16.5, left: 54.8, type: 'Banquet Table', pax: 10 },
+      '20':  { top: 24.8, left: 55.2, type: 'Banquet Table', pax: 10 },
+
+      '24':  { top: 16.5, left: 65.0, type: 'Banquet Table', pax: 10 },
+      '26':  { top: 28.8, left: 66.0, type: 'Banquet Table', pax: 10 },
+
+      '32A': { top: 16.5, left: 74.8, type: 'Banquet Table', pax: 10 },
+      '30A': { top: 23.2, left: 75.4, type: 'Banquet Table', pax: 10 },
+      '28':  { top: 29.8, left: 76.9, type: 'Banquet Table', pax: 10 },
+
+      '32B': { top: 17.6, left: 84.3, type: 'Banquet Table', pax: 10 },
+      '30B': { top: 29.6, left: 87.2, type: 'Banquet Table', pax: 10 },
 
       // AREA BAWAH
-      '1':   { top: 50.5, left: 32.4, w: 3.6, h: 5.6, type: 'VIP Stage Side', pax: 10 },
-      '7':   { top: 50.5, left: 41.4, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
-      '13':  { top: 50.5, left: 50.4, w: 3.6, h: 5.6, type: 'VIP Center', pax: 10 },
-      '17':  { top: 50.5, left: 59.2, w: 3.6, h: 5.6, type: 'VIP Center', pax: 10 },
-      '37':  { top: 50.2, left: 68.2, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
-      '35':  { top: 50.5, left: 77.2, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
-      '33':  { top: 50.2, left: 86.2, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
+      '1':   { top: 49.6, left: 21.6, type: 'VIP Stage Side', pax: 10 },
+      '7':   { top: 49.6, left: 33.4, type: 'Banquet Table', pax: 10 },
+      '13':  { top: 49.6, left: 45.0, type: 'VIP Center', pax: 10 },
+      '17':  { top: 49.6, left: 56.6, type: 'VIP Center', pax: 10 },
+      '37':  { top: 49.4, left: 68.3, type: 'Banquet Table', pax: 10 },
+      '35':  { top: 49.6, left: 79.8, type: 'Banquet Table', pax: 10 },
+      '33':  { top: 49.4, left: 91.3, type: 'Banquet Table', pax: 10 },
 
-      '3':   { top: 61.5, left: 31.8, w: 3.6, h: 5.6, type: 'VIP Stage Side', pax: 10 },
-      '9':   { top: 61.5, left: 41.2, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
-      '15':  { top: 73.2, left: 50.4, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
-      '21':  { top: 61.5, left: 68.8, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
-      '25':  { top: 61.8, left: 78.2, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
-      '31':  { top: 61.5, left: 87.6, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
+      '3':   { top: 61.8, left: 20.4, type: 'VIP Stage Side', pax: 10 },
+      '9':   { top: 61.8, left: 32.6, type: 'Banquet Table', pax: 10 },
+      '21':  { top: 61.8, left: 69.5, type: 'Banquet Table', pax: 10 },
+      '25':  { top: 62.0, left: 81.8, type: 'Banquet Table', pax: 10 },
+      '31':  { top: 61.8, left: 93.8, type: 'Banquet Table', pax: 10 },
 
-      '5':   { top: 73.2, left: 31.0, w: 3.6, h: 5.6, type: 'VIP Stage Side', pax: 10 },
-      '11':  { top: 73.2, left: 40.6, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
-      '19':  { top: 73.2, left: 60.0, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
-      '23':  { top: 73.2, left: 69.6, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
-      '27':  { top: 73.2, left: 79.2, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
-      '29':  { top: 73.2, left: 88.8, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 }
+      '5':   { top: 75.0, left: 19.0, type: 'VIP Stage Side', pax: 10 },
+      '11':  { top: 75.0, left: 31.8, type: 'Banquet Table', pax: 10 },
+      '15':  { top: 75.0, left: 44.6, type: 'Banquet Table', pax: 10 },
+      '19':  { top: 75.0, left: 57.5, type: 'Banquet Table', pax: 10 },
+      '23':  { top: 75.0, left: 70.4, type: 'Banquet Table', pax: 10 },
+      '27':  { top: 75.0, left: 83.4, type: 'Banquet Table', pax: 10 },
+      '29':  { top: 75.0, left: 96.3, type: 'Banquet Table', pax: 10 }
     };
 
-    const ALL_TABLE_IDS = Object.keys(DEFAULT_TABLE_CONFIGS);
+    const ALL_TABLE_IDS = Object.keys(LOCKED_TABLE_CONFIGS);
     const TOTAL_TABLES_COUNT = ALL_TABLE_IDS.length;
 
-    let tableConfigs = {};
     let bookings = {};
     let fdcBookings = [];
     let masterMenu = [
@@ -768,158 +1318,61 @@
     let currentTable = null;
     let zoomLevel = 1.0;
 
+    // LIVE WITA CLOCK
+    function startLiveClock() {
+      const clockEl = document.getElementById('liveWitaClock');
+      setInterval(() => {
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString('en-GB', { timeZone: 'Asia/Makassar' });
+        if (clockEl) clockEl.innerText = `${timeStr} WITA`;
+      }, 1000);
+    }
+
     function setCloudStatus(isConnected, msg) {
       const el = document.getElementById('cloudStatusBadge');
       if (!el) return;
       if (isConnected) {
-        el.style.color = '#059669';
-        el.innerHTML = `<i class="fa-solid fa-cloud-check"></i> ${msg || 'Cloud Terhubung'}`;
+        el.classList.remove('error');
+        el.innerHTML = `<i class="fa-solid fa-circle"></i> ${msg || 'Synced + Supabase Cloud'}`;
       } else {
-        el.style.color = '#dc2626';
-        el.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> ${msg || 'Gagal Terhubung ke Cloud'}`;
+        el.classList.add('error');
+        el.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> ${msg || 'Database Error'}`;
       }
     }
 
     window.addEventListener('DOMContentLoaded', async () => {
-      document.getElementById('statTotalTables').innerText = ' / ' + TOTAL_TABLES_COUNT;
-      document.getElementById('repTotalCap').innerText = '/ ' + TOTAL_TABLES_COUNT + ' Meja';
-      await loadTableConfigsFromCloud();
-      renderHotspots();
+      startLiveClock();
+      document.getElementById('statTotalTables').innerText = TOTAL_TABLES_COUNT;
+      renderLockedHotspots();
       await fetchAllCloudData();
       subscribeRealtime();
     });
 
-    async function loadTableConfigsFromCloud() {
-      try {
-        const { data, error } = await _supabase.from('kq_table_positions').select('*');
-        if (!error && data && data.length > 0) {
-          data.forEach(row => {
-            const tid = String(row.table_id).trim();
-            if (DEFAULT_TABLE_CONFIGS[tid]) {
-              tableConfigs[tid] = {
-                id: tid,
-                top: Number(row.top),
-                left: Number(row.left),
-                w: Number(row.w),
-                h: Number(row.h),
-                type: DEFAULT_TABLE_CONFIGS[tid].type,
-                pax: DEFAULT_TABLE_CONFIGS[tid].pax
-              };
-            }
-          });
-        }
-      } catch (err) {
-        console.warn('Tabel kq_table_positions belum siap:', err);
-      }
-
-      ALL_TABLE_IDS.forEach(id => {
-        if (!tableConfigs[id]) {
-          tableConfigs[id] = { id, ...DEFAULT_TABLE_CONFIGS[id] };
-        }
-      });
-    }
-
-    async function saveTableConfigToCloud(id) {
-      const t = tableConfigs[id];
-      if (!t) return;
-      try {
-        await _supabase.from('kq_table_positions').upsert({
-          table_id: String(id),
-          top: t.top, left: t.left, w: t.w, h: t.h
-        }, { onConflict: 'table_id' });
-      } catch (err) {
-        console.error('Gagal simpan posisi meja:', err);
-      }
-    }
-
-    async function resetHotspotsPosition() {
-      if (confirm('Kembalikan posisi semua nomor meja ke posisi awal denah?')) {
-        try { await _supabase.from('kq_table_positions').delete().neq('table_id', 'XXX'); } catch(e) {}
-        tableConfigs = {};
-        ALL_TABLE_IDS.forEach(id => {
-          tableConfigs[id] = { id, ...DEFAULT_TABLE_CONFIGS[id] };
-          saveTableConfigToCloud(id);
-        });
-        renderHotspots();
-        refreshMapNodes();
-      }
-    }
-
-    function renderHotspots() {
+    // RENDER HOTSPOT TERKUNCI (TANPA EVENT DRAG/GESER)
+    function renderLockedHotspots() {
       const layer = document.getElementById('hotspotsLayer');
       let html = '';
       ALL_TABLE_IDS.forEach(id => {
-        const t = tableConfigs[id] || DEFAULT_TABLE_CONFIGS[id];
-        if (!t) return;
+        const t = LOCKED_TABLE_CONFIGS[id];
         const labelText = id.replace(/[AB]/g, '');
         html += `
-          <div id="spot-${id}" class="spot" 
-               style="top: ${t.top}%; left: ${t.left}%; width: ${t.w}%; height: ${t.h}%;"
+          <div id="spot-${id}" class="spot"
+               style="top: ${t.top}%; left: ${t.left}%;"
                data-id="${id}"
-               onmousedown="initDrag(event, '${id}')"
-               ontouchstart="initDrag(event, '${id}')"
-               onclick="handleSpotClick(event, '${id}')">
+               onclick="openBooking('${id}', '${t.type}', ${t.pax})">
             <span>${labelText}</span>
-            <span class="pax-badge" id="badge-${id}"></span>
+            <span class="pax-tag" id="badge-${id}"></span>
           </div>
         `;
       });
       layer.innerHTML = html;
     }
 
-    let draggingId = null, startX = 0, startY = 0, origTop = 0, origLeft = 0, hasDragged = false;
-
-    function initDrag(e, id) {
-      draggingId = id;
-      hasDragged = false;
-      const t = tableConfigs[id] || DEFAULT_TABLE_CONFIGS[id];
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-      startX = clientX; startY = clientY;
-      origTop = t.top; origLeft = t.left;
-      document.addEventListener('mousemove', onDragging);
-      document.addEventListener('mouseup', stopDragging);
-      document.addEventListener('touchmove', onDragging, {passive: false});
-      document.addEventListener('touchend', stopDragging);
-    }
-
-    function onDragging(e) {
-      if (!draggingId) return;
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-      if (Math.abs(clientX - startX) > 4 || Math.abs(clientY - startY) > 4) hasDragged = true;
-      if (!hasDragged) return;
-      e.preventDefault();
-      const frame = document.getElementById('mapFrame').getBoundingClientRect();
-      const deltaX = ((clientX - startX) / frame.width) * 100;
-      const deltaY = ((clientY - startY) / frame.height) * 100;
-      const t = tableConfigs[draggingId];
-      t.top = Math.max(0, Math.min(95, origTop + deltaY));
-      t.left = Math.max(0, Math.min(95, origLeft + deltaX));
-      const el = document.getElementById(`spot-${draggingId}`);
-      if (el) { el.style.top = t.top + '%'; el.style.left = t.left + '%'; }
-    }
-
-    function stopDragging() {
-      if (draggingId && hasDragged) saveTableConfigToCloud(draggingId);
-      draggingId = null;
-      document.removeEventListener('mousemove', onDragging);
-      document.removeEventListener('mouseup', stopDragging);
-      document.removeEventListener('touchmove', onDragging);
-      document.removeEventListener('touchend', stopDragging);
-    }
-
-    function handleSpotClick(e, id) {
-      if (hasDragged) return;
-      const t = tableConfigs[id] || DEFAULT_TABLE_CONFIGS[id];
-      openBooking(id, t.type, t.pax);
-    }
-
     async function fetchAllCloudData() {
       try {
         const { data: tableData, error: tableErr } = await _supabase.from('kq_table_bookings').select('*');
         if (tableErr) {
-          setCloudStatus(false, 'Error DB: ' + tableErr.message);
+          setCloudStatus(false, 'DB Error: ' + tableErr.message);
           return;
         }
 
@@ -929,12 +1382,21 @@
             const tid = String(row.table_id).trim();
             let parsedCart = [];
             try { if (row.cart_items) parsedCart = JSON.parse(row.cart_items); } catch(e){}
+            const rawNotes = row.notes || '';
+            const isCompulsory = rawNotes.includes('[COMPULSORY IN-HOUSE');
+
             bookings[tid] = {
-              name: row.guest_name, phone: row.guest_phone, pax: Number(row.pax) || 0,
-              dp: Number(row.dp), balance: Number(row.balance || 0),
-              time: row.arrival_time, notes: row.notes, cart_items: parsedCart,
-              created_by: row.created_by || '', timestamp: row.timestamp || '-',
-              guest_type: row.guest_type || 'Commercial Guest'
+              name: row.guest_name,
+              phone: row.guest_phone,
+              pax: Number(row.pax) || 0,
+              dp: Number(row.dp) || 0,
+              balance: Number(row.balance || 0),
+              time: row.arrival_time,
+              notes: rawNotes,
+              cart_items: parsedCart,
+              created_by: row.created_by || '',
+              timestamp: row.timestamp || '-',
+              guest_type: isCompulsory ? 'Compulsory In-House' : 'Commercial Guest'
             };
           });
         }
@@ -947,11 +1409,12 @@
           }));
         }
 
-        setCloudStatus(true, 'Sinkronisasi Cloud Aktif');
+        setCloudStatus(true, 'Synced + Supabase Cloud');
         refreshMapNodes();
         updateMetrics();
+        renderDirectoryTable();
       } catch (err) {
-        setCloudStatus(false, 'Koneksi Cloud Terputus');
+        setCloudStatus(false, 'Offline / Koneksi Terputus');
       }
     }
 
@@ -967,13 +1430,13 @@
       document.querySelectorAll('.spot').forEach(spot => {
         const id = spot.dataset.id;
         const badge = document.getElementById(`badge-${id}`);
-        spot.classList.remove('is-booked', 'is-partial');
+        spot.classList.remove('is-full', 'is-partial');
         if (badge) badge.innerText = '';
 
         if (bookings[id]) {
           const pax = Number(bookings[id].pax) || 0;
           if (pax >= 10) {
-            spot.classList.add('is-booked'); // Merah
+            spot.classList.add('is-full'); // Merah
             if (badge) badge.innerText = `${pax}p`;
           } else if (pax > 0) {
             spot.classList.add('is-partial'); // Hijau
@@ -989,26 +1452,66 @@
       let fullCount = 0;
       let tableDP = 0;
 
-      bookedKeys.forEach(k => { 
+      bookedKeys.forEach(k => {
         const pax = Number(bookings[k].pax) || 0;
         if (pax >= 10) fullCount++;
         else if (pax > 0) partialCount++;
 
         if (bookings[k].guest_type !== 'Compulsory In-House') {
-          tableDP += (bookings[k].dp || 0); 
+          tableDP += (bookings[k].dp || 0);
         }
       });
 
       let fdcPaxTotal = 0, fdcAmountTotal = 0;
       fdcBookings.forEach(item => { fdcPaxTotal += (item.pax || 0); fdcAmountTotal += (item.amount || 0); });
 
+      const availCount = TOTAL_TABLES_COUNT - bookedKeys.length;
       document.getElementById('statTablesBooked').innerText = bookedKeys.length;
+      document.getElementById('statTablesAvail').innerText = availCount;
+      document.getElementById('statPartialCount').innerText = `${partialCount} Meja`;
+      document.getElementById('statFullCount').innerText = `${fullCount} Meja`;
       document.getElementById('statFDCPaxTotal').innerText = fdcPaxTotal;
       document.getElementById('statDPTotal').innerText = 'Rp ' + (tableDP + fdcAmountTotal).toLocaleString('id-ID');
-      
-      document.getElementById('legendAvailText').innerText = `Kosong: ${TOTAL_TABLES_COUNT - bookedKeys.length}`;
-      document.getElementById('legendPartialText').innerText = `Terisi <10 Pax: ${partialCount}`;
-      document.getElementById('legendBookedText').innerText = `Penuh (≥10 Pax): ${fullCount}`;
+
+      document.getElementById('topPillBooked').innerText = bookedKeys.length;
+      document.getElementById('topPillFDC').innerText = fdcPaxTotal;
+      document.getElementById('tabGuestCount').innerText = bookedKeys.length;
+
+      document.getElementById('legendAvailText').innerText = `Kosong: ${availCount}`;
+      document.getElementById('legendPartialText').innerText = `Terisi <10 Pax (Hijau): ${partialCount}`;
+      document.getElementById('legendBookedText').innerText = `Penuh ≥10 Pax (Merah): ${fullCount}`;
+    }
+
+    function renderDirectoryTable() {
+      const tbody = document.getElementById('guestDirectoryBody');
+      const bookedKeys = ALL_TABLE_IDS.filter(k => bookings[k]);
+      if (bookedKeys.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:#64748b; padding:18px;">Belum ada reservasi meja terdaftar. Klik nomor meja di denah untuk memulai.</td></tr>`;
+        return;
+      }
+
+      let html = '';
+      bookedKeys.forEach(id => {
+        const b = bookings[id];
+        const t = LOCKED_TABLE_CONFIGS[id];
+        const isFull = Number(b.pax) >= 10;
+        const badgeHtml = isFull
+          ? `<span class="status-pill red">Penuh (${b.pax} Pax)</span>`
+          : `<span class="status-pill green">Terisi ${b.pax}/10 Pax</span>`;
+
+        html += `
+          <tr style="cursor:pointer;" onclick="openBooking('${id}', '${t.type}', ${t.pax})">
+            <td><strong>#${id}</strong></td>
+            <td>${badgeHtml}</td>
+            <td><strong>${b.name}</strong></td>
+            <td>${b.phone || '-'}</td>
+            <td><strong>${b.pax}</strong> Pax</td>
+            <td style="color:#059669; font-weight:700;">Rp ${(b.dp || 0).toLocaleString('id-ID')}</td>
+            <td>${b.created_by || '-'}</td>
+          </tr>
+        `;
+      });
+      tbody.innerHTML = html;
     }
 
     function updatePaxColorHint() {
@@ -1079,16 +1582,23 @@
       const now = new Date();
       const timestamp = `${now.toLocaleDateString('id-ID')} - ${now.toLocaleTimeString('id-ID')} WITA`;
 
+      // Payload bebas error schema (tanpa kolom guest_type terpisah)
       const payload = {
-        table_id: String(tid), guest_name: name, guest_phone: phone, pax: pax,
-        dp: dp, balance: 0, arrival_time: '19:00 WITA', created_by: staff, timestamp: timestamp, 
-        notes: gType === 'Compulsory In-House' ? 'Compulsory In-House (Room No: ' + phone + ')' : 'Registrasi Cepat',
-        guest_type: gType
+        table_id: String(tid),
+        guest_name: name,
+        guest_phone: phone,
+        pax: pax,
+        dp: dp,
+        balance: 0,
+        arrival_time: '19:00 WITA',
+        created_by: staff,
+        timestamp: timestamp,
+        notes: gType === 'Compulsory In-House' ? `[COMPULSORY IN-HOUSE - Room: ${phone}]` : 'Registrasi Cepat'
       };
 
       const { error } = await _supabase.from('kq_table_bookings').upsert(payload, { onConflict: 'table_id' });
       if (error) {
-        alert('Gagal menyimpan ke Supabase: ' + error.message);
+        alert('Gagal menyimpan ke database: ' + error.message);
         return;
       }
       closeRegistrationModal();
@@ -1103,8 +1613,6 @@
 
       const data = bookings[tableId];
       const btnDel = document.getElementById('btnRemoveBooking');
-      const now = new Date();
-      document.getElementById('guestInputTimestamp').value = `${now.toLocaleDateString('id-ID')} - ${now.toLocaleTimeString('id-ID')} WITA`;
 
       if (data) {
         document.getElementById('guestType').value = data.guest_type || 'Commercial Guest';
@@ -1115,7 +1623,7 @@
         document.getElementById('guestDP').value = data.dp ? parseInt(data.dp, 10).toLocaleString('id-ID') : '';
         document.getElementById('guestTime').value = data.time || '19:00 WITA';
         document.getElementById('guestCreatedBy').value = data.created_by || '';
-        document.getElementById('guestNotes').value = data.notes || '';
+        document.getElementById('guestNotes').value = (data.notes || '').replace(/^\[COMPULSORY IN-HOUSE[^\]]*\]\s*/, '');
         if (data.cart_items) currentCart = JSON.parse(JSON.stringify(data.cart_items));
         btnDel.style.display = 'inline-flex';
       } else {
@@ -1183,7 +1691,7 @@
       const container = document.getElementById('bookingCartItemsContainer');
       const totalDisplay = document.getElementById('bookingCartTotalDisplay');
       if (currentCart.length === 0) {
-        container.innerHTML = '<div style="font-size:0.75rem; color:var(--text-muted); text-align:center; padding:6px;">Belum ada menu dipilih.</div>';
+        container.innerHTML = '<div style="font-size:0.74rem; color:var(--text-muted); text-align:center; padding:4px;">Belum ada menu dipilih.</div>';
         totalDisplay.innerText = 'Rp 0';
         updateBalanceDisplay();
         return;
@@ -1193,15 +1701,15 @@
         const subtotal = item.price * item.qty;
         grandTotal += subtotal;
         html += `
-          <div style="background:#ffffff; border:1px solid var(--border-color); border-radius:8px; padding:8px 10px; display:flex; justify-content:space-between; align-items:center;">
+          <div style="background:#ffffff; border:1px solid var(--border-color); border-radius:8px; padding:6px 10px; display:flex; justify-content:space-between; align-items:center;">
             <div>
-              <strong style="color:#0f172a; font-size:0.8rem;">${item.name}</strong>
-              <div style="font-size:0.7rem; color:#059669;">Rp ${item.price.toLocaleString('id-ID')} × ${item.qty} = <strong>Rp ${subtotal.toLocaleString('id-ID')}</strong></div>
+              <strong style="font-size:0.78rem;">${item.name}</strong>
+              <div style="font-size:0.68rem; color:#059669;">Rp ${item.price.toLocaleString('id-ID')} × ${item.qty}</div>
             </div>
             <div style="display:flex; align-items:center; gap:6px;">
-              <button type="button" onclick="changeCartQty('${item.id}', -1)" style="background:#e2e8f0; border:none; width:24px; height:24px; border-radius:4px; cursor:pointer;"><i class="fa-solid fa-minus" style="font-size:0.65rem;"></i></button>
-              <span style="font-size:0.8rem; font-weight:700; width:16px; text-align:center;">${item.qty}</span>
-              <button type="button" onclick="changeCartQty('${item.id}', 1)" style="background:#e2e8f0; border:none; width:24px; height:24px; border-radius:4px; cursor:pointer;"><i class="fa-solid fa-plus" style="font-size:0.65rem;"></i></button>
+              <button type="button" onclick="changeCartQty('${item.id}', -1)" style="background:#e2e8f0; border:none; width:24px; height:24px; border-radius:4px; cursor:pointer;">-</button>
+              <span style="font-size:0.8rem; font-weight:700;">${item.qty}</span>
+              <button type="button" onclick="changeCartQty('${item.id}', 1)" style="background:#e2e8f0; border:none; width:24px; height:24px; border-radius:4px; cursor:pointer;">+</button>
             </div>
           </div>
         `;
@@ -1217,7 +1725,7 @@
       const subTextEl = document.getElementById('balanceSubText');
 
       if (gType === 'Compulsory In-House') {
-        balanceEl.innerHTML = `<span style="color:#0284c7; font-weight:700;">COMPULSORY IN-HOUSE</span>`;
+        balanceEl.innerHTML = `<span style="color:var(--vhp-blue); font-weight:800;">COMPULSORY IN-HOUSE</span>`;
         subTextEl.innerText = 'Fasilitas kamar hotel (Complimentary)';
         return;
       }
@@ -1228,7 +1736,7 @@
       const dp = rawDP ? parseInt(rawDP, 10) : 0;
       const balance = totalKonsumsi - dp;
       if (balance > 0) balanceEl.innerHTML = `<span style="color:#ef4444;">Kurang Rp ${balance.toLocaleString('id-ID')}</span>`;
-      else if (balance < 0) balanceEl.innerHTML = `<span style="color:#059669;">Kembalian Rp ${Math.abs(balance).toLocaleString('id-ID')}</span>`;
+      else if (balance < 0) balanceEl.innerHTML = `<span style="color:#059669;">Lebih DP Rp ${Math.abs(balance).toLocaleString('id-ID')}</span>`;
       else balanceEl.innerHTML = `<span style="color:#059669;">LUNAS (Rp 0)</span>`;
     }
 
@@ -1246,20 +1754,30 @@
       if (!name) { alert('Masukkan nama tamu.'); return; }
       localStorage.setItem('last_staff_name', staff);
 
+      const now = new Date();
+      const timestamp = `${now.toLocaleDateString('id-ID')} - ${now.toLocaleTimeString('id-ID')} WITA`;
+
       let finalNotes = document.getElementById('guestNotes').value.trim();
       if (gType === 'Compulsory In-House') {
-        finalNotes = '[COMPULSORY IN-HOUSE - Room: ' + phone + '] ' + finalNotes;
+        finalNotes = `[COMPULSORY IN-HOUSE - Room: ${phone}] ${finalNotes}`.trim();
       } else {
-        let menuSummary = currentCart.map(c => `${c.name} (${c.qty}x)`).join(', ');
+        const menuSummary = currentCart.map(c => `${c.name} (${c.qty}x)`).join(', ');
         finalNotes = menuSummary ? (menuSummary + (finalNotes ? ' | ' + finalNotes : '')) : finalNotes;
       }
 
+      // Payload aman sesuai skema tabel Supabase
       const payload = {
-        table_id: String(currentTable), guest_name: name, guest_phone: phone,
-        pax: pax, dp: dp, balance: balance, arrival_time: document.getElementById('guestTime').value,
-        created_by: staff, timestamp: document.getElementById('guestInputTimestamp').value,
-        notes: finalNotes, cart_items: JSON.stringify(currentCart),
-        guest_type: gType
+        table_id: String(currentTable),
+        guest_name: name,
+        guest_phone: phone,
+        pax: pax,
+        dp: dp,
+        balance: balance,
+        arrival_time: document.getElementById('guestTime').value,
+        created_by: staff,
+        timestamp: timestamp,
+        notes: finalNotes,
+        cart_items: JSON.stringify(currentCart)
       };
 
       const { error } = await _supabase.from('kq_table_bookings').upsert(payload, { onConflict: 'table_id' });
@@ -1301,9 +1819,9 @@
       const container = document.getElementById('masterMenuListContent');
       let html = '';
       masterMenu.forEach(item => {
-        html += `<div style="background:#fff; border:1px solid var(--border-color); border-radius:6px; padding:8px; margin-bottom:4px; display:flex; justify-content:space-between; align-items:center;">
+        html += `<div style="background:#f8fafc; border:1px solid var(--border-color); border-radius:6px; padding:8px; margin-bottom:4px; display:flex; justify-content:space-between; align-items:center;">
           <div><strong>${item.name}</strong><br><small style="color:var(--text-muted);">${item.category} | Rp ${item.price.toLocaleString('id-ID')}</small></div>
-          <button onclick="masterMenu = masterMenu.filter(m => m.id !== ${item.id}); renderMasterMenuList();" style="background:#fee2e2; border:none; color:#991b1b; width:24px; height:24px; border-radius:4px; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+          <button onclick="masterMenu = masterMenu.filter(m => m.id !== ${item.id}); renderMasterMenuList();" style="background:#fee2e2; border:none; color:#b91c1c; width:26px; height:26px; border-radius:4px; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
         </div>`;
       });
       container.innerHTML = html;
@@ -1322,7 +1840,8 @@
       if (!name) return;
       const payload = {
         id: 'KQ-FDC-' + Date.now().toString().slice(-6),
-        guest_name: name, guest_phone: document.getElementById('fdcPhone').value,
+        guest_name: name,
+        guest_phone: document.getElementById('fdcPhone').value,
         pax: parseInt(document.getElementById('fdcPax').value, 10) || 1,
         amount: rawAmt ? parseInt(rawAmt, 10) : FDC_DEFAULT_PRICE,
         created_by: document.getElementById('fdcCreatedBy').value
@@ -1340,9 +1859,9 @@
       const container = document.getElementById('fdcListContent');
       let html = '';
       fdcBookings.forEach(item => {
-        html += `<div style="background:#fff; border:1px solid var(--border-color); border-radius:8px; padding:10px; margin-bottom:6px; display:flex; justify-content:space-between; align-items:center;">
-          <div><strong style="color:#9333ea;">${item.name}</strong> (${item.pax} Pax)<br><small>Rp ${(item.amount||0).toLocaleString('id-ID')}</small></div>
-          <button onclick="deleteFDC('${item.id}')" style="background:#fee2e2; border:none; color:#991b1b; width:26px; height:26px; border-radius:4px; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+        html += `<div style="background:#f8fafc; border:1px solid var(--border-color); border-radius:8px; padding:10px; margin-bottom:6px; display:flex; justify-content:space-between; align-items:center;">
+          <div><strong style="color:var(--purple-fdc);">${item.name}</strong> (${item.pax} Pax)<br><small>Rp ${(item.amount||0).toLocaleString('id-ID')}</small></div>
+          <button onclick="deleteFDC('${item.id}')" style="background:#fee2e2; border:none; color:#b91c1c; width:28px; height:28px; border-radius:4px; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
         </div>`;
       });
       container.innerHTML = html || '<div style="text-align:center; color:var(--text-muted); padding:20px;">Belum ada pesanan FDC.</div>';
@@ -1350,28 +1869,6 @@
     }
     function closeFDCListModal() { document.getElementById('fdcListModal').classList.remove('open'); }
     async function deleteFDC(id) { await _supabase.from('kq_fdc_bookings').delete().eq('id', id); openFDCListModal(); await fetchAllCloudData(); }
-
-    function openReportModal() {
-      const bookedKeys = ALL_TABLE_IDS.filter(k => bookings[k]);
-      let tableRev = 0;
-      bookedKeys.forEach(k => { 
-        if (bookings[k].guest_type !== 'Compulsory In-House') {
-          tableRev += (bookings[k].dp || 0); 
-        }
-      });
-      let fdcRev = 0, fdcPax = 0;
-      fdcBookings.forEach(f => { fdcRev += (f.amount || 0); fdcPax += (f.pax || 0); });
-      const grandGross = tableRev + fdcRev;
-
-      document.getElementById('repTotalGross').innerText = 'Rp ' + grandGross.toLocaleString('id-ID');
-      document.getElementById('repTablesBooked').innerText = bookedKeys.length;
-      document.getElementById('repTablesLeft').innerText = TOTAL_TABLES_COUNT - bookedKeys.length;
-      document.getElementById('repTablesBar').style.width = Math.round((bookedKeys.length / TOTAL_TABLES_COUNT) * 100) + '%';
-      document.getElementById('repFDCPax').innerText = fdcPax + ' Pax';
-      document.getElementById('repFDCTotalRev').innerText = 'Rp ' + fdcRev.toLocaleString('id-ID') + ' Total FDC Revenue';
-      document.getElementById('reportModal').classList.add('open');
-    }
-    function closeReportModal() { document.getElementById('reportModal').classList.remove('open'); }
 
     function formatCurrencyInput(el) {
       let val = el.value.replace(/[^0-9]/g, '');
@@ -1391,7 +1888,7 @@
         link.href = canvas.toDataURL('image/jpeg', 0.92);
         link.click();
       } catch (err) {
-        alert('Gagal mengekspor gambar. Pastikan gambar denah diakses melalui web server/hosting.');
+        alert('Gagal mengekspor gambar.');
       } finally {
         mapEl.style.transform = savedTransform;
         loader.style.display = 'none';
@@ -1403,7 +1900,7 @@
       Object.keys(bookings).forEach(k => {
         const b = bookings[k];
         const statusWarna = (Number(b.pax) >= 10) ? 'Merah (Penuh)' : 'Hijau (<10 Pax)';
-        csv += `"${k}","${statusWarna}","${b.guest_type || 'Commercial'}","${b.name}","${b.phone}","${b.pax}","${b.dp}","${b.balance}","${b.time}","${b.created_by}","${(b.notes||'').replace(/"/g, '""')}"\n`;
+        csv += `"${k}","${statusWarna}","${b.guest_type}","${b.name}","${b.phone}","${b.pax}","${b.dp}","${b.balance}","${b.time}","${b.created_by}","${(b.notes||'').replace(/"/g, '""')}"\n`;
       });
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const a = document.createElement('a');
@@ -1412,16 +1909,14 @@
       a.click();
     }
 
-    function zoomMap(delta) { zoomLevel = Math.max(0.6, Math.min(2.2, zoomLevel + delta)); applyTransform(); }
+    function zoomMap(delta) { zoomLevel = Math.max(0.8, Math.min(2.0, zoomLevel + delta)); applyTransform(); }
     function resetZoom() { zoomLevel = 1.0; applyTransform(); }
     function applyTransform() { document.getElementById('mapFrame').style.transform = `scale(${zoomLevel})`; }
-    function loadLocalImage(e) {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = evt => { document.getElementById('mainDenahImg').src = evt.target.result; };
-        reader.readAsDataURL(file);
-      }
+    function scrollToDirectory() { document.getElementById('directorySection').scrollIntoView({ behavior: 'smooth' }); }
+    function switchView(view, btn) {
+      document.querySelectorAll('.vhp-tab').forEach(t => t.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      if (view === 'all') window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   </script>
 </body>
