@@ -46,6 +46,7 @@
       background: var(--bg-page);
       color: var(--text-main);
       min-height: 100vh;
+      min-height: -webkit-fill-available;
       display: flex;
       flex-direction: column;
       overflow-x: hidden;
@@ -55,7 +56,7 @@
     .vhp-header {
       background: linear-gradient(180deg, #045b94 0%, #034b7a 100%);
       color: #ffffff;
-      padding: 12px 18px;
+      padding: calc(10px + env(safe-area-inset-top)) 16px 12px;
       box-shadow: 0 2px 10px rgba(3, 83, 136, 0.25);
       position: sticky;
       top: 0;
@@ -67,7 +68,7 @@
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
 
     .vhp-brand-row {
@@ -89,11 +90,12 @@
       border-radius: 8px;
       padding: 4px 10px;
       height: 46px;
-      min-width: 115px;
+      min-width: 118px;
       display: flex;
       align-items: center;
       justify-content: center;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      flex-shrink: 0;
     }
 
     .vhp-logo-box img {
@@ -102,8 +104,30 @@
       object-fit: contain;
     }
 
+    .vhp-logo-fallback {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      line-height: 1.05;
+      text-align: center;
+    }
+
+    .vhp-logo-fallback strong {
+      font-family: 'Cinzel', serif;
+      font-size: 0.78rem;
+      color: var(--vhp-blue);
+      letter-spacing: 0.6px;
+    }
+
+    .vhp-logo-fallback span {
+      font-size: 0.5rem;
+      font-weight: 800;
+      color: var(--gold-accent);
+      letter-spacing: 0.4px;
+    }
+
     .vhp-title-group h1 {
-      font-size: 1.08rem;
+      font-size: clamp(0.95rem, 2vw, 1.12rem);
       font-weight: 800;
       letter-spacing: -0.2px;
       line-height: 1.2;
@@ -113,7 +137,7 @@
     .vhp-sub-badges {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       margin-top: 5px;
       flex-wrap: wrap;
     }
@@ -121,9 +145,9 @@
     .badge-pill-dark {
       background: rgba(255, 255, 255, 0.16);
       border: 1px solid rgba(255, 255, 255, 0.25);
-      padding: 3px 9px;
+      padding: 3px 8px;
       border-radius: 6px;
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       font-weight: 700;
       letter-spacing: 0.3px;
       text-transform: uppercase;
@@ -132,9 +156,9 @@
     .badge-sync {
       background: #16a34a;
       color: #ffffff;
-      padding: 3px 10px;
+      padding: 3px 9px;
       border-radius: 20px;
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       font-weight: 700;
       display: inline-flex;
       align-items: center;
@@ -144,7 +168,7 @@
     .badge-sync.error { background: #dc2626; }
 
     .badge-clock {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 600;
       color: #e0f2fe;
       display: inline-flex;
@@ -155,7 +179,7 @@
     .vhp-top-actions {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       flex-wrap: wrap;
     }
 
@@ -163,16 +187,16 @@
       background: rgba(255, 255, 255, 0.12);
       border: 1px solid rgba(255, 255, 255, 0.25);
       color: #ffffff;
-      padding: 8px 12px;
+      padding: 7px 11px;
       border-radius: 8px;
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       font-weight: 700;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
       transition: background 0.15s ease;
-      min-height: 38px;
+      min-height: 36px;
     }
 
     .btn-vhp-top:hover { background: rgba(255, 255, 255, 0.22); }
@@ -187,7 +211,7 @@
       color: #ffffff;
       padding: 1px 6px;
       border-radius: 10px;
-      font-size: 0.68rem;
+      font-size: 0.66rem;
     }
 
     /* MAIN CONTAINER */
@@ -195,10 +219,10 @@
       max-width: 1480px;
       width: 100%;
       margin: 0 auto;
-      padding: 14px 16px 36px;
+      padding: 12px 14px calc(32px + env(safe-area-inset-bottom));
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
     }
 
     /* SUB-NAV TAB BAR */
@@ -210,7 +234,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
       box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
     }
@@ -229,9 +253,9 @@
       background: transparent;
       border: none;
       color: var(--text-muted);
-      padding: 8px 13px;
+      padding: 8px 12px;
       border-radius: 8px;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 700;
       cursor: pointer;
       display: inline-flex;
@@ -256,7 +280,7 @@
       color: var(--text-main);
       padding: 8px 12px;
       border-radius: 8px;
-      font-size: 0.76rem;
+      font-size: 0.75rem;
       font-weight: 700;
       cursor: pointer;
       display: inline-flex;
@@ -270,7 +294,7 @@
       color: #ffffff;
       padding: 8px 14px;
       border-radius: 8px;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 700;
       cursor: pointer;
       display: inline-flex;
@@ -286,7 +310,7 @@
       background: var(--card-bg);
       border: 1.5px solid #bae6fd;
       border-radius: 12px;
-      padding: 14px 16px;
+      padding: 12px 14px;
       box-shadow: 0 2px 6px rgba(3, 83, 136, 0.06);
       display: flex;
       flex-direction: column;
@@ -303,7 +327,7 @@
     .search-input-wrap {
       position: relative;
       flex: 1;
-      min-width: 240px;
+      min-width: 220px;
     }
 
     .search-input-wrap i {
@@ -317,7 +341,7 @@
 
     .search-input-wrap input {
       width: 100%;
-      padding: 11px 38px 11px 40px;
+      padding: 10px 38px 10px 40px;
       border: 1.5px solid #cbd5e1;
       border-radius: 10px;
       font-size: 16px;
@@ -353,7 +377,7 @@
 
     .greeter-results-box {
       display: none;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
       gap: 10px;
       padding-top: 4px;
     }
@@ -378,11 +402,11 @@
       background: var(--vhp-blue);
       color: #ffffff;
       font-weight: 800;
-      font-size: 1rem;
-      padding: 8px 12px;
+      font-size: 0.95rem;
+      padding: 7px 11px;
       border-radius: 8px;
       text-align: center;
-      min-width: 68px;
+      min-width: 64px;
     }
 
     /* EXECUTIVE SUMMARY PANEL */
@@ -390,7 +414,7 @@
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: 12px;
-      padding: 16px;
+      padding: 14px 16px;
       box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
     }
 
@@ -399,7 +423,7 @@
       align-items: flex-start;
       justify-content: space-between;
       gap: 10px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       flex-wrap: wrap;
     }
 
@@ -411,7 +435,7 @@
     }
 
     .summary-title-row h2 {
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       font-weight: 800;
       color: var(--text-main);
     }
@@ -419,7 +443,7 @@
     .tag-info-blue {
       background: #e0f2fe;
       color: #0369a1;
-      font-size: 0.65rem;
+      font-size: 0.64rem;
       font-weight: 700;
       padding: 3px 8px;
       border-radius: 6px;
@@ -428,14 +452,14 @@
     .tag-info-green {
       background: #dcfce7;
       color: #15803d;
-      font-size: 0.65rem;
+      font-size: 0.64rem;
       font-weight: 700;
       padding: 3px 8px;
       border-radius: 6px;
     }
 
     .summary-desc {
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       color: var(--text-muted);
       margin-top: 4px;
     }
@@ -446,7 +470,7 @@
       color: #a16207;
       padding: 5px 12px;
       border-radius: 8px;
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       font-weight: 700;
     }
 
@@ -463,7 +487,7 @@
 
     .kpi-card {
       border-radius: 10px;
-      padding: 14px;
+      padding: 12px 14px;
       border: 1px solid var(--border-color);
       display: flex;
       flex-direction: column;
@@ -482,14 +506,14 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .kpi-label {
-      font-size: 0.66rem;
+      font-size: 0.64rem;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.4px;
+      letter-spacing: 0.3px;
     }
 
     .kpi-card.gold .kpi-label { color: #b45309; }
@@ -504,7 +528,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
     }
 
     .kpi-card.gold .kpi-icon { background: #fef3c7; color: #b45309; }
@@ -513,14 +537,14 @@
     .kpi-card.red .kpi-icon { background: #fee2e2; color: #b91c1c; }
 
     .kpi-value {
-      font-size: 1.32rem;
+      font-size: clamp(1.05rem, 2.2vw, 1.32rem);
       font-weight: 800;
       color: var(--text-main);
       line-height: 1.15;
     }
 
     .kpi-sub {
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       color: var(--text-muted);
       margin-top: 4px;
     }
@@ -537,7 +561,7 @@
     .floorplan-bar {
       background: var(--vhp-blue);
       color: #ffffff;
-      padding: 10px 16px;
+      padding: 10px 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -546,7 +570,7 @@
     }
 
     .floorplan-bar-title {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 800;
       display: flex;
       align-items: center;
@@ -559,7 +583,7 @@
       background: rgba(255, 255, 255, 0.18);
       padding: 3px 8px;
       border-radius: 6px;
-      font-size: 0.68rem;
+      font-size: 0.66rem;
       font-weight: 700;
       display: inline-flex;
       align-items: center;
@@ -569,7 +593,7 @@
     .floorplan-legend-bar {
       background: #f8fafc;
       border-bottom: 1px solid var(--border-color);
-      padding: 8px 16px;
+      padding: 8px 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -580,9 +604,9 @@
     .legend-items {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       flex-wrap: wrap;
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       font-weight: 700;
     }
 
@@ -622,30 +646,25 @@
       cursor: pointer;
     }
 
-    /* VIEWPORT DENAH & HOTSPOT TERKUNCI */
+    /* VIEWPORT DENAH & HOTSPOT TERKUNCI (RESPONSIVE iOS, ANDROID & PC) */
     .viewport-scroll {
       width: 100%;
       overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
       background: #0f172a;
-      display: flex;
-      justify-content: center;
-      padding: 10px;
+      display: block;
+      padding: 8px;
     }
 
     .map-frame {
       position: relative;
       width: 100%;
-      max-width: 1360px;
-      min-width: 680px;
-      transform-origin: top center;
-      transition: transform 0.15s ease;
+      max-width: 1400px;
+      margin: 0 auto;
       border-radius: 8px;
       overflow: hidden;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-    }
-
-    @media (min-width: 768px) {
-      .map-frame { min-width: 100%; }
+      transition: width 0.2s ease;
     }
 
     .render-3d-img {
@@ -670,14 +689,14 @@
       aspect-ratio: 1 / 1;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.98);
-      border: 2px solid #d97706;
+      border: 1.8px solid #d97706;
       color: #0f172a;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       font-weight: 800;
-      font-size: clamp(0.62rem, 0.98vw, 0.85rem);
+      font-size: clamp(0.46rem, 0.95vw, 0.84rem);
       line-height: 1;
       cursor: pointer;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.55);
@@ -688,12 +707,12 @@
     }
 
     .spot:hover, .spot:active {
-      transform: translate(-50%, -50%) scale(1.15);
+      transform: translate(-50%, -50%) scale(1.16);
       z-index: 10;
     }
 
     .spot .pax-tag {
-      font-size: clamp(0.42rem, 0.65vw, 0.54rem);
+      font-size: clamp(0.32rem, 0.62vw, 0.52rem);
       font-weight: 700;
       margin-top: 1px;
       opacity: 0.95;
@@ -703,7 +722,7 @@
       background: var(--green-partial) !important;
       border-color: #065f46 !important;
       color: #ffffff !important;
-      box-shadow: 0 0 12px rgba(16, 185, 129, 0.75) !important;
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.75) !important;
       z-index: 4;
     }
 
@@ -711,13 +730,13 @@
       background: var(--red-full) !important;
       border-color: #991b1b !important;
       color: #ffffff !important;
-      box-shadow: 0 0 12px rgba(239, 68, 68, 0.75) !important;
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.75) !important;
       z-index: 5;
     }
 
     .spot.is-highlighted {
       animation: pulseHighlight 1s infinite alternate;
-      border: 3px solid #facc15 !important;
+      border: 2.5px solid #facc15 !important;
       z-index: 20 !important;
     }
 
@@ -737,6 +756,7 @@
     .table-responsive {
       width: 100%;
       overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     table.vhp-table {
@@ -802,7 +822,7 @@
       display: none;
       align-items: center;
       justify-content: center;
-      padding: 12px;
+      padding: 10px;
     }
 
     .modal-backdrop.open { display: flex; }
@@ -815,6 +835,7 @@
       max-width: 600px;
       max-height: 92vh;
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
     }
 
@@ -823,7 +844,7 @@
     .modal-header {
       background: var(--vhp-blue);
       color: #ffffff;
-      padding: 14px 18px;
+      padding: 12px 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -832,14 +853,24 @@
       z-index: 5;
     }
 
-    .modal-header h3 { font-size: 0.98rem; font-weight: 800; }
+    .modal-header h3 { font-size: 0.94rem; font-weight: 800; }
     .btn-x { background: transparent; border: none; color: #ffffff; font-size: 1.25rem; cursor: pointer; padding: 4px; }
 
     .modal-body {
-      padding: 16px 18px;
+      padding: 14px 16px;
       display: flex;
       flex-direction: column;
       gap: 12px;
+    }
+
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    @media (min-width: 520px) {
+      .form-grid-2 { grid-template-columns: 1fr 1fr; }
     }
 
     /* SHARING GUEST LIST INSIDE MODAL */
@@ -847,7 +878,7 @@
       background: #f0f9ff;
       border: 1.5px solid #38bdf8;
       border-radius: 10px;
-      padding: 12px;
+      padding: 10px 12px;
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -877,8 +908,8 @@
       background: #e0f2fe;
     }
 
-    .form-row { display: flex; flex-direction: column; gap: 5px; }
-    .form-row label { font-size: 0.76rem; font-weight: 700; color: #334155; display: flex; align-items: center; gap: 6px; }
+    .form-row { display: flex; flex-direction: column; gap: 4px; }
+    .form-row label { font-size: 0.74rem; font-weight: 700; color: #334155; display: flex; align-items: center; gap: 6px; }
 
     .inp-field {
       background: #ffffff;
@@ -886,7 +917,7 @@
       border-radius: 8px;
       padding: 10px 12px;
       color: var(--text-main);
-      font-size: 16px;
+      font-size: 16px; /* Prevents Safari iOS auto-zoom on focus */
       outline: none;
       width: 100%;
       font-family: inherit;
@@ -903,43 +934,43 @@
     .money-input-box input { padding-left: 38px; }
 
     .modal-footer {
-      padding: 12px 18px;
+      padding: 12px 16px;
       background: #f8fafc;
       border-top: 1px solid var(--border-color);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
     }
 
     .btn-del {
       background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5;
-      padding: 10px 14px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer;
+      padding: 9px 12px; border-radius: 8px; font-size: 0.78rem; font-weight: 700; cursor: pointer;
     }
 
     .btn-save {
       background: var(--vhp-blue); color: #ffffff; border: none;
-      padding: 10px 18px; border-radius: 8px; font-size: 0.84rem; font-weight: 700;
+      padding: 10px 16px; border-radius: 8px; font-size: 0.82rem; font-weight: 700;
       cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
     }
 
     .btn-email {
       background: #2563eb; color: #ffffff; border: none;
-      padding: 10px 16px; border-radius: 8px; font-size: 0.84rem; font-weight: 700;
+      padding: 10px 14px; border-radius: 8px; font-size: 0.82rem; font-weight: 700;
       cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
     }
     .btn-email:disabled { opacity: 0.6; cursor: not-allowed; }
 
     .btn-whatsapp {
       background: #16a34a; color: #ffffff; border: none;
-      padding: 10px 16px; border-radius: 8px; font-size: 0.84rem; font-weight: 700;
+      padding: 10px 14px; border-radius: 8px; font-size: 0.82rem; font-weight: 700;
       cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
     }
 
     .btn-pdf {
       background: #dc2626; color: #ffffff; border: none;
-      padding: 10px 16px; border-radius: 8px; font-size: 0.84rem; font-weight: 700;
+      padding: 10px 14px; border-radius: 8px; font-size: 0.82rem; font-weight: 700;
       cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
     }
 
@@ -948,12 +979,12 @@
       border: 1.5px solid #cbd5e1;
       border-radius: 8px;
       background: #ffffff;
-      padding: 20px;
+      padding: 16px;
       box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      font-size: 0.78rem;
+      gap: 10px;
+      font-size: 0.76rem;
       color: #1e293b;
     }
 
@@ -962,26 +993,27 @@
       justify-content: space-between;
       align-items: center;
       border-bottom: 2.5px solid #035388;
-      padding-bottom: 10px;
+      padding-bottom: 8px;
       gap: 10px;
+      flex-wrap: wrap;
     }
 
     .cl-letterhead img {
-      height: 44px;
-      max-width: 145px;
+      height: 40px;
+      max-width: 140px;
       object-fit: contain;
     }
 
     .cl-hotel-addr {
       text-align: right;
-      font-size: 0.66rem;
+      font-size: 0.64rem;
       color: #475569;
       line-height: 1.35;
     }
 
     .cl-title-banner {
       text-align: center;
-      padding: 6px 0;
+      padding: 6px 4px;
       background: #f8fafc;
       border-top: 1px solid #e2e8f0;
       border-bottom: 1px solid #e2e8f0;
@@ -989,14 +1021,14 @@
 
     .cl-title-banner h4 {
       font-family: 'Cinzel', serif;
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 800;
       color: #035388;
-      letter-spacing: 1px;
+      letter-spacing: 0.8px;
     }
 
     .cl-title-banner span {
-      font-size: 0.68rem;
+      font-size: 0.64rem;
       font-weight: 700;
       color: #b45309;
       text-transform: uppercase;
@@ -1005,19 +1037,19 @@
     .cl-form-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.76rem;
+      font-size: 0.74rem;
     }
 
     .cl-form-table td {
       border: 1px solid #cbd5e1;
-      padding: 6px 10px;
+      padding: 6px 8px;
     }
 
     .cl-form-table td.lbl {
       background: #f1f5f9;
       font-weight: 700;
       color: #334155;
-      width: 38%;
+      width: 40%;
     }
 
     .cl-form-table td.val {
@@ -1041,14 +1073,14 @@
       padding: 12px;
     }
     .exec-box span {
-      font-size: 0.66rem;
+      font-size: 0.64rem;
       font-weight: 800;
       color: var(--text-muted);
       text-transform: uppercase;
       display: block;
     }
     .exec-box strong {
-      font-size: 1.08rem;
+      font-size: 1.04rem;
       font-weight: 800;
       color: var(--text-main);
       margin-top: 4px;
@@ -1083,7 +1115,11 @@
         <div class="vhp-brand-left">
           <div class="vhp-logo-box">
             <img id="platinumBrandLogo" src="Logo.png" alt="Platinum Hotel" crossorigin="anonymous"
-                 onerror="this.onerror=null; this.src='logo.png';">
+                 onerror="handleBrandLogoFallback(this)">
+            <div id="logoFallbackText" class="vhp-logo-fallback">
+              <strong>PLATINUM</strong>
+              <span>BALIKPAPAN</span>
+            </div>
           </div>
           <div class="vhp-title-group">
             <h1>Banquet & Ballroom Command Center</h1>
@@ -1144,7 +1180,7 @@
     <section class="greeter-search-card">
       <div class="search-bar-row">
         <div style="display:flex; align-items:center; gap:8px;">
-          <span style="background:#035388; color:#fff; padding:6px 10px; border-radius:8px; font-size:0.75rem; font-weight:800;">
+          <span style="background:#035388; color:#fff; padding:6px 10px; border-radius:8px; font-size:0.74rem; font-weight:800;">
             <i class="fa-solid fa-bell-concierge"></i> GREETER SEARCH
           </span>
         </div>
@@ -1170,7 +1206,7 @@
             <span class="tag-info-blue">SHARING TABLE ENABLED</span>
             <span class="tag-info-green">OFFICIAL CONFIRMATION LETTER PDF</span>
           </div>
-          <p class="summary-desc">Click any table on the floor plan to register guests and issue an official Confirmation Letter PDF. Green (&lt;10 Pax) • Red (≥10 Pax).</p>
+          <p class="summary-desc">Tap any table on the floor plan to register guests and issue an official Confirmation Letter PDF. Green (&lt;10 Pax) • Red (≥10 Pax).</p>
         </div>
         <div class="date-pill-gold" id="todayDatePill">Event: 31 Dec 2026</div>
       </div>
@@ -1178,7 +1214,7 @@
       <div class="kpi-grid">
         <div class="kpi-card gold" onclick="openExecDashboardModal()">
           <div class="kpi-top">
-            <span class="kpi-label">TOTAL REVENUE (COMMERCIAL + COMP)</span>
+            <span class="kpi-label">TOTAL REVENUE (COMM + COMP)</span>
             <div class="kpi-icon"><i class="fa-solid fa-coins"></i></div>
           </div>
           <div class="kpi-value" id="statTotalRevenue">Rp 0</div>
@@ -1200,7 +1236,7 @@
             <div class="kpi-icon"><i class="fa-solid fa-user-clock"></i></div>
           </div>
           <div class="kpi-value" id="statPartialCount">0 Tables</div>
-          <div class="kpi-sub">Available for Sharing • <strong id="statTablesBooked">0</strong>/<span id="statTotalTables">35</span> Active</div>
+          <div class="kpi-sub">Sharing Open • <strong id="statTablesBooked">0</strong>/<span id="statTotalTables">35</span> Active</div>
         </div>
 
         <div class="kpi-card red" onclick="scrollToDirectory()">
@@ -1233,9 +1269,9 @@
         </div>
 
         <div class="zoom-controls">
-          <button class="btn-zoom" onclick="zoomMap(0.15)" title="Zoom In"><i class="fa-solid fa-plus"></i></button>
-          <button class="btn-zoom" onclick="zoomMap(-0.15)" title="Zoom Out"><i class="fa-solid fa-minus"></i></button>
-          <button class="btn-zoom" onclick="resetZoom()" title="Reset Zoom"><i class="fa-solid fa-arrows-rotate"></i></button>
+          <button class="btn-zoom" onclick="zoomMap(0.2)" title="Zoom In"><i class="fa-solid fa-plus"></i></button>
+          <button class="btn-zoom" onclick="zoomMap(-0.2)" title="Zoom Out"><i class="fa-solid fa-minus"></i></button>
+          <button class="btn-zoom" onclick="resetZoom()" title="Reset Fit"><i class="fa-solid fa-arrows-rotate"></i></button>
         </div>
       </div>
 
@@ -1258,7 +1294,7 @@
         <div class="floorplan-bar-title">
           <i class="fa-solid fa-list-ul"></i> LIVE GUEST & SHARING TABLE DIRECTORY
         </div>
-        <span style="font-size: 0.72rem; color: #cbd5e1;">Click any row to edit or send Confirmation Letter PDF</span>
+        <span style="font-size: 0.7rem; color: #cbd5e1;">Tap any row to edit or send Confirmation Letter PDF</span>
       </div>
       <div class="table-responsive">
         <table class="vhp-table">
@@ -1290,17 +1326,17 @@
   <div id="bookingModal" class="modal-backdrop">
     <div class="modal-container">
       <div class="modal-header">
-        <h3><i class="fa-solid fa-chair"></i> Table <span id="modalTitle">#1</span> — <span id="modalTotalTablePax" style="font-weight:600; font-size:0.85rem;">0/10 Pax</span></h3>
+        <h3><i class="fa-solid fa-chair"></i> Table <span id="modalTitle">#1</span> — <span id="modalTotalTablePax" style="font-weight:600; font-size:0.82rem;">0/10 Pax</span></h3>
         <button class="btn-x" onclick="closeBookingModal()"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
       <div class="modal-body">
         <div id="tableSharingSection" class="sharing-box" style="display:none;">
           <div class="sharing-header">
-            <span style="font-size:0.76rem; font-weight:800; color:#035388;">
+            <span style="font-size:0.75rem; font-weight:800; color:#035388;">
               <i class="fa-solid fa-users"></i> Registered Guests at This Table (<span id="sharingGuestCount">0</span>):
             </span>
-            <button type="button" class="btn-save" style="padding:6px 10px; font-size:0.74rem; background:#059669;" onclick="prepareNewSharingGuest()">
+            <button type="button" class="btn-save" style="padding:6px 10px; font-size:0.72rem; background:#059669;" onclick="prepareNewSharingGuest()">
               <i class="fa-solid fa-user-plus"></i> + Add Sharing Guest
             </button>
           </div>
@@ -1308,8 +1344,8 @@
         </div>
 
         <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding-bottom:6px;">
-          <strong id="formModeTitle" style="font-size:0.82rem; color:#035388;">New Guest Registration</strong>
-          <span id="editingBadge" style="display:none; background:#fef3c7; color:#b45309; font-size:0.68rem; font-weight:700; padding:2px 8px; border-radius:6px;">Editing Mode</span>
+          <strong id="formModeTitle" style="font-size:0.8rem; color:#035388;">New Guest Registration</strong>
+          <span id="editingBadge" style="display:none; background:#fef3c7; color:#b45309; font-size:0.66rem; font-weight:700; padding:2px 8px; border-radius:6px;">Editing Mode</span>
         </div>
 
         <div class="form-row">
@@ -1326,7 +1362,7 @@
         </div>
 
         <!-- ROOM NUMBER & TYPE (SHOWN ONLY FOR COMPULSORY IN-HOUSE) -->
-        <div id="guestRoomSection" style="display: none; grid-template-columns: 1fr 1fr; gap: 10px; background: #f0f9ff; padding: 10px; border-radius: 10px; border: 1px solid #bae6fd;">
+        <div id="guestRoomSection" class="form-grid-2" style="display: none; background: #f0f9ff; padding: 10px; border-radius: 10px; border: 1px solid #bae6fd;">
           <div class="form-row">
             <label><i class="fa-solid fa-door-closed" style="color: var(--vhp-blue);"></i> Room Number *</label>
             <select id="guestRoomNo" class="inp-field" onchange="autoFillRoomType('guestRoomNo', 'guestRoomType')">
@@ -1340,14 +1376,14 @@
         </div>
 
         <!-- EMAIL & WHATSAPP CONTACT -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div class="form-grid-2">
           <div class="form-row">
             <label><i class="fa-solid fa-envelope" style="color: #2563eb;"></i> Guest Email (For Auto PDF)</label>
             <input type="email" id="guestEmail" class="inp-field" placeholder="e.g. guest@email.com">
           </div>
           <div class="form-row">
             <label><i class="fa-brands fa-whatsapp" style="color: #16a34a;"></i> WhatsApp / Phone</label>
-            <input type="text" id="guestPhone" class="inp-field" placeholder="e.g. 0812-xxxx-xxxx">
+            <input type="tel" id="guestPhone" class="inp-field" placeholder="e.g. 0812-xxxx-xxxx">
           </div>
         </div>
 
@@ -1355,11 +1391,11 @@
         <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; background: #f8fafc; padding: 10px; border-radius: 10px; border: 1px solid #e2e8f0;">
           <div class="form-row">
             <label><i class="fa-solid fa-person"></i> Adults *</label>
-            <input type="number" id="guestAdults" class="inp-field" value="5" min="0" oninput="recalcModalPax()">
+            <input type="number" id="guestAdults" class="inp-field" value="5" min="0" inputmode="numeric" oninput="recalcModalPax()">
           </div>
           <div class="form-row">
             <label><i class="fa-solid fa-child"></i> Children</label>
-            <input type="number" id="guestChildren" class="inp-field" value="0" min="0" oninput="recalcModalPax()">
+            <input type="number" id="guestChildren" class="inp-field" value="0" min="0" inputmode="numeric" oninput="recalcModalPax()">
           </div>
           <div class="form-row">
             <label><i class="fa-solid fa-users"></i> Total Pax</label>
@@ -1368,8 +1404,8 @@
         </div>
 
         <!-- BANQUET MENU & PACKAGE POS (FOR COMMERCIAL) -->
-        <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 10px;" id="menuSectionBox">
-          <label style="font-size: 0.78rem; font-weight: 800; color: var(--vhp-blue);">
+        <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; gap: 10px;" id="menuSectionBox">
+          <label style="font-size: 0.76rem; font-weight: 800; color: var(--vhp-blue);">
             <i class="fa-solid fa-utensils"></i> Banquet Packages & Add-On Items
           </label>
 
@@ -1383,8 +1419,8 @@
           </div>
 
           <div style="display: grid; grid-template-columns: 1.3fr 1.2fr auto; gap: 6px;">
-            <input type="text" id="customMenuName" class="inp-field" placeholder="Custom Item Name">
-            <input type="text" id="customMenuPrice" class="inp-field" placeholder="Price (500000)" onkeyup="formatCurrencyInput(this)">
+            <input type="text" id="customMenuName" class="inp-field" placeholder="Custom Item">
+            <input type="text" id="customMenuPrice" class="inp-field" inputmode="numeric" placeholder="Price" onkeyup="formatCurrencyInput(this)">
             <button type="button" class="btn-save" style="background: #0891b2; padding: 0 12px;" onclick="addCustomCartItem()">
               <i class="fa-solid fa-plus"></i>
             </button>
@@ -1393,8 +1429,8 @@
           <div id="bookingCartItemsContainer" style="display: flex; flex-direction: column; gap: 6px; max-height: 140px; overflow-y: auto;"></div>
 
           <div style="background: #ffffff; border: 1px solid #10b981; border-radius: 8px; padding: 8px 12px; display: flex; justify-content: space-between; align-items: center;">
-            <span style="font-size: 0.76rem; font-weight: 700; color: #059669;">Estimated Package Total:</span>
-            <strong id="bookingCartTotalDisplay" style="font-size: 0.95rem; color: #059669;">Rp 0</strong>
+            <span style="font-size: 0.74rem; font-weight: 700; color: #059669;">Estimated Package Total:</span>
+            <strong id="bookingCartTotalDisplay" style="font-size: 0.92rem; color: #059669;">Rp 0</strong>
           </div>
         </div>
 
@@ -1403,19 +1439,19 @@
           <label id="dpAmountLabel"><i class="fa-solid fa-money-bill-wave" style="color: #059669;"></i> Deposit / Down Payment (DP)</label>
           <div class="money-input-box">
             <span>Rp</span>
-            <input type="text" id="guestDP" class="inp-field" placeholder="e.g. 1.000.000" onkeyup="formatCurrencyInput(this); updateBalanceDisplay();">
+            <input type="text" id="guestDP" class="inp-field" inputmode="numeric" placeholder="e.g. 1.000.000" onkeyup="formatCurrencyInput(this); updateBalanceDisplay();">
           </div>
         </div>
 
         <div style="background: #f8fafc; border: 1.5px dashed var(--vhp-blue); border-radius: 10px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center;">
           <div>
-            <div style="font-size: 0.7rem; font-weight: 800; color: var(--vhp-blue);" id="balanceTitleText">BILLING / BALANCE STATUS</div>
-            <div style="font-size: 0.65rem; color: var(--text-muted);" id="balanceSubText">Total Consumption minus Deposit</div>
+            <div style="font-size: 0.68rem; font-weight: 800; color: var(--vhp-blue);" id="balanceTitleText">BILLING / BALANCE STATUS</div>
+            <div style="font-size: 0.64rem; color: var(--text-muted);" id="balanceSubText">Total Consumption minus Deposit</div>
           </div>
-          <strong id="bookingBalanceDisplay" style="font-size: 0.98rem;">Rp 0</strong>
+          <strong id="bookingBalanceDisplay" style="font-size: 0.95rem;">Rp 0</strong>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div class="form-grid-2">
           <div class="form-row">
             <label><i class="fa-solid fa-clock"></i> Arrival Time</label>
             <select id="guestTime" class="inp-field">
@@ -1442,7 +1478,7 @@
             <i class="fa-solid fa-trash"></i> Delete
           </button>
           <button id="btnOpenVoucherFromEdit" type="button" class="btn-vhp-outline" onclick="openCurrentGuestVoucher()" style="display: none;">
-            <i class="fa-solid fa-file-contract" style="color:#035388;"></i> Confirmation Letter
+            <i class="fa-solid fa-file-contract" style="color:#035388;"></i> Letter
           </button>
         </div>
         <div style="display: flex; gap: 8px; margin-left: auto;">
@@ -1483,7 +1519,7 @@
         </div>
 
         <!-- ROOM DROPDOWN (VISIBLE ONLY FOR COMPULSORY IN-HOUSE) -->
-        <div id="regRoomSection" style="display: none; grid-template-columns: 1fr 1fr; gap: 10px; background: #f0f9ff; padding: 10px; border-radius: 10px; border: 1px solid #bae6fd;">
+        <div id="regRoomSection" class="form-grid-2" style="display: none; background: #f0f9ff; padding: 10px; border-radius: 10px; border: 1px solid #bae6fd;">
           <div class="form-row">
             <label>Room Number *</label>
             <select id="regGuestRoomNo" class="inp-field" onchange="autoFillRoomType('regGuestRoomNo', 'regGuestRoomType')">
@@ -1497,14 +1533,14 @@
         </div>
 
         <!-- EMAIL & WHATSAPP -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div class="form-grid-2">
           <div class="form-row">
             <label>Guest Email (For Auto PDF)</label>
             <input type="email" id="regGuestEmail" class="inp-field" placeholder="e.g. guest@email.com">
           </div>
           <div class="form-row">
             <label>WhatsApp / Phone Number</label>
-            <input type="text" id="regGuestPhone" class="inp-field" placeholder="e.g. 0812-xxxx-xxxx">
+            <input type="tel" id="regGuestPhone" class="inp-field" placeholder="e.g. 0812-xxxx-xxxx">
           </div>
         </div>
 
@@ -1512,11 +1548,11 @@
         <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; background: #f8fafc; padding: 10px; border-radius: 10px; border: 1px solid #e2e8f0;">
           <div class="form-row">
             <label>Adults *</label>
-            <input type="number" id="regGuestAdults" class="inp-field" value="5" min="0" oninput="recalcRegPax()">
+            <input type="number" id="regGuestAdults" class="inp-field" value="5" min="0" inputmode="numeric" oninput="recalcRegPax()">
           </div>
           <div class="form-row">
             <label>Children</label>
-            <input type="number" id="regGuestChildren" class="inp-field" value="0" min="0" oninput="recalcRegPax()">
+            <input type="number" id="regGuestChildren" class="inp-field" value="0" min="0" inputmode="numeric" oninput="recalcRegPax()">
           </div>
           <div class="form-row">
             <label>Total Pax</label>
@@ -1528,7 +1564,7 @@
           <label id="regAmountLabel">Deposit / Revenue Amount</label>
           <div class="money-input-box">
             <span>Rp</span>
-            <input type="text" id="regGuestDP" class="inp-field" placeholder="1.000.000" onkeyup="formatCurrencyInput(this)">
+            <input type="text" id="regGuestDP" class="inp-field" inputmode="numeric" placeholder="1.000.000" onkeyup="formatCurrencyInput(this)">
           </div>
         </div>
 
@@ -1547,7 +1583,7 @@
     </div>
   </div>
 
-  <!-- OFFICIAL CONFIRMATION LETTER MODAL (PDF FORM + EMAIL + WHATSAPP) -->
+  <!-- OFFICIAL CONFIRMATION LETTER MODAL -->
   <div id="guestVoucherModal" class="modal-backdrop">
     <div class="modal-container" style="max-width: 640px;">
       <div class="modal-header" style="background: #0f172a;">
@@ -1556,10 +1592,9 @@
       </div>
 
       <div class="modal-body">
-        <!-- LETTERHEAD & REGISTRATION FORM PREVIEW -->
         <div class="conf-letter-paper" id="voucherPreviewCard">
           <div class="cl-letterhead">
-            <img src="Logo.png" alt="Platinum Hotel Balikpapan" onerror="this.onerror=null; this.src='logo.png';">
+            <img src="Logo.png" alt="Platinum Hotel Balikpapan" onerror="this.style.display='none';">
             <div class="cl-hotel-addr">
               <strong style="color:#035388; font-size:0.74rem;">PLATINUM HOTEL & CONVENTION HALL</strong><br>
               Jl. Soekarno Hatta Km. 5, Balikpapan 76125<br>
@@ -1572,12 +1607,12 @@
             <span>King & Queen of the Night 2027 — New Year's Eve Gala Celebration</span>
           </div>
 
-          <div style="display:flex; justify-content:space-between; font-size:0.72rem; color:#475569;">
-            <div>Ref No: <strong id="vBookingRef" style="color:#0f172a;">KQ2027-001</strong></div>
+          <div style="display:flex; justify-content:space-between; font-size:0.7rem; color:#475569;">
+            <div>Ref No: <strong id="vBookingRef" style="color:#0f172a;">CL-KQ2027</strong></div>
             <div>Date: <strong id="vLetterDate" style="color:#0f172a;">-</strong></div>
           </div>
 
-          <p style="line-height:1.5; color:#1e293b;">
+          <p style="line-height:1.48; color:#1e293b;">
             Dear <strong id="vSalutationName">-</strong>,<br>
             Warmest greetings from <strong>Platinum Hotel & Convention Hall Balikpapan</strong>. We are delighted to formally confirm your table registration for our exclusive New Year's Eve celebration, <strong>King & Queen of the Night 2027</strong>, as detailed in the registration form below:
           </p>
@@ -1589,7 +1624,7 @@
             </tr>
             <tr>
               <td class="lbl">Assigned Table Number</td>
-              <td class="val" id="vTableNo" style="color:#035388; font-size:0.9rem;">Table #1</td>
+              <td class="val" id="vTableNo" style="color:#035388; font-size:0.88rem;">Table #1</td>
             </tr>
             <tr>
               <td class="lbl">Reservation Category</td>
@@ -1625,11 +1660,11 @@
             </tr>
           </table>
 
-          <p style="font-size:0.72rem; color:#475569; line-height:1.45;">
+          <p style="font-size:0.7rem; color:#475569; line-height:1.45;">
             <strong>Check-In & Greeter Protocol:</strong> Kindly present this Confirmation Letter (printed or digital PDF) at the Ballroom Entrance upon arrival. Our Greeter Team will personally escort you to your reserved table.
           </p>
 
-          <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:4px; padding-top:8px; border-top:1px dashed #cbd5e1; font-size:0.72rem;">
+          <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:4px; padding-top:8px; border-top:1px dashed #cbd5e1; font-size:0.7rem;">
             <div>
               Sincerely yours,<br>
               <strong style="color:#035388;">Food & Beverage Management</strong><br>
@@ -1642,27 +1677,26 @@
           </div>
         </div>
 
-        <!-- DIRECT EMAIL RECIPIENT BAR -->
         <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; padding:10px 12px; display:flex; flex-direction:column; gap:6px;">
           <label style="font-size:0.74rem; font-weight:800; color:#1e40af;">
             <i class="fa-solid fa-envelope-circle-check"></i> Recipient Email for Confirmation Letter PDF:
           </label>
           <input type="email" id="voucherRecipientEmail" class="inp-field" placeholder="Enter or verify guest email address...">
-          <div id="emailDeliveryStatus" style="font-size:0.74rem; font-weight:700; display:none;"></div>
+          <div id="emailDeliveryStatus" style="font-size:0.72rem; font-weight:700; display:none;"></div>
         </div>
       </div>
 
       <div class="modal-footer">
         <button class="btn-vhp-outline" onclick="closeGuestVoucherModal()">Close</button>
-        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <div style="display:flex; gap:6px; flex-wrap:wrap;">
           <button type="button" id="btnSendEmailPDF" class="btn-email" onclick="sendVoucherEmailWithPDF()">
             <i class="fa-solid fa-paper-plane"></i> Send Email + PDF
           </button>
           <button type="button" class="btn-pdf" onclick="downloadGuestConfirmationPDF()">
-            <i class="fa-solid fa-file-pdf"></i> Download Letter PDF
+            <i class="fa-solid fa-file-pdf"></i> PDF
           </button>
           <button type="button" class="btn-whatsapp" onclick="sendVoucherWhatsApp()">
-            <i class="fa-brands fa-whatsapp"></i> Send WA + PDF
+            <i class="fa-brands fa-whatsapp"></i> WA + PDF
           </button>
         </div>
       </div>
@@ -1680,10 +1714,10 @@
       <div class="modal-body" id="execReportPrintable">
         <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding-bottom:10px; flex-wrap:wrap; gap:8px;">
           <div>
-            <strong style="font-size:0.95rem; color:#035388;">PLATINUM HOTEL & CONVENTION HALL BALIKPAPAN</strong>
-            <div style="font-size:0.74rem; color:#64748b;">Real-Time Table Occupancy, Adult/Child Pax & Revenue Report — King & Queen 2027</div>
+            <strong style="font-size:0.92rem; color:#035388;">PLATINUM HOTEL & CONVENTION HALL BALIKPAPAN</strong>
+            <div style="font-size:0.72rem; color:#64748b;">Real-Time Table Occupancy, Adult/Child Pax & Revenue Report — King & Queen 2027</div>
           </div>
-          <span id="reportGeneratedAt" style="font-size:0.72rem; font-weight:700; color:#475569;"></span>
+          <span id="reportGeneratedAt" style="font-size:0.7rem; font-weight:700; color:#475569;"></span>
         </div>
 
         <div class="exec-grid">
@@ -1705,24 +1739,24 @@
           </div>
         </div>
 
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+        <div class="form-grid-2">
           <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:12px;">
             <div style="font-size:0.74rem; font-weight:800; color:#0f172a; margin-bottom:8px;">
               <i class="fa-solid fa-coins" style="color:#035388;"></i> Revenue & Pax Segmentation
             </div>
-            <div id="execSegmentBreakdown" style="font-size:0.76rem; display:flex; flex-direction:column; gap:6px;"></div>
+            <div id="execSegmentBreakdown" style="font-size:0.74rem; display:flex; flex-direction:column; gap:6px;"></div>
           </div>
 
           <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:12px;">
             <div style="font-size:0.74rem; font-weight:800; color:#0f172a; margin-bottom:8px;">
               <i class="fa-solid fa-bed" style="color:#035388;"></i> Compulsory In-House Room Types
             </div>
-            <div id="execRoomTypeBreakdown" style="font-size:0.76rem; display:flex; flex-direction:column; gap:6px;"></div>
+            <div id="execRoomTypeBreakdown" style="font-size:0.74rem; display:flex; flex-direction:column; gap:6px;"></div>
           </div>
         </div>
 
         <div>
-          <div style="font-size:0.76rem; font-weight:800; color:#0f172a; margin-bottom:6px;">
+          <div style="font-size:0.74rem; font-weight:800; color:#0f172a; margin-bottom:6px;">
             <i class="fa-solid fa-table"></i> Complete Guest & Sharing Table Breakdown
           </div>
           <div class="table-responsive" style="border:1px solid #e2e8f0; border-radius:8px; max-height:260px; overflow-y:auto;">
@@ -1751,7 +1785,7 @@
         <button class="btn-vhp-outline" onclick="closeExecDashboardModal()">Close</button>
         <div style="display:flex; gap:8px; flex-wrap:wrap;">
           <button class="btn-vhp-outline" onclick="exportReservationsCSV()">
-            <i class="fa-solid fa-file-excel" style="color:#15803d;"></i> Export CSV / Excel
+            <i class="fa-solid fa-file-excel" style="color:#15803d;"></i> Export CSV
           </button>
           <button class="btn-save" onclick="window.print()">
             <i class="fa-solid fa-print"></i> Print / Save PDF
@@ -1773,7 +1807,7 @@
           <label>Package / Menu Name *</label>
           <input type="text" id="menuItemName" class="inp-field" placeholder="e.g. VIP Gala Dinner Set Menu">
         </div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div class="form-grid-2">
           <div class="form-row">
             <label>Category</label>
             <select id="menuItemCategory" class="inp-field">
@@ -1786,7 +1820,7 @@
             <label>Price (IDR) *</label>
             <div class="money-input-box">
               <span>Rp</span>
-              <input type="text" id="menuItemPrice" class="inp-field" placeholder="2.500.000" onkeyup="formatCurrencyInput(this)">
+              <input type="text" id="menuItemPrice" class="inp-field" inputmode="numeric" placeholder="2.500.000" onkeyup="formatCurrencyInput(this)">
             </div>
           </div>
         </div>
@@ -1877,9 +1911,19 @@
     let editingGuestIndex = -1;
     let activeVoucherData = null;
     let cachedLogoBase64 = null;
-    let zoomLevel = 1.0;
+    let mapWidthPercent = 100;
 
-    // PRELOAD PLATINUM HOTEL LOGO AS BASE64 FOR OFFICIAL PDF CONFIRMATION LETTER
+    function handleBrandLogoFallback(imgEl) {
+      if (!imgEl.dataset.triedLower) {
+        imgEl.dataset.triedLower = '1';
+        imgEl.src = 'logo.png';
+      } else {
+        imgEl.style.display = 'none';
+        const fb = document.getElementById('logoFallbackText');
+        if (fb) fb.style.display = 'flex';
+      }
+    }
+
     function preloadHotelLogoBase64() {
       const img = new Image();
       img.crossOrigin = 'Anonymous';
@@ -1894,14 +1938,10 @@
             dataUrl: canvas.toDataURL('image/png'),
             ratio: canvas.width / canvas.height
           };
-        } catch (e) {
-          console.warn('Logo canvas conversion skipped:', e);
-        }
+        } catch (e) {}
       };
       img.onerror = function() {
-        if (!img.src.endsWith('logo.png')) {
-          img.src = 'logo.png';
-        }
+        if (!img.src.endsWith('logo.png')) img.src = 'logo.png';
       };
       img.src = 'Logo.png';
     }
@@ -1985,7 +2025,7 @@
           const totalPax = (adults + children) > 0 ? (adults + children) : (Number(g.pax) || 0);
           const isComp = g.guest_type === 'Compulsory In-House';
           return {
-            id: g.id || ('G-' + Math.random().toString(36).slice(2, 8)),
+            id: g.id || ('CL-' + Math.random().toString(36).slice(2, 8).toUpperCase()),
             name: g.name || '',
             email: g.email || '',
             phone: g.phone || '',
@@ -2006,7 +2046,6 @@
         });
       }
 
-      // Legacy single-record compatibility
       let roomNo = '', roomType = '', cleanNotes = row.notes || '';
       const rmMatch = cleanNotes.match(/\[ROOM:([^|\]]+)\|TYPE:([^\]]*)\]/);
       if (rmMatch) {
@@ -2019,7 +2058,7 @@
       const totalPax = Number(row.pax) || 0;
 
       return [{
-        id: 'G-LEGACY',
+        id: 'CL-LEGACY',
         name: row.guest_name || '',
         email: '',
         phone: row.guest_phone || '',
@@ -2185,7 +2224,6 @@
       document.getElementById('legendBookedText').innerText = `Full ≥10 Pax (Red): ${fullCount}`;
     }
 
-    // GREETER SEARCH
     function handleGreeterSearch() {
       const inputEl = document.getElementById('greeterSearchInput');
       const clearBtn = document.getElementById('btnClearSearch');
@@ -2243,12 +2281,12 @@
                 <div style="font-size:0.7rem; color:#475569; margin-top:2px;">${g.adults} Adults, ${g.children} Children (Total: ${g.pax} Pax)</div>
               </div>
               <div style="display:flex; align-items:center; gap:6px;">
-                <button type="button" class="btn-vhp-outline" style="padding:6px 8px; font-size:0.7rem;" title="Confirmation Letter PDF / Email"
+                <button type="button" class="btn-vhp-outline" style="padding:6px 8px; font-size:0.7rem;" title="Confirmation Letter PDF"
                         onclick="event.stopPropagation(); openVoucherByTableAndIndex('${id}', ${idx});">
                   <i class="fa-solid fa-file-contract" style="color:#035388;"></i>
                 </button>
                 <div class="table-badge-big">
-                  <div style="font-size:0.58rem; font-weight:600; opacity:0.85;">TABLE</div>
+                  <div style="font-size:0.55rem; font-weight:600; opacity:0.85;">TABLE</div>
                   #${id}
                 </div>
               </div>
@@ -2257,7 +2295,7 @@
         }).join('');
       } else {
         resultsBox.classList.add('active');
-        resultsBox.innerHTML = `<div style="font-size:0.76rem; color:#b91c1c; font-weight:700; padding:6px;">No guest or room found matching "${inputEl.value}".</div>`;
+        resultsBox.innerHTML = `<div style="font-size:0.74rem; color:#b91c1c; font-weight:700; padding:6px;">No guest or room found matching "${inputEl.value}".</div>`;
       }
     }
 
@@ -2295,7 +2333,7 @@
       });
 
       if (rows.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="11" style="text-align:center; color:#64748b; padding:18px;">${filterQuery ? 'No matching records found.' : 'No reservations recorded yet. Click any table on the floor plan to start.'}</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="11" style="text-align:center; color:#64748b; padding:18px;">${filterQuery ? 'No matching records found.' : 'No reservations recorded yet. Tap any table on the floor plan to start.'}</td></tr>`;
         return;
       }
 
@@ -2336,7 +2374,6 @@
       }).join('');
     }
 
-    // EXECUTIVE DASHBOARD MODAL
     function openExecDashboardModal() {
       const bookedKeys = ALL_TABLE_IDS.filter(k => bookings[k] && bookings[k].guests.length > 0);
       const occPct = Math.round((bookedKeys.length / TOTAL_TABLES_COUNT) * 100);
@@ -2617,15 +2654,15 @@
         return `
           <div class="sharing-item-card ${isActive}">
             <div style="cursor:pointer; flex:1;" onclick="loadGuestIntoForm(${idx})">
-              <strong style="font-size:0.8rem; color:#0f172a;">${idx + 1}. ${g.name}</strong>
-              <div style="font-size:0.7rem; color:#475569;">${g.adults}A + ${g.children}C (${g.pax} Pax)${rmInfo} • Rp ${(g.dp || 0).toLocaleString('id-ID')}</div>
+              <strong style="font-size:0.78rem; color:#0f172a;">${idx + 1}. ${g.name}</strong>
+              <div style="font-size:0.68rem; color:#475569;">${g.adults}A + ${g.children}C (${g.pax} Pax)${rmInfo} • Rp ${(g.dp || 0).toLocaleString('id-ID')}</div>
             </div>
             <div style="display:flex; gap:4px;">
-              <button type="button" class="btn-vhp-outline" style="padding:4px 8px; font-size:0.7rem;" title="Confirmation Letter PDF / Email"
+              <button type="button" class="btn-vhp-outline" style="padding:4px 8px; font-size:0.68rem;" title="Confirmation Letter PDF"
                       onclick="openVoucherByTableAndIndex('${currentTable}', ${idx})">
                 <i class="fa-solid fa-file-contract" style="color:#035388;"></i>
               </button>
-              <button type="button" class="btn-vhp-outline" style="padding:4px 8px; font-size:0.7rem;" onclick="loadGuestIntoForm(${idx})">
+              <button type="button" class="btn-vhp-outline" style="padding:4px 8px; font-size:0.68rem;" onclick="loadGuestIntoForm(${idx})">
                 <i class="fa-solid fa-pen"></i> Edit
               </button>
             </div>
@@ -2748,7 +2785,7 @@
       const container = document.getElementById('bookingCartItemsContainer');
       const totalDisplay = document.getElementById('bookingCartTotalDisplay');
       if (currentCart.length === 0) {
-        container.innerHTML = '<div style="font-size:0.74rem; color:var(--text-muted); text-align:center; padding:4px;">No package or add-on items selected.</div>';
+        container.innerHTML = '<div style="font-size:0.72rem; color:var(--text-muted); text-align:center; padding:4px;">No package or add-on items selected.</div>';
         totalDisplay.innerText = 'Rp 0';
         updateBalanceDisplay();
         return;
@@ -2760,12 +2797,12 @@
         html += `
           <div style="background:#ffffff; border:1px solid var(--border-color); border-radius:8px; padding:6px 10px; display:flex; justify-content:space-between; align-items:center;">
             <div>
-              <strong style="font-size:0.78rem;">${item.name}</strong>
-              <div style="font-size:0.68rem; color:#059669;">Rp ${item.price.toLocaleString('id-ID')} × ${item.qty}</div>
+              <strong style="font-size:0.76rem;">${item.name}</strong>
+              <div style="font-size:0.66rem; color:#059669;">Rp ${item.price.toLocaleString('id-ID')} × ${item.qty}</div>
             </div>
             <div style="display:flex; align-items:center; gap:6px;">
               <button type="button" onclick="changeCartQty('${item.id}', -1)" style="background:#e2e8f0; border:none; width:24px; height:24px; border-radius:4px; cursor:pointer;">-</button>
-              <span style="font-size:0.8rem; font-weight:700;">${item.qty}</span>
+              <span style="font-size:0.78rem; font-weight:700;">${item.qty}</span>
               <button type="button" onclick="changeCartQty('${item.id}', 1)" style="background:#e2e8f0; border:none; width:24px; height:24px; border-radius:4px; cursor:pointer;">+</button>
             </div>
           </div>
@@ -2883,7 +2920,6 @@
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
 
-      // Outer Elegant Double Border Frame
       doc.setDrawColor(3, 83, 136);
       doc.setLineWidth(0.7);
       doc.rect(10, 10, 190, 277);
@@ -2891,7 +2927,6 @@
       doc.setLineWidth(0.3);
       doc.rect(11.8, 11.8, 186.4, 273.4);
 
-      // Letterhead Top Section with Platinum Hotel Logo
       if (cachedLogoBase64 && cachedLogoBase64.dataUrl) {
         const logoH = 17;
         const logoW = Math.min(54, logoH * cachedLogoBase64.ratio);
@@ -2906,7 +2941,6 @@
         doc.text('& CONVENTION HALL BALIKPAPAN', 18, 29);
       }
 
-      // Hotel Address Right Aligned
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(9.5);
       doc.setTextColor(3, 83, 136);
@@ -2917,7 +2951,6 @@
       doc.text('Jl. Soekarno Hatta Km. 5, Balikpapan 76125, East Kalimantan', 192, 25, { align: 'right' });
       doc.text('Tel: +62 542 883 0228 • Web: platinumhotelindonesia.com', 192, 29.5, { align: 'right' });
 
-      // Divider Lines
       doc.setDrawColor(3, 83, 136);
       doc.setLineWidth(0.8);
       doc.line(18, 36, 192, 36);
@@ -2925,7 +2958,6 @@
       doc.setLineWidth(0.4);
       doc.line(18, 37.5, 192, 37.5);
 
-      // Document Title Banner
       doc.setFillColor(248, 250, 252);
       doc.rect(18, 41, 174, 15, 'F');
       doc.setFont('helvetica', 'bold');
@@ -2936,7 +2968,6 @@
       doc.setTextColor(180, 83, 9);
       doc.text("KING & QUEEN OF THE NIGHT 2027 — NEW YEAR'S EVE GALA CELEBRATION", 105, 53.5, { align: 'center' });
 
-      // Reference & Date Meta Row
       const todayStr = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(9);
@@ -2944,7 +2975,6 @@
       doc.text(`Ref. Number : ${guest.id || 'CL-KQ2027'}`, 18, 64);
       doc.text(`Date Issued : ${todayStr}`, 192, 64, { align: 'right' });
 
-      // Opening Salutation & Formal Letter Body
       doc.setTextColor(15, 23, 42);
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(9.8);
@@ -2957,7 +2987,6 @@
       const splitIntro = doc.splitTextToSize(introText, 174);
       doc.text(splitIntro, 18, 87);
 
-      // Official Registration Form Table
       let y = 104;
       const rowH = 9.5;
       const drawFormRow = (label, value, highlight = false) => {
@@ -3001,7 +3030,6 @@
         drawFormRow('Special Requests / Notes', guest.notes.slice(0, 58));
       }
 
-      // Check-In & Hospitality Notice Box
       y += 6;
       doc.setFillColor(254, 252, 232);
       doc.setDrawColor(253, 224, 71);
@@ -3018,7 +3046,6 @@
       doc.text('1. Kindly present this Confirmation Letter (printed or digital PDF) at the Ballroom Entrance upon arrival.', 22, y + 12.5);
       doc.text(`2. Our Greeter Team will verify your registration and escort your party directly to Table #${tableId}.`, 22, y + 18);
 
-      // Closing & Official Signature Block
       y += 32;
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(9.5);
@@ -3117,7 +3144,6 @@
       doc.save(filename);
     }
 
-    // AUTOMATIC SEND EMAIL WITH OFFICIAL CONFIRMATION LETTER PDF
     async function sendVoucherEmailWithPDF() {
       if (!activeVoucherData) return;
       const toEmail = document.getElementById('voucherRecipientEmail').value.trim();
@@ -3139,7 +3165,7 @@
       const pdfBase64 = dataUri.split(',')[1];
 
       btnEl.disabled = true;
-      btnEl.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Sending Letter...`;
+      btnEl.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Sending...`;
       statusEl.style.display = 'block';
       statusEl.style.color = '#1e40af';
       statusEl.innerText = `Sending official Confirmation Letter PDF to ${toEmail}...`;
@@ -3173,7 +3199,7 @@
         statusEl.innerHTML = `<i class="fa-solid fa-circle-check"></i> Confirmation Letter PDF successfully sent to <strong>${toEmail}</strong>!`;
       } catch (err) {
         statusEl.style.color = '#b91c1c';
-        statusEl.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> ${err.message}. Downloading Confirmation Letter PDF & opening email client...`;
+        statusEl.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> ${err.message}. Downloading PDF & opening email client...`;
         doc.save(filename);
         const subject = encodeURIComponent(`Confirmation Letter (Table #${tableId}) — King & Queen of the Night 2027`);
         const body = encodeURIComponent(
@@ -3201,14 +3227,12 @@ Platinum Hotel & Convention Hall Balikpapan`
       }
     }
 
-    // DOWNLOAD CONFIRMATION LETTER PDF + OPEN WHATSAPP WITH FORMAL LETTER MESSAGE
     function sendVoucherWhatsApp() {
       if (!activeVoucherData) return;
       const { tableId, guest } = activeVoucherData;
       const isComp = guest.guest_type === 'Compulsory In-House';
       const { doc, filename } = createConfirmationLetterPDF(tableId, guest);
 
-      // Automatically download the Confirmation Letter PDF so staff can attach it directly in WhatsApp
       doc.save(filename);
 
       const roomLine = (isComp && guest.room_no) ? `\n• Room: *${guest.room_no}* (${guest.room_type || '-'})` : '';
@@ -3279,8 +3303,8 @@ Platinum Hotel & Convention Hall Balikpapan`;
       const loader = document.getElementById('loaderOverlay');
       loader.style.display = 'flex';
       const mapEl = document.getElementById('mapFrame');
-      const savedTransform = mapEl.style.transform;
-      mapEl.style.transform = 'scale(1)';
+      const savedWidth = mapEl.style.width;
+      mapEl.style.width = '100%';
       try {
         const canvas = await html2canvas(mapEl, { scale: 2, useCORS: true, backgroundColor: '#111' });
         const link = document.createElement('a');
@@ -3290,7 +3314,7 @@ Platinum Hotel & Convention Hall Balikpapan`;
       } catch (err) {
         alert('Failed to export layout image.');
       } finally {
-        mapEl.style.transform = savedTransform;
+        mapEl.style.width = savedWidth;
         loader.style.display = 'none';
       }
     }
@@ -3317,9 +3341,20 @@ Platinum Hotel & Convention Hall Balikpapan`;
       a.click();
     }
 
-    function zoomMap(delta) { zoomLevel = Math.max(0.8, Math.min(2.0, zoomLevel + delta)); applyTransform(); }
-    function resetZoom() { zoomLevel = 1.0; applyTransform(); }
-    function applyTransform() { document.getElementById('mapFrame').style.transform = `scale(${zoomLevel})`; }
+    function zoomMap(delta) {
+      mapWidthPercent = Math.max(100, Math.min(220, mapWidthPercent + (delta * 100)));
+      applyMapZoom();
+    }
+    function resetZoom() {
+      mapWidthPercent = 100;
+      applyMapZoom();
+    }
+    function applyMapZoom() {
+      const mapEl = document.getElementById('mapFrame');
+      mapEl.style.width = mapWidthPercent + '%';
+      mapEl.style.maxWidth = mapWidthPercent === 100 ? '1400px' : 'none';
+    }
+
     function scrollToDirectory() { document.getElementById('directorySection').scrollIntoView({ behavior: 'smooth' }); }
     function switchView(view, btn) {
       document.querySelectorAll('.vhp-tab').forEach(t => t.classList.remove('active'));
