@@ -743,7 +743,7 @@
       width: 100%;
       border-collapse: collapse;
       font-size: 0.78rem;
-      min-width: 900px;
+      min-width: 960px;
     }
 
     table.vhp-table th {
@@ -924,6 +924,13 @@
       cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
     }
 
+    .btn-email {
+      background: #2563eb; color: #ffffff; border: none;
+      padding: 10px 16px; border-radius: 8px; font-size: 0.84rem; font-weight: 700;
+      cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+    }
+    .btn-email:disabled { opacity: 0.6; cursor: not-allowed; }
+
     .btn-whatsapp {
       background: #16a34a; color: #ffffff; border: none;
       padding: 10px 16px; border-radius: 8px; font-size: 0.84rem; font-weight: 700;
@@ -1094,7 +1101,7 @@
         <div class="search-input-wrap">
           <i class="fa-solid fa-magnifying-glass"></i>
           <input type="text" id="greeterSearchInput"
-                 placeholder="Search by Guest Name, Room Number (e.g. 502 / 1012), or Table Number..."
+                 placeholder="Search by Guest Name, Email, Room Number (e.g. 502 / 1012), or Table Number..."
                  oninput="handleGreeterSearch()">
           <button type="button" id="btnClearSearch" class="btn-clear-search" onclick="clearGreeterSearch()" title="Clear Search">
             <i class="fa-solid fa-xmark"></i>
@@ -1111,7 +1118,7 @@
           <div class="summary-title-row">
             <h2>EXECUTIVE BALLROOM & SHARING REVENUE SUMMARY</h2>
             <span class="tag-info-blue">SHARING TABLE ENABLED</span>
-            <span class="tag-info-green">ADULT & CHILD PAX TRACKING</span>
+            <span class="tag-info-green">AUTO PDF & EMAIL VOUCHER</span>
           </div>
           <p class="summary-desc">Click any table on the floor plan to add or manage reservations. Green (&lt;10 Pax) • Red (≥10 Pax).</p>
         </div>
@@ -1201,7 +1208,7 @@
         <div class="floorplan-bar-title">
           <i class="fa-solid fa-list-ul"></i> LIVE GUEST & SHARING TABLE DIRECTORY
         </div>
-        <span style="font-size: 0.72rem; color: #cbd5e1;">Click any row to edit, add sharing guest, or download PDF voucher</span>
+        <span style="font-size: 0.72rem; color: #cbd5e1;">Click any row to edit, send email voucher, or download PDF</span>
       </div>
       <div class="table-responsive">
         <table class="vhp-table">
@@ -1210,6 +1217,7 @@
               <th>Table</th>
               <th>Status</th>
               <th>Guest Name</th>
+              <th>Email</th>
               <th>Segment</th>
               <th>Room / Type</th>
               <th>Adults</th>
@@ -1220,7 +1228,7 @@
             </tr>
           </thead>
           <tbody id="guestDirectoryBody">
-            <tr><td colspan="10" style="text-align:center; color:#64748b; padding:18px;">Loading reservations...</td></tr>
+            <tr><td colspan="11" style="text-align:center; color:#64748b; padding:18px;">Loading reservations...</td></tr>
           </tbody>
         </table>
       </div>
@@ -1228,7 +1236,7 @@
 
   </main>
 
-  <!-- TABLE RESERVATION MODAL (SHARING + CONDITIONAL ROOM + ADULT/CHILD PAX) -->
+  <!-- TABLE RESERVATION MODAL -->
   <div id="bookingModal" class="modal-backdrop">
     <div class="modal-container">
       <div class="modal-header">
@@ -1282,9 +1290,16 @@
           </div>
         </div>
 
-        <div class="form-row">
-          <label><i class="fa-brands fa-whatsapp" style="color: #16a34a;"></i> WhatsApp / Phone Number</label>
-          <input type="text" id="guestPhone" class="inp-field" placeholder="e.g. 0812-xxxx-xxxx">
+        <!-- EMAIL & WHATSAPP CONTACT -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div class="form-row">
+            <label><i class="fa-solid fa-envelope" style="color: #2563eb;"></i> Guest Email (For Auto PDF)</label>
+            <input type="email" id="guestEmail" class="inp-field" placeholder="e.g. guest@email.com">
+          </div>
+          <div class="form-row">
+            <label><i class="fa-brands fa-whatsapp" style="color: #16a34a;"></i> WhatsApp / Phone</label>
+            <input type="text" id="guestPhone" class="inp-field" placeholder="e.g. 0812-xxxx-xxxx">
+          </div>
         </div>
 
         <!-- ADULT, CHILD & AUTO TOTAL PAX -->
@@ -1334,7 +1349,7 @@
           </div>
         </div>
 
-        <!-- DEPOSIT AMOUNT (COMMERCIAL) OR CUSTOM ALLOCATION AMOUNT (COMPULSORY) -->
+        <!-- DEPOSIT AMOUNT OR CUSTOM ALLOCATION AMOUNT -->
         <div class="form-row" id="dpRowBox">
           <label id="dpAmountLabel"><i class="fa-solid fa-money-bill-wave" style="color: #059669;"></i> Deposit / Down Payment (DP)</label>
           <div class="money-input-box">
@@ -1378,13 +1393,13 @@
             <i class="fa-solid fa-trash"></i> Delete
           </button>
           <button id="btnOpenVoucherFromEdit" type="button" class="btn-vhp-outline" onclick="openCurrentGuestVoucher()" style="display: none;">
-            <i class="fa-solid fa-file-pdf" style="color:#dc2626;"></i> Guest PDF
+            <i class="fa-solid fa-paper-plane" style="color:#2563eb;"></i> Voucher / Email
           </button>
         </div>
         <div style="display: flex; gap: 8px; margin-left: auto;">
           <button type="button" class="btn-vhp-outline" onclick="closeBookingModal()">Close</button>
           <button class="btn-save" onclick="saveBooking()">
-            <i class="fa-solid fa-check"></i> Save & Generate Voucher
+            <i class="fa-solid fa-check"></i> Save & Open Voucher
           </button>
         </div>
       </div>
@@ -1432,9 +1447,16 @@
           </div>
         </div>
 
-        <div class="form-row">
-          <label>WhatsApp / Phone Number</label>
-          <input type="text" id="regGuestPhone" class="inp-field" placeholder="e.g. 0812-xxxx-xxxx">
+        <!-- EMAIL & WHATSAPP -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div class="form-row">
+            <label>Guest Email (For Auto PDF)</label>
+            <input type="email" id="regGuestEmail" class="inp-field" placeholder="e.g. guest@email.com">
+          </div>
+          <div class="form-row">
+            <label>WhatsApp / Phone Number</label>
+            <input type="text" id="regGuestPhone" class="inp-field" placeholder="e.g. 0812-xxxx-xxxx">
+          </div>
         </div>
 
         <!-- ADULT, CHILD & AUTO TOTAL PAX -->
@@ -1470,13 +1492,13 @@
       <div class="modal-footer">
         <button class="btn-vhp-outline" onclick="closeRegistrationModal()">Cancel</button>
         <button class="btn-save" onclick="saveRegistrationBooking()">
-          <i class="fa-solid fa-check"></i> Save & Generate Voucher
+          <i class="fa-solid fa-check"></i> Save & Open Voucher
         </button>
       </div>
     </div>
   </div>
 
-  <!-- GUEST RESERVATION CONFIRMATION VOUCHER MODAL (PDF DOWNLOAD + WHATSAPP SEND) -->
+  <!-- GUEST RESERVATION CONFIRMATION VOUCHER MODAL (SEND EMAIL + PDF + WHATSAPP) -->
   <div id="guestVoucherModal" class="modal-backdrop">
     <div class="modal-container">
       <div class="modal-header" style="background: #0f172a;">
@@ -1499,6 +1521,7 @@
           <div class="voucher-body">
             <div class="voucher-row"><span>Booking Reference</span><strong id="vBookingRef">KQ2027-001</strong></div>
             <div class="voucher-row"><span>Guest Name</span><strong id="vGuestName">-</strong></div>
+            <div class="voucher-row"><span>Guest Email</span><strong id="vGuestEmail" style="color:#2563eb;">-</strong></div>
             <div class="voucher-row"><span>Guest Category</span><strong id="vGuestType">-</strong></div>
             <div class="voucher-row" id="vRoomRow" style="display:none;"><span>Room Number & Type</span><strong id="vRoomInfo">-</strong></div>
             <div class="voucher-row"><span>Party Size Breakdown</span><strong id="vPaxBreakdown">-</strong></div>
@@ -1507,19 +1530,28 @@
             <div class="voucher-row" style="border-bottom:none;"><span>Issued By</span><strong id="vIssuedBy">-</strong></div>
           </div>
         </div>
-        <div style="font-size:0.74rem; color:#475569; text-align:center;">
-          Download the official PDF confirmation or send directly to the guest via WhatsApp.
+
+        <!-- DIRECT EMAIL RECIPIENT OVERRIDE / CONFIRMATION BAR -->
+        <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; padding:10px 12px; display:flex; flex-direction:column; gap:6px;">
+          <label style="font-size:0.74rem; font-weight:800; color:#1e40af;">
+            <i class="fa-solid fa-envelope-circle-check"></i> Recipient Email for Instant PDF Delivery:
+          </label>
+          <input type="email" id="voucherRecipientEmail" class="inp-field" placeholder="Enter or verify guest email address...">
+          <div id="emailDeliveryStatus" style="font-size:0.74rem; font-weight:700; display:none;"></div>
         </div>
       </div>
 
       <div class="modal-footer">
         <button class="btn-vhp-outline" onclick="closeGuestVoucherModal()">Close</button>
         <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button type="button" id="btnSendEmailPDF" class="btn-email" onclick="sendVoucherEmailWithPDF()">
+            <i class="fa-solid fa-paper-plane"></i> Send Email + PDF
+          </button>
           <button type="button" class="btn-pdf" onclick="downloadGuestConfirmationPDF()">
             <i class="fa-solid fa-file-pdf"></i> Download PDF
           </button>
           <button type="button" class="btn-whatsapp" onclick="sendVoucherWhatsApp()">
-            <i class="fa-brands fa-whatsapp"></i> Send to Guest
+            <i class="fa-brands fa-whatsapp"></i> WhatsApp
           </button>
         </div>
       </div>
@@ -1543,7 +1575,6 @@
           <span id="reportGeneratedAt" style="font-size:0.72rem; font-weight:700; color:#475569;"></span>
         </div>
 
-        <!-- 4 SUMMARY METRICS -->
         <div class="exec-grid">
           <div class="exec-box">
             <span>Table Occupancy</span>
@@ -1563,7 +1594,6 @@
           </div>
         </div>
 
-        <!-- REVENUE SEGMENT & ROOM TYPE BREAKDOWN -->
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
           <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:12px;">
             <div style="font-size:0.74rem; font-weight:800; color:#0f172a; margin-bottom:8px;">
@@ -1580,17 +1610,17 @@
           </div>
         </div>
 
-        <!-- FULL RESERVATION BREAKDOWN TABLE -->
         <div>
           <div style="font-size:0.76rem; font-weight:800; color:#0f172a; margin-bottom:6px;">
             <i class="fa-solid fa-table"></i> Complete Guest & Sharing Table Breakdown
           </div>
           <div class="table-responsive" style="border:1px solid #e2e8f0; border-radius:8px; max-height:260px; overflow-y:auto;">
-            <table class="vhp-table" style="min-width:720px;">
+            <table class="vhp-table" style="min-width:780px;">
               <thead>
                 <tr>
                   <th>Table</th>
                   <th>Guest Name</th>
+                  <th>Email</th>
                   <th>Segment</th>
                   <th>Room & Type</th>
                   <th>Adults</th>
@@ -1817,6 +1847,7 @@
           return {
             id: g.id || ('G-' + Math.random().toString(36).slice(2, 8)),
             name: g.name || '',
+            email: g.email || '',
             phone: g.phone || '',
             room_no: isComp ? (g.room_no || '') : '',
             room_type: isComp ? (g.room_type || (PLATINUM_ROOMS[g.room_no] || '')) : '',
@@ -1850,6 +1881,7 @@
       return [{
         id: 'G-LEGACY',
         name: row.guest_name || '',
+        email: '',
         phone: row.guest_phone || '',
         room_no: isCompulsory ? roomNo : '',
         room_type: isCompulsory ? (roomType || (PLATINUM_ROOMS[roomNo] || '')) : '',
@@ -2041,9 +2073,10 @@
 
         guests.forEach((g, idx) => {
           const matchName = (g.name || '').toLowerCase().includes(q);
+          const matchEmail = (g.email || '').toLowerCase().includes(q);
           const matchRoom = (g.room_no || '').toLowerCase().includes(q);
           const matchTable = cleanTableNum === q || id.toLowerCase() === q;
-          if (matchName || matchRoom || matchTable) {
+          if (matchName || matchEmail || matchRoom || matchTable) {
             matches.push({ id, g, idx, totalTablePax: getTableTotalPax(id), isSharing: guests.length > 1 });
             tableMatched = true;
           }
@@ -2070,9 +2103,9 @@
                 <div style="font-size:0.7rem; color:#475569; margin-top:2px;">${g.adults} Adults, ${g.children} Children (Total: ${g.pax} Pax)</div>
               </div>
               <div style="display:flex; align-items:center; gap:6px;">
-                <button type="button" class="btn-vhp-outline" style="padding:6px 8px; font-size:0.7rem;" title="Guest PDF Voucher"
+                <button type="button" class="btn-vhp-outline" style="padding:6px 8px; font-size:0.7rem;" title="Guest PDF / Email Voucher"
                         onclick="event.stopPropagation(); openVoucherByTableAndIndex('${id}', ${idx});">
-                  <i class="fa-solid fa-file-pdf" style="color:#dc2626;"></i>
+                  <i class="fa-solid fa-paper-plane" style="color:#2563eb;"></i>
                 </button>
                 <div class="table-badge-big">
                   <div style="font-size:0.58rem; font-weight:600; opacity:0.85;">TABLE</div>
@@ -2114,7 +2147,7 @@
         const totalTablePax = getTableTotalPax(id);
         guests.forEach((g, idx) => {
           if (filterQuery) {
-            const hay = `${id} ${g.name} ${g.room_no} ${g.room_type} ${g.guest_type}`.toLowerCase();
+            const hay = `${id} ${g.name} ${g.email} ${g.room_no} ${g.room_type} ${g.guest_type}`.toLowerCase();
             if (!hay.includes(filterQuery)) return;
           }
           rows.push({ id, g, idx, totalTablePax, isSharing: guests.length > 1 });
@@ -2122,7 +2155,7 @@
       });
 
       if (rows.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="10" style="text-align:center; color:#64748b; padding:18px;">${filterQuery ? 'No matching records found.' : 'No reservations recorded yet. Click any table on the floor plan to start.'}</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="11" style="text-align:center; color:#64748b; padding:18px;">${filterQuery ? 'No matching records found.' : 'No reservations recorded yet. Click any table on the floor plan to start.'}</td></tr>`;
         return;
       }
 
@@ -2145,6 +2178,7 @@
             <td><strong>#${id}</strong>${shareBadge}</td>
             <td>${badgeHtml}</td>
             <td><strong>${g.name}</strong></td>
+            <td style="color:#2563eb;">${g.email || '—'}</td>
             <td>${segLabel}</td>
             <td>${roomDisplay}</td>
             <td>${g.adults}</td>
@@ -2154,7 +2188,7 @@
             <td onclick="event.stopPropagation();">
               <button type="button" class="btn-vhp-outline" style="padding:4px 8px; font-size:0.7rem;"
                       onclick="openVoucherByTableAndIndex('${id}', ${idx})">
-                <i class="fa-solid fa-file-pdf" style="color:#dc2626;"></i> PDF
+                <i class="fa-solid fa-paper-plane" style="color:#2563eb;"></i> Send
               </button>
             </td>
           </tr>
@@ -2219,6 +2253,7 @@
             <tr>
               <td><strong>#${id}</strong>${shareMark}</td>
               <td><strong>${g.name}</strong></td>
+              <td>${g.email || '—'}</td>
               <td>${g.guest_type === 'Compulsory In-House' ? 'Compulsory' : 'Commercial'}</td>
               <td>${roomStr}</td>
               <td>${ad}</td>
@@ -2249,7 +2284,7 @@
         ? rtKeys.map(rt => `<div style="display:flex; justify-content:space-between;"><span>${rt}:</span><strong>${roomTypeCounts[rt]} Rooms</strong></div>`).join('')
         : '<div style="color:#64748b;">No Compulsory In-House rooms registered yet.</div>';
 
-      document.getElementById('execReportTableBody').innerHTML = rowsHtml || '<tr><td colspan="9" style="text-align:center; padding:16px; color:#64748b;">No reservations recorded yet.</td></tr>';
+      document.getElementById('execReportTableBody').innerHTML = rowsHtml || '<tr><td colspan="10" style="text-align:center; padding:16px; color:#64748b;">No reservations recorded yet.</td></tr>';
 
       const now = new Date();
       document.getElementById('reportGeneratedAt').innerText = `Generated: ${now.toLocaleDateString('en-GB')} ${now.toLocaleTimeString('en-GB')} WITA`;
@@ -2258,7 +2293,6 @@
 
     function closeExecDashboardModal() { document.getElementById('execDashboardModal').classList.remove('open'); }
 
-    // PAX RECALCULATION (ADULT + CHILD)
     function recalcModalPax() {
       const adults = Math.max(0, parseInt(document.getElementById('guestAdults').value, 10) || 0);
       const children = Math.max(0, parseInt(document.getElementById('guestChildren').value, 10) || 0);
@@ -2281,7 +2315,6 @@
       document.getElementById('regGuestTotalPax').value = adults + children;
     }
 
-    // TOGGLE FIELDS BETWEEN COMMERCIAL (NO ROOM) VS COMPULSORY IN-HOUSE (WITH ROOM & CUSTOM AMOUNT)
     function toggleInHouseFields() {
       const gType = document.getElementById('guestType').value;
       const roomSec = document.getElementById('guestRoomSection');
@@ -2340,6 +2373,7 @@
       document.getElementById('regGuestType').value = 'Commercial Guest';
       toggleRegFields();
       document.getElementById('regGuestName').value = '';
+      document.getElementById('regGuestEmail').value = '';
       document.getElementById('regGuestPhone').value = '';
       document.getElementById('regGuestAdults').value = '5';
       document.getElementById('regGuestChildren').value = '0';
@@ -2355,6 +2389,7 @@
       const tid = document.getElementById('regTableIdSelect').value;
       const gType = document.getElementById('regGuestType').value;
       const name = document.getElementById('regGuestName').value.trim();
+      const email = document.getElementById('regGuestEmail').value.trim();
       const isComp = gType === 'Compulsory In-House';
       const roomNo = isComp ? document.getElementById('regGuestRoomNo').value : '';
       const roomType = isComp ? (document.getElementById('regGuestRoomType').value.trim() || (PLATINUM_ROOMS[roomNo] || '')) : '';
@@ -2377,6 +2412,7 @@
       const newGuestObj = {
         id: 'KQ-' + Date.now().toString().slice(-6),
         name: name,
+        email: email,
         phone: phone,
         room_no: roomNo,
         room_type: roomType,
@@ -2445,9 +2481,9 @@
               <div style="font-size:0.7rem; color:#475569;">${g.adults}A + ${g.children}C (${g.pax} Pax)${rmInfo} • Rp ${(g.dp || 0).toLocaleString('id-ID')}</div>
             </div>
             <div style="display:flex; gap:4px;">
-              <button type="button" class="btn-vhp-outline" style="padding:4px 8px; font-size:0.7rem;" title="Guest PDF Voucher"
+              <button type="button" class="btn-vhp-outline" style="padding:4px 8px; font-size:0.7rem;" title="Guest PDF / Email Voucher"
                       onclick="openVoucherByTableAndIndex('${currentTable}', ${idx})">
-                <i class="fa-solid fa-file-pdf" style="color:#dc2626;"></i>
+                <i class="fa-solid fa-paper-plane" style="color:#2563eb;"></i>
               </button>
               <button type="button" class="btn-vhp-outline" style="padding:4px 8px; font-size:0.7rem;" onclick="loadGuestIntoForm(${idx})">
                 <i class="fa-solid fa-pen"></i> Edit
@@ -2478,6 +2514,7 @@
         document.getElementById('guestRoomNo').value = data.room_no || '';
         document.getElementById('guestRoomType').value = data.room_type || (PLATINUM_ROOMS[data.room_no] || '');
       }
+      document.getElementById('guestEmail').value = data.email || '';
       document.getElementById('guestPhone').value = data.phone || '';
       document.getElementById('guestAdults').value = data.adults !== undefined ? data.adults : (data.pax || 5);
       document.getElementById('guestChildren').value = data.children !== undefined ? data.children : 0;
@@ -2509,6 +2546,7 @@
       document.getElementById('guestType').value = 'Commercial Guest';
       toggleInHouseFields();
       document.getElementById('guestName').value = '';
+      document.getElementById('guestEmail').value = '';
       document.getElementById('guestPhone').value = '';
       document.getElementById('guestAdults').value = guests.length > 0 ? remainingPax : 10;
       document.getElementById('guestChildren').value = 0;
@@ -2621,6 +2659,7 @@
 
     async function saveBooking() {
       const name = document.getElementById('guestName').value.trim();
+      const email = document.getElementById('guestEmail').value.trim();
       const gType = document.getElementById('guestType').value;
       const isComp = gType === 'Compulsory In-House';
       const roomNo = isComp ? document.getElementById('guestRoomNo').value : '';
@@ -2649,6 +2688,7 @@
           ? bookings[savedTableId].guests[editingGuestIndex].id
           : 'KQ-' + Date.now().toString().slice(-6),
         name: name,
+        email: email,
         phone: phone,
         room_no: roomNo,
         room_type: roomType,
@@ -2697,51 +2737,8 @@
       await fetchAllCloudData();
     }
 
-    // GUEST RESERVATION CONFIRMATION VOUCHER & PDF GENERATOR
-    function openVoucherByTableAndIndex(tableId, idx) {
-      const g = bookings[tableId]?.guests[idx];
-      if (!g) return;
-      showGuestVoucherModal(tableId, g);
-    }
-
-    function openCurrentGuestVoucher() {
-      if (!currentTable || editingGuestIndex < 0) return;
-      openVoucherByTableAndIndex(currentTable, editingGuestIndex);
-    }
-
-    function showGuestVoucherModal(tableId, guestObj) {
-      activeVoucherData = { tableId: String(tableId), guest: guestObj };
-      const isComp = guestObj.guest_type === 'Compulsory In-House';
-
-      document.getElementById('vTableNo').innerText = `#${tableId}`;
-      document.getElementById('vBookingRef').innerText = guestObj.id || `KQ2027-T${tableId}`;
-      document.getElementById('vGuestName').innerText = guestObj.name;
-      document.getElementById('vGuestType').innerText = isComp ? 'Compulsory In-House Guest' : 'Commercial / Walk-In Guest';
-
-      const roomRow = document.getElementById('vRoomRow');
-      if (isComp && guestObj.room_no) {
-        roomRow.style.display = 'flex';
-        document.getElementById('vRoomInfo').innerText = `Room ${guestObj.room_no} (${guestObj.room_type || '-'})`;
-      } else {
-        roomRow.style.display = 'none';
-      }
-
-      document.getElementById('vPaxBreakdown').innerText = `${guestObj.adults} Adults, ${guestObj.children} Children (Total: ${guestObj.pax} Pax)`;
-      document.getElementById('vArrivalTime').innerText = `31 Dec 2026 • ${guestObj.time || '19:00 WITA'}`;
-      document.getElementById('vAmountLabel').innerText = isComp ? 'Package Allocation' : 'Deposit Paid';
-      document.getElementById('vAmountPaid').innerText = `Rp ${(guestObj.dp || 0).toLocaleString('id-ID')}`;
-      document.getElementById('vIssuedBy').innerText = `${guestObj.created_by || 'Banquet Team'} (${guestObj.timestamp || '-'})`;
-
-      document.getElementById('guestVoucherModal').classList.add('open');
-    }
-
-    function closeGuestVoucherModal() {
-      document.getElementById('guestVoucherModal').classList.remove('open');
-    }
-
-    function downloadGuestConfirmationPDF() {
-      if (!activeVoucherData) return;
-      const { tableId, guest } = activeVoucherData;
+    // BUILD PDF DOCUMENT OBJECT (USED FOR BOTH DOWNLOAD & EMAIL ATTACHMENT)
+    function createGuestConfirmationDoc(tableId, guest) {
       const isComp = guest.guest_type === 'Compulsory In-House';
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a5' });
@@ -2774,11 +2771,10 @@
       doc.setFontSize(13);
       doc.text(`#${tableId}`, 126, 22, { align: 'center' });
 
-      // Details Rows
-      let y = 46;
+      let y = 45;
       const drawRow = (label, value) => {
         doc.setFont('helvetica', 'normal');
-        doc.setFontSize(9);
+        doc.setFontSize(8.8);
         doc.setTextColor(100, 116, 139);
         doc.text(label, 12, y);
 
@@ -2787,12 +2783,13 @@
         doc.text(String(value), 136, y, { align: 'right' });
 
         doc.setDrawColor(226, 232, 240);
-        doc.line(12, y + 3, 136, y + 3);
-        y += 10;
+        doc.line(12, y + 2.8, 136, y + 2.8);
+        y += 9.5;
       };
 
       drawRow('Booking Reference', guest.id || `KQ2027-T${tableId}`);
       drawRow('Guest Name', guest.name);
+      if (guest.email) drawRow('Email Address', guest.email);
       drawRow('Guest Category', isComp ? 'Compulsory In-House Guest' : 'Commercial / Walk-In Guest');
       if (isComp && guest.room_no) {
         drawRow('Room Number & Type', `Room ${guest.room_no} (${guest.room_type || '-'})`);
@@ -2806,21 +2803,161 @@
       }
       drawRow('Issued By', `${guest.created_by || 'Banquet Team'}`);
 
-      // Footer Note
       doc.setFillColor(248, 250, 252);
-      doc.roundedRect(12, y + 4, 124, 22, 2, 2, 'F');
+      doc.roundedRect(12, y + 3, 124, 21, 2, 2, 'F');
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(8);
       doc.setTextColor(3, 83, 136);
-      doc.text('GREETER & CHECK-IN INSTRUCTIONS:', 16, y + 11);
+      doc.text('GREETER & CHECK-IN INSTRUCTIONS:', 16, y + 9.5);
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(7.5);
       doc.setTextColor(71, 85, 105);
-      doc.text('Please present this digital confirmation at the Ballroom Entrance.', 16, y + 17);
-      doc.text('Our Greeter Team will escort you directly to your assigned table.', 16, y + 22);
+      doc.text('Please present this digital confirmation at the Ballroom Entrance.', 16, y + 15);
+      doc.text('Our Greeter Team will escort you directly to your assigned table.', 16, y + 20);
 
       const safeName = guest.name.replace(/[^a-zA-Z0-9]/g, '_');
-      doc.save(`Reservation_Table_${tableId}_${safeName}.pdf`);
+      const filename = `Reservation_Table_${tableId}_${safeName}.pdf`;
+      return { doc, filename };
+    }
+
+    function openVoucherByTableAndIndex(tableId, idx) {
+      const g = bookings[tableId]?.guests[idx];
+      if (!g) return;
+      showGuestVoucherModal(tableId, g);
+    }
+
+    function openCurrentGuestVoucher() {
+      if (!currentTable || editingGuestIndex < 0) return;
+      openVoucherByTableAndIndex(currentTable, editingGuestIndex);
+    }
+
+    function showGuestVoucherModal(tableId, guestObj) {
+      activeVoucherData = { tableId: String(tableId), guest: guestObj };
+      const isComp = guestObj.guest_type === 'Compulsory In-House';
+
+      document.getElementById('vTableNo').innerText = `#${tableId}`;
+      document.getElementById('vBookingRef').innerText = guestObj.id || `KQ2027-T${tableId}`;
+      document.getElementById('vGuestName').innerText = guestObj.name;
+      document.getElementById('vGuestEmail').innerText = guestObj.email || 'Not provided';
+      document.getElementById('vGuestType').innerText = isComp ? 'Compulsory In-House Guest' : 'Commercial / Walk-In Guest';
+
+      const roomRow = document.getElementById('vRoomRow');
+      if (isComp && guestObj.room_no) {
+        roomRow.style.display = 'flex';
+        document.getElementById('vRoomInfo').innerText = `Room ${guestObj.room_no} (${guestObj.room_type || '-'})`;
+      } else {
+        roomRow.style.display = 'none';
+      }
+
+      document.getElementById('vPaxBreakdown').innerText = `${guestObj.adults} Adults, ${guestObj.children} Children (Total: ${guestObj.pax} Pax)`;
+      document.getElementById('vArrivalTime').innerText = `31 Dec 2026 • ${guestObj.time || '19:00 WITA'}`;
+      document.getElementById('vAmountLabel').innerText = isComp ? 'Package Allocation' : 'Deposit Paid';
+      document.getElementById('vAmountPaid').innerText = `Rp ${(guestObj.dp || 0).toLocaleString('id-ID')}`;
+      document.getElementById('vIssuedBy').innerText = `${guestObj.created_by || 'Banquet Team'} (${guestObj.timestamp || '-'})`;
+
+      document.getElementById('voucherRecipientEmail').value = guestObj.email || '';
+      const statusEl = document.getElementById('emailDeliveryStatus');
+      statusEl.style.display = 'none';
+      statusEl.innerText = '';
+
+      document.getElementById('guestVoucherModal').classList.add('open');
+    }
+
+    function closeGuestVoucherModal() {
+      document.getElementById('guestVoucherModal').classList.remove('open');
+    }
+
+    function downloadGuestConfirmationPDF() {
+      if (!activeVoucherData) return;
+      const { tableId, guest } = activeVoucherData;
+      const { doc, filename } = createGuestConfirmationDoc(tableId, guest);
+      doc.save(filename);
+    }
+
+    // AUTOMATIC SEND EMAIL WITH PDF ATTACHMENT VIA VERCEL API (/api/send-voucher)
+    async function sendVoucherEmailWithPDF() {
+      if (!activeVoucherData) return;
+      const toEmail = document.getElementById('voucherRecipientEmail').value.trim();
+      const statusEl = document.getElementById('emailDeliveryStatus');
+      const btnEl = document.getElementById('btnSendEmailPDF');
+
+      if (!toEmail || !toEmail.includes('@')) {
+        alert('Please enter a valid guest email address before sending.');
+        document.getElementById('voucherRecipientEmail').focus();
+        return;
+      }
+
+      const { tableId, guest } = activeVoucherData;
+      guest.email = toEmail;
+      const isComp = guest.guest_type === 'Compulsory In-House';
+      const { doc, filename } = createGuestConfirmationDoc(tableId, guest);
+
+      // Extract raw base64 string from jsPDF output
+      const dataUri = doc.output('datauristring');
+      const pdfBase64 = dataUri.split(',')[1];
+
+      btnEl.disabled = true;
+      btnEl.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Sending Email...`;
+      statusEl.style.display = 'block';
+      statusEl.style.color = '#1e40af';
+      statusEl.innerText = `Sending official PDF voucher to ${toEmail}...`;
+
+      try {
+        const res = await fetch('/api/send-voucher', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            toEmail: toEmail,
+            guestName: guest.name,
+            tableId: tableId,
+            bookingRef: guest.id || `KQ2027-T${tableId}`,
+            guestType: isComp ? 'Compulsory In-House Guest' : 'Commercial / Walk-In Guest',
+            roomInfo: (isComp && guest.room_no) ? `Room ${guest.room_no} (${guest.room_type || '-'})` : '',
+            paxBreakdown: `${guest.adults} Adults, ${guest.children} Children (Total: ${guest.pax} Pax)`,
+            arrivalTime: guest.time || '19:00 WITA',
+            amountLabel: isComp ? 'Package Allocation' : 'Deposit Paid',
+            amountFormatted: `Rp ${(guest.dp || 0).toLocaleString('id-ID')}`,
+            pdfBase64: pdfBase64,
+            pdfFilename: filename
+          })
+        });
+
+        const result = await res.json();
+        if (!res.ok) {
+          throw new Error(result.error || 'Failed to send email via server.');
+        }
+
+        statusEl.style.color = '#15803d';
+        statusEl.innerHTML = `<i class="fa-solid fa-circle-check"></i> Confirmation email & PDF successfully sent to <strong>${toEmail}</strong>!`;
+      } catch (err) {
+        statusEl.style.color = '#b91c1c';
+        statusEl.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Auto-send notice: ${err.message}. Downloading PDF & opening email client...`;
+        // Fallback: download PDF and open default mail client with pre-written message
+        doc.save(filename);
+        const subject = encodeURIComponent(`Table Reservation Confirmation (#${tableId}) — King & Queen of the Night 2027`);
+        const body = encodeURIComponent(
+`Dear ${guest.name},
+
+Warmest greetings from Platinum Hotel & Convention Hall Balikpapan.
+
+We are delighted to confirm your table reservation for King & Queen of the Night 2027:
+- Booking Reference: ${guest.id || 'KQ2027'}
+- Assigned Table: Table #${tableId}
+- Party Size: ${guest.adults} Adults, ${guest.children} Children (Total: ${guest.pax} Pax)
+- Event Date & Arrival: 31 December 2026, ${guest.time || '19:00 WITA'}
+- Venue: Grand Golden Ballroom, Platinum Hotel Balikpapan
+
+Please find your official PDF confirmation voucher attached. We look forward to welcoming you!
+
+Warm regards,
+Banquet & Hospitality Management
+Platinum Hotel & Convention Hall Balikpapan`
+        );
+        window.open(`mailto:${toEmail}?subject=${subject}&body=${body}`, '_blank');
+      } finally {
+        btnEl.disabled = false;
+        btnEl.innerHTML = `<i class="fa-solid fa-paper-plane"></i> Send Email + PDF`;
+      }
     }
 
     function sendVoucherWhatsApp() {
@@ -2904,7 +3041,7 @@ Please present this confirmation to our Greeter Team upon arrival at the Main Ba
     }
 
     function exportReservationsCSV() {
-      let csv = 'Table Number,Table Status,Sharing,Guest Type,Guest Name,Room Number,Room Type,WhatsApp/Phone,Adults,Children,Total Pax,Amount/DP (IDR),Arrival Time,Staff,Notes\n';
+      let csv = 'Table Number,Table Status,Sharing,Guest Type,Guest Name,Email,Room Number,Room Type,WhatsApp/Phone,Adults,Children,Total Pax,Amount/DP (IDR),Arrival Time,Staff,Notes\n';
       ALL_TABLE_IDS.forEach(k => {
         if (!bookings[k]) return;
         const guests = bookings[k].guests;
@@ -2915,7 +3052,7 @@ Please present this confirmation to our Greeter Team upon arrival at the Main Ba
         guests.forEach(g => {
           const rmNo = (g.guest_type === 'Compulsory In-House' && g.room_no) ? g.room_no : '-';
           const rmType = (g.guest_type === 'Compulsory In-House' && g.room_type) ? g.room_type : '-';
-          csv += `"${k}","${statusColor}","${isShare}","${g.guest_type}","${g.name}","${rmNo}","${rmType}","${g.phone || '-'}","${g.adults}","${g.children}","${g.pax}","${g.dp}","${g.time}","${g.created_by}","${(g.notes||'').replace(/"/g, '""')}"\n`;
+          csv += `"${k}","${statusColor}","${isShare}","${g.guest_type}","${g.name}","${g.email || '-'}","${rmNo}","${rmType}","${g.phone || '-'}","${g.adults}","${g.children}","${g.pax}","${g.dp}","${g.time}","${g.created_by}","${(g.notes||'').replace(/"/g, '""')}"\n`;
         });
       });
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
