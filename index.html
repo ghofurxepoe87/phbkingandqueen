@@ -151,7 +151,7 @@
     /* STYLE SPOT MEJA: DEFAULT, HIJAU (< 10 PAX), MERAH (>= 10 PAX) */
     .spot {
       position: absolute; cursor: grab; border-radius: 50%;
-      background: rgba(255, 255, 255, 0.88);
+      background: rgba(255, 255, 255, 0.9);
       border: 2px solid var(--gold-primary);
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       font-size: 0.72rem; font-weight: 800; color: #1e293b;
@@ -160,12 +160,7 @@
       line-height: 1;
     }
 
-    .spot .pax-badge {
-      font-size: 0.45rem;
-      font-weight: 700;
-      margin-top: 1px;
-    }
-
+    .spot .pax-badge { font-size: 0.45rem; font-weight: 700; margin-top: 1px; }
     .spot:hover { transform: scale(1.12); z-index: 10; }
 
     /* WARNA HIJAU: Terisi kurang dari 10 Pax */
@@ -246,7 +241,7 @@
       <div class="brand-section">
         <div class="brand-logo-frame">
           <img src="Logo.png" alt="Logo Platinum Hotel"
-               onerror="this.onerror=null; this.src='logo.png'; this.addEventListener('error', () => { this.src='favicon.png'; });">
+               onerror="this.onerror=null; this.src='logo.png'; this.addEventListener('error', () => { this.style.display='none'; });">
         </div>
         <div class="brand-title">
           <h1>Platinum Hotel & Convention Hall</h1>
@@ -263,7 +258,7 @@
             <i class="fa-solid fa-chair"></i>
             <div class="txt-wrap">
               <span>Meja Terisi</span>
-              <strong><span id="statTablesBooked">0</span><span id="statTotalTables" style="font-size:0.75rem; color:#cbd5e1;"> / 29</span></strong>
+              <strong><span id="statTablesBooked">0</span><span id="statTotalTables" style="font-size:0.75rem; color:#cbd5e1;"> / 35</span></strong>
             </div>
           </div>
 
@@ -314,10 +309,10 @@
   <!-- TOOLBAR -->
   <div class="toolbar-bar">
     <div class="legend-tag">
-      <div style="display:flex; align-items:center; gap:6px;"><div class="dot-node avail"></div> <span id="legendAvailText">Kosong: 29</span></div>
+      <div style="display:flex; align-items:center; gap:6px;"><div class="dot-node avail"></div> <span id="legendAvailText">Kosong: 35</span></div>
       <div style="display:flex; align-items:center; gap:6px;"><div class="dot-node partial"></div> <span id="legendPartialText">Terisi &lt;10 Pax: 0</span></div>
       <div style="display:flex; align-items:center; gap:6px;"><div class="dot-node booked"></div> <span id="legendBookedText">Penuh (&ge;10 Pax): 0</span></div>
-      <div style="color: var(--gold-primary); font-size: 0.7rem; font-weight: 700;"><i class="fa-solid fa-cloud"></i> Cloud Aktif</div>
+      <div id="cloudStatusBadge" style="color: #64748b; font-size: 0.7rem; font-weight: 700;"><i class="fa-solid fa-spinner fa-spin"></i> Menghubungkan Cloud...</div>
     </div>
     
     <div class="zoom-group">
@@ -334,11 +329,13 @@
   <!-- VIEWPORT -->
   <main class="viewport-area" id="mapTouchArea">
     <div class="map-frame" id="mapFrame">
+      <!-- SESUAI FILE DI GITHUB: denah.png -->
       <img id="mainDenahImg" 
-           src="denah.jpg" 
+           src="denah.png" 
            alt="Ballroom - King & Queen 2027" 
            class="render-3d-img"
-           crossorigin="anonymous">
+           crossorigin="anonymous"
+           onerror="this.onerror=null; this.src='denah.jpg';">
 
       <div class="hotspots-layer" id="hotspotsLayer"></div>
     </div>
@@ -646,12 +643,12 @@
 
           <div class="dash-card">
             <div class="card-lbl"><i class="fa-solid fa-chair" style="color: #0284c7;"></i> Okupansi Meja Ballroom</div>
-            <div><span id="repTablesBooked" style="color: #0284c7; font-size: 1.25rem; font-weight: 800;">0</span> <span id="repTotalCap" style="font-size:0.75rem; color:var(--text-muted);">/ 29 Meja</span></div>
+            <div><span id="repTablesBooked" style="color: #0284c7; font-size: 1.25rem; font-weight: 800;">0</span> <span id="repTotalCap" style="font-size:0.75rem; color:var(--text-muted);">/ 35 Meja</span></div>
             <div class="occupancy-bar-wrap">
               <div id="repTablesBar" class="occupancy-bar"></div>
             </div>
             <div class="card-sub" style="margin-top: 4px;">
-              Tersisa Kosong: <strong id="repTablesLeft" style="color:#0284c7;">29</strong> Meja
+              Tersisa Kosong: <strong id="repTablesLeft" style="color:#0284c7;">35</strong> Meja
             </div>
           </div>
 
@@ -706,9 +703,9 @@
     const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     const FDC_DEFAULT_PRICE = 150000;
 
-    // KOORDINAT & NOMOR MEJA DISESUAIKAN DENGAN DENAH BARU (29 MEJA)
+    // KOORDINAT & NOMOR MEJA SESUAI GAMBAR DENAH (35 MEJA)
     const DEFAULT_TABLE_CONFIGS = {
-      // AREA ATAS (SEBELAH ATAS JALUR TENGAH)
+      // AREA ATAS
       '8':   { top: 19.5, left: 32.8, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
       '6':   { top: 26.0, left: 34.4, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
       '2':   { top: 32.0, left: 33.4, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
@@ -732,8 +729,7 @@
       '32B': { top: 21.4, left: 80.8, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
       '30B': { top: 32.2, left: 83.2, w: 3.5, h: 5.5, type: 'Banquet Table', pax: 10 },
 
-      // AREA BAWAH (SEBELAH BAWAH JALUR TENGAH)
-      // Baris 1 Bawah
+      // AREA BAWAH
       '1':   { top: 50.5, left: 32.4, w: 3.6, h: 5.6, type: 'VIP Stage Side', pax: 10 },
       '7':   { top: 50.5, left: 41.4, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
       '13':  { top: 50.5, left: 50.4, w: 3.6, h: 5.6, type: 'VIP Center', pax: 10 },
@@ -742,7 +738,6 @@
       '35':  { top: 50.5, left: 77.2, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
       '33':  { top: 50.2, left: 86.2, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
 
-      // Baris 2 Bawah
       '3':   { top: 61.5, left: 31.8, w: 3.6, h: 5.6, type: 'VIP Stage Side', pax: 10 },
       '9':   { top: 61.5, left: 41.2, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
       '15':  { top: 73.2, left: 50.4, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
@@ -750,7 +745,6 @@
       '25':  { top: 61.8, left: 78.2, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
       '31':  { top: 61.5, left: 87.6, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
 
-      // Baris 3 Bawah (Paling Depan)
       '5':   { top: 73.2, left: 31.0, w: 3.6, h: 5.6, type: 'VIP Stage Side', pax: 10 },
       '11':  { top: 73.2, left: 40.6, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
       '19':  { top: 73.2, left: 60.0, w: 3.6, h: 5.6, type: 'Banquet Table', pax: 10 },
@@ -773,6 +767,18 @@
     let currentCart = [];
     let currentTable = null;
     let zoomLevel = 1.0;
+
+    function setCloudStatus(isConnected, msg) {
+      const el = document.getElementById('cloudStatusBadge');
+      if (!el) return;
+      if (isConnected) {
+        el.style.color = '#059669';
+        el.innerHTML = `<i class="fa-solid fa-cloud-check"></i> ${msg || 'Cloud Terhubung'}`;
+      } else {
+        el.style.color = '#dc2626';
+        el.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> ${msg || 'Gagal Terhubung ke Cloud'}`;
+      }
+    }
 
     window.addEventListener('DOMContentLoaded', async () => {
       document.getElementById('statTotalTables').innerText = ' / ' + TOTAL_TABLES_COUNT;
@@ -802,7 +808,9 @@
             }
           });
         }
-      } catch (err) {}
+      } catch (err) {
+        console.warn('Tabel kq_table_positions belum siap:', err);
+      }
 
       ALL_TABLE_IDS.forEach(id => {
         if (!tableConfigs[id]) {
@@ -819,7 +827,9 @@
           table_id: String(id),
           top: t.top, left: t.left, w: t.w, h: t.h
         }, { onConflict: 'table_id' });
-      } catch (err) {}
+      } catch (err) {
+        console.error('Gagal simpan posisi meja:', err);
+      }
     }
 
     async function resetHotspotsPosition() {
@@ -841,7 +851,7 @@
       ALL_TABLE_IDS.forEach(id => {
         const t = tableConfigs[id] || DEFAULT_TABLE_CONFIGS[id];
         if (!t) return;
-        const labelText = id.replace(/[AB]/g, ''); // Menampilkan angka 30 / 32 bersih di lingkaran
+        const labelText = id.replace(/[AB]/g, '');
         html += `
           <div id="spot-${id}" class="spot" 
                style="top: ${t.top}%; left: ${t.left}%; width: ${t.w}%; height: ${t.h}%;"
@@ -857,7 +867,6 @@
       layer.innerHTML = html;
     }
 
-    // DRAG AND DROP KOORDINAT MEJA
     let draggingId = null, startX = 0, startY = 0, origTop = 0, origLeft = 0, hasDragged = false;
 
     function initDrag(e, id) {
@@ -908,9 +917,14 @@
 
     async function fetchAllCloudData() {
       try {
-        const { data: tableData } = await _supabase.from('kq_table_bookings').select('*');
+        const { data: tableData, error: tableErr } = await _supabase.from('kq_table_bookings').select('*');
+        if (tableErr) {
+          setCloudStatus(false, 'Error DB: ' + tableErr.message);
+          return;
+        }
+
+        bookings = {};
         if (tableData) {
-          bookings = {};
           tableData.forEach(row => {
             const tid = String(row.table_id).trim();
             let parsedCart = [];
@@ -924,6 +938,7 @@
             };
           });
         }
+
         const { data: fdcData } = await _supabase.from('kq_fdc_bookings').select('*');
         if (fdcData) {
           fdcBookings = fdcData.map(row => ({
@@ -931,9 +946,13 @@
             pax: row.pax, amount: Number(row.amount), created_by: row.created_by || ''
           }));
         }
+
+        setCloudStatus(true, 'Sinkronisasi Cloud Aktif');
         refreshMapNodes();
         updateMetrics();
-      } catch (err) {}
+      } catch (err) {
+        setCloudStatus(false, 'Koneksi Cloud Terputus');
+      }
     }
 
     function subscribeRealtime() {
@@ -943,7 +962,7 @@
         .subscribe();
     }
 
-    // LOGIKA PEMBARUAN WARNA: HIJAU (< 10 PAX) VS MERAH (>= 10 PAX)
+    // LOGIKA WARNA: HIJAU (< 10 PAX) VS MERAH (>= 10 PAX)
     function refreshMapNodes() {
       document.querySelectorAll('.spot').forEach(spot => {
         const id = spot.dataset.id;
@@ -1067,7 +1086,11 @@
         guest_type: gType
       };
 
-      await _supabase.from('kq_table_bookings').upsert(payload, { onConflict: 'table_id' });
+      const { error } = await _supabase.from('kq_table_bookings').upsert(payload, { onConflict: 'table_id' });
+      if (error) {
+        alert('Gagal menyimpan ke Supabase: ' + error.message);
+        return;
+      }
       closeRegistrationModal();
       await fetchAllCloudData();
     }
@@ -1239,14 +1262,22 @@
         guest_type: gType
       };
 
-      await _supabase.from('kq_table_bookings').upsert(payload, { onConflict: 'table_id' });
+      const { error } = await _supabase.from('kq_table_bookings').upsert(payload, { onConflict: 'table_id' });
+      if (error) {
+        alert('Gagal menyimpan ke database: ' + error.message);
+        return;
+      }
       closeBookingModal();
       await fetchAllCloudData();
     }
 
     async function deleteBooking() {
       if (confirm('Batalkan reservasi Meja #' + currentTable + '?')) {
-        await _supabase.from('kq_table_bookings').delete().eq('table_id', String(currentTable));
+        const { error } = await _supabase.from('kq_table_bookings').delete().eq('table_id', String(currentTable));
+        if (error) {
+          alert('Gagal menghapus data: ' + error.message);
+          return;
+        }
         closeBookingModal();
         await fetchAllCloudData();
       }
@@ -1296,7 +1327,11 @@
         amount: rawAmt ? parseInt(rawAmt, 10) : FDC_DEFAULT_PRICE,
         created_by: document.getElementById('fdcCreatedBy').value
       };
-      await _supabase.from('kq_fdc_bookings').insert([payload]);
+      const { error } = await _supabase.from('kq_fdc_bookings').insert([payload]);
+      if (error) {
+        alert('Gagal menyimpan tiket FDC: ' + error.message);
+        return;
+      }
       closeFDCModal();
       await fetchAllCloudData();
     }
