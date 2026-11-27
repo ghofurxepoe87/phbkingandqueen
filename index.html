@@ -646,7 +646,7 @@
       cursor: pointer;
     }
 
-    /* VIEWPORT DENAH & HOTSPOT TERKUNCI (RESPONSIVE iOS, ANDROID & PC) */
+    /* VIEWPORT DENAH & HOTSPOT TERKUNCI */
     .viewport-scroll {
       width: 100%;
       overflow-x: auto;
@@ -917,7 +917,7 @@
       border-radius: 8px;
       padding: 10px 12px;
       color: var(--text-main);
-      font-size: 16px; /* Prevents Safari iOS auto-zoom on focus */
+      font-size: 16px;
       outline: none;
       width: 100%;
       font-family: inherit;
@@ -1647,11 +1647,11 @@
               <td class="val" id="vArrivalTime">31 December 2026 • 19:00 WITA</td>
             </tr>
             <tr>
-              <td class="lbl">Venue Location</td>
-              <td class="val">Grand Golden Ballroom — Platinum Balikpapan</td>
+              <td class="lbl">Event Venue</td>
+              <td class="val">Convention Hall - Platinum Hotel Balikpapan</td>
             </tr>
-            <tr>
-              <td class="lbl" id="vAmountLabel">Deposit Paid</td>
+            <tr id="vAmountRow">
+              <td class="lbl" id="vAmountLabel">Deposit / Down Payment</td>
               <td class="val" id="vAmountPaid" style="color:#059669;">Rp 0</td>
             </tr>
             <tr id="vNotesRow" style="display:none;">
@@ -1661,13 +1661,13 @@
           </table>
 
           <p style="font-size:0.7rem; color:#475569; line-height:1.45;">
-            <strong>Check-In & Greeter Protocol:</strong> Kindly present this Confirmation Letter (printed or digital PDF) at the Ballroom Entrance upon arrival. Our Greeter Team will personally escort you to your reserved table.
+            <strong>Check-In & Greeter Protocol:</strong> Kindly present this Confirmation Letter (printed or digital PDF) at the Convention Hall Entrance upon arrival. Our Greeter Team will personally escort you to your reserved table.
           </p>
 
           <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:4px; padding-top:8px; border-top:1px dashed #cbd5e1; font-size:0.7rem;">
             <div>
               Sincerely yours,<br>
-              <strong style="color:#035388;">Food & Beverage Management</strong><br>
+              <strong style="color:#035388;">Management</strong><br>
               <span style="color:#64748b;">Platinum Hotel & Convention Hall Balikpapan</span>
             </div>
             <div style="text-align:right; color:#64748b;">
@@ -1844,6 +1844,9 @@
   <script>
     const SUPABASE_URL = 'https://hupvhnvztvzqbdhuukpt.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh1cHZobnZ6dHZ6cWJkaHV1a3B0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAyNDY4NTIsImV4cCI6MjEwNTgyMjg1Mn0.E-XiAzngGIe_KAe2Znk201Jy55zwLUMOwL4cHhxQCPQ';
+
+    // TEMPEL WEB APP URL (/exec) GOOGLE APPS SCRIPT AKUN FBM ANDA DI SINI:
+    const FBM_GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/TEMPEL_URL_FBM_DISINI/exec';
 
     const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -2503,9 +2506,9 @@
       if (gType === 'Compulsory In-House') {
         roomSec.style.display = 'grid';
         menuBox.style.display = 'none';
-        dpLabel.innerHTML = `<i class="fa-solid fa-hand-holding-dollar" style="color: #035388;"></i> Custom Allocation Amount (Compulsory) *`;
+        dpLabel.innerHTML = `<i class="fa-solid fa-hand-holding-dollar" style="color: #035388;"></i> Internal Allocation Amount (Dashboard Only) *`;
         dpInput.placeholder = 'e.g. 1.500.000';
-        balTitle.innerText = 'COMPULSORY ALLOCATION STATUS';
+        balTitle.innerText = 'COMPULSORY INTERNAL ALLOCATION';
         currentCart = [];
         updateBalanceDisplay();
       } else {
@@ -2526,7 +2529,7 @@
       const lbl = document.getElementById('regAmountLabel');
       if (gType === 'Compulsory In-House') {
         roomSec.style.display = 'grid';
-        lbl.innerText = 'Custom Allocation Amount (Compulsory) *';
+        lbl.innerText = 'Internal Allocation Amount (Dashboard Only) *';
       } else {
         roomSec.style.display = 'none';
         document.getElementById('regGuestRoomNo').value = '';
@@ -2822,7 +2825,7 @@
 
       if (gType === 'Compulsory In-House') {
         balanceEl.innerHTML = `<span style="color:var(--vhp-blue); font-weight:800;">Rp ${dp.toLocaleString('id-ID')}</span>`;
-        subTextEl.innerText = 'Custom allocation added to Total Revenue';
+        subTextEl.innerText = 'Recorded in Executive Dashboard (Hidden on Guest PDF)';
         return;
       }
 
@@ -2920,6 +2923,7 @@
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
 
+      // Double Border Frame
       doc.setDrawColor(3, 83, 136);
       doc.setLineWidth(0.7);
       doc.rect(10, 10, 190, 277);
@@ -2927,9 +2931,10 @@
       doc.setLineWidth(0.3);
       doc.rect(11.8, 11.8, 186.4, 273.4);
 
+      // Hotel Logo Left
       if (cachedLogoBase64 && cachedLogoBase64.dataUrl) {
-        const logoH = 17;
-        const logoW = Math.min(54, logoH * cachedLogoBase64.ratio);
+        const logoH = 16;
+        const logoW = Math.min(52, logoH * cachedLogoBase64.ratio);
         doc.addImage(cachedLogoBase64.dataUrl, 'PNG', 18, 16, logoW, logoH);
       } else {
         doc.setFont('helvetica', 'bold');
@@ -2941,16 +2946,18 @@
         doc.text('& CONVENTION HALL BALIKPAPAN', 18, 29);
       }
 
+      // Hotel Address Right (Properly aligned within 192mm margin)
       doc.setFont('helvetica', 'bold');
-      doc.setFontSize(9.5);
+      doc.setFontSize(8.8);
       doc.setTextColor(3, 83, 136);
       doc.text('PLATINUM HOTEL & CONVENTION HALL BALIKPAPAN', 192, 20, { align: 'right' });
       doc.setFont('helvetica', 'normal');
-      doc.setFontSize(8);
+      doc.setFontSize(7.6);
       doc.setTextColor(71, 85, 105);
       doc.text('Jl. Soekarno Hatta Km. 5, Balikpapan 76125, East Kalimantan', 192, 25, { align: 'right' });
       doc.text('Tel: +62 542 883 0228 • Web: platinumhotelindonesia.com', 192, 29.5, { align: 'right' });
 
+      // Header Rule
       doc.setDrawColor(3, 83, 136);
       doc.setLineWidth(0.8);
       doc.line(18, 36, 192, 36);
@@ -2958,6 +2965,7 @@
       doc.setLineWidth(0.4);
       doc.line(18, 37.5, 192, 37.5);
 
+      // Title Banner
       doc.setFillColor(248, 250, 252);
       doc.rect(18, 41, 174, 15, 'F');
       doc.setFont('helvetica', 'bold');
@@ -2968,6 +2976,7 @@
       doc.setTextColor(180, 83, 9);
       doc.text("KING & QUEEN OF THE NIGHT 2027 — NEW YEAR'S EVE GALA CELEBRATION", 105, 53.5, { align: 'center' });
 
+      // Ref & Date Row
       const todayStr = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(9);
@@ -2975,6 +2984,7 @@
       doc.text(`Ref. Number : ${guest.id || 'CL-KQ2027'}`, 18, 64);
       doc.text(`Date Issued : ${todayStr}`, 192, 64, { align: 'right' });
 
+      // Salutation
       doc.setTextColor(15, 23, 42);
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(9.8);
@@ -2987,6 +2997,7 @@
       const splitIntro = doc.splitTextToSize(introText, 174);
       doc.text(splitIntro, 18, 87);
 
+      // Registration Form Table
       let y = 104;
       const rowH = 9.5;
       const drawFormRow = (label, value, highlight = false) => {
@@ -3021,15 +3032,21 @@
       drawFormRow('Email & Contact Phone', `${guest.email || '-'}  |  ${guest.phone || '-'}`);
       drawFormRow('Party Size Breakdown', `${guest.adults} Adults, ${guest.children} Children (Total: ${guest.pax} Pax)`);
       drawFormRow('Event Date & Arrival Time', `31 December 2026 • ${guest.time || '19:00 WITA'}`);
-      drawFormRow('Event Venue', 'Grand Golden Ballroom — Platinum Hotel Balikpapan');
-      drawFormRow(isComp ? 'Package Allocation' : 'Deposit / Down Payment', `Rp ${(guest.dp || 0).toLocaleString('id-ID')}`);
-      if (!isComp && guest.balance > 0) {
-        drawFormRow('Remaining Balance Due', `Rp ${guest.balance.toLocaleString('id-ID')}`);
+      drawFormRow('Event Venue', 'Convention Hall - Platinum Hotel Balikpapan');
+
+      // HIDE ALLOCATION AMOUNT ON PDF FOR COMPULSORY IN-HOUSE GUESTS
+      if (!isComp) {
+        drawFormRow('Deposit / Down Payment', `Rp ${(guest.dp || 0).toLocaleString('id-ID')}`);
+        if (guest.balance > 0) {
+          drawFormRow('Remaining Balance Due', `Rp ${guest.balance.toLocaleString('id-ID')}`);
+        }
       }
+
       if (guest.notes) {
         drawFormRow('Special Requests / Notes', guest.notes.slice(0, 58));
       }
 
+      // Check-In Protocol Box
       y += 6;
       doc.setFillColor(254, 252, 232);
       doc.setDrawColor(253, 224, 71);
@@ -3043,9 +3060,10 @@
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(8.3);
       doc.setTextColor(120, 53, 15);
-      doc.text('1. Kindly present this Confirmation Letter (printed or digital PDF) at the Ballroom Entrance upon arrival.', 22, y + 12.5);
+      doc.text('1. Kindly present this Confirmation Letter (printed or digital PDF) at the Convention Hall Entrance upon arrival.', 22, y + 12.5);
       doc.text(`2. Our Greeter Team will verify your registration and escort your party directly to Table #${tableId}.`, 22, y + 18);
 
+      // Closing & Management Signature
       y += 32;
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(9.5);
@@ -3059,7 +3077,7 @@
       y += 16;
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(3, 83, 136);
-      doc.text('Abdul Ghofur', 18, y);
+      doc.text('Management', 18, y);
       doc.setTextColor(15, 23, 42);
       doc.text(guest.created_by || 'Banquet Operations', 140, y);
 
@@ -3067,11 +3085,8 @@
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(8.5);
       doc.setTextColor(71, 85, 105);
-      doc.text('Food & Beverage Manager', 18, y);
-      doc.text('Banquet & Hospitality Team', 140, y);
-
-      y += 4;
       doc.text('Platinum Hotel & Convention Hall Balikpapan', 18, y);
+      doc.text('Banquet & Hospitality Team', 140, y);
 
       const safeName = guest.name.replace(/[^a-zA-Z0-9]/g, '_');
       const filename = `Confirmation_Letter_Table_${tableId}_${safeName}.pdf`;
@@ -3112,8 +3127,16 @@
 
       document.getElementById('vPaxBreakdown').innerText = `${guestObj.adults} Adults, ${guestObj.children} Children (Total: ${guestObj.pax} Pax)`;
       document.getElementById('vArrivalTime').innerText = `31 December 2026 • ${guestObj.time || '19:00 WITA'}`;
-      document.getElementById('vAmountLabel').innerText = isComp ? 'Package Allocation' : 'Deposit / Down Payment';
-      document.getElementById('vAmountPaid').innerText = `Rp ${(guestObj.dp || 0).toLocaleString('id-ID')}`;
+
+      // HIDE ALLOCATION ROW ON CONFIRMATION LETTER FOR COMPULSORY IN-HOUSE
+      const amountRow = document.getElementById('vAmountRow');
+      if (isComp) {
+        amountRow.style.display = 'none';
+      } else {
+        amountRow.style.display = 'table-row';
+        document.getElementById('vAmountLabel').innerText = 'Deposit / Down Payment';
+        document.getElementById('vAmountPaid').innerText = `Rp ${(guestObj.dp || 0).toLocaleString('id-ID')}`;
+      }
 
       const notesRow = document.getElementById('vNotesRow');
       if (guestObj.notes) {
@@ -3168,12 +3191,17 @@
       btnEl.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Sending...`;
       statusEl.style.display = 'block';
       statusEl.style.color = '#1e40af';
-      statusEl.innerText = `Sending official Confirmation Letter PDF to ${toEmail}...`;
+      statusEl.innerText = `Sending Confirmation Letter PDF to ${toEmail}...`;
 
       try {
-        const res = await fetch('/api/send-voucher', {
+        if (FBM_GOOGLE_SCRIPT_URL.includes('TEMPEL_URL_FBM_DISINI')) {
+          throw new Error('FBM Google Apps Script URL not set yet');
+        }
+
+        await fetch(FBM_GOOGLE_SCRIPT_URL, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify({
             toEmail: toEmail,
             guestName: guest.name,
@@ -3183,23 +3211,18 @@
             roomInfo: (isComp && guest.room_no) ? `Room ${guest.room_no} (${guest.room_type || '-'})` : '',
             paxBreakdown: `${guest.adults} Adults, ${guest.children} Children (Total: ${guest.pax} Pax)`,
             arrivalTime: guest.time || '19:00 WITA',
-            amountLabel: isComp ? 'Package Allocation' : 'Deposit Paid',
-            amountFormatted: `Rp ${(guest.dp || 0).toLocaleString('id-ID')}`,
+            amountLabel: isComp ? '' : 'Deposit Paid',
+            amountFormatted: isComp ? '' : `Rp ${(guest.dp || 0).toLocaleString('id-ID')}`,
             pdfBase64: pdfBase64,
             pdfFilename: filename
           })
         });
 
-        const result = await res.json();
-        if (!res.ok) {
-          throw new Error(result.error || 'Failed to send email via server.');
-        }
-
         statusEl.style.color = '#15803d';
-        statusEl.innerHTML = `<i class="fa-solid fa-circle-check"></i> Confirmation Letter PDF successfully sent to <strong>${toEmail}</strong>!`;
+        statusEl.innerHTML = `<i class="fa-solid fa-circle-check"></i> Confirmation Letter PDF sent to <strong>${toEmail}</strong>!`;
       } catch (err) {
         statusEl.style.color = '#b91c1c';
-        statusEl.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> ${err.message}. Downloading PDF & opening email client...`;
+        statusEl.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> ${err.message}. Downloading PDF & opening email draft...`;
         doc.save(filename);
         const subject = encodeURIComponent(`Confirmation Letter (Table #${tableId}) — King & Queen of the Night 2027`);
         const body = encodeURIComponent(
@@ -3212,12 +3235,12 @@ Please find attached your official Confirmation Letter for King & Queen of the N
 - Assigned Table: Table #${tableId}
 - Party Size: ${guest.adults} Adults, ${guest.children} Children (Total: ${guest.pax} Pax)
 - Event Date & Arrival: 31 December 2026, ${guest.time || '19:00 WITA'}
-- Venue: Grand Golden Ballroom, Platinum Hotel Balikpapan
+- Event Venue: Convention Hall - Platinum Hotel Balikpapan
 
-Kindly present the attached Confirmation Letter upon arrival at the Ballroom Entrance. We look forward to welcoming you!
+Kindly present the attached Confirmation Letter upon arrival at the Convention Hall Entrance. We look forward to welcoming you!
 
 Sincerely yours,
-Food & Beverage Management
+Management
 Platinum Hotel & Convention Hall Balikpapan`
         );
         window.open(`mailto:${toEmail}?subject=${subject}&body=${body}`, '_blank');
@@ -3235,8 +3258,8 @@ Platinum Hotel & Convention Hall Balikpapan`
 
       doc.save(filename);
 
-      const roomLine = (isComp && guest.room_no) ? `\n• Room: *${guest.room_no}* (${guest.room_type || '-'})` : '';
-      const amtLabel = isComp ? 'Package Allocation' : 'Deposit Paid';
+      const roomLine = (isComp && guest.room_no) ? `\n• *Room:* ${guest.room_no} (${guest.room_type || '-'})` : '';
+      const depositLine = isComp ? '' : `\n• *Deposit Paid:* Rp ${(guest.dp || 0).toLocaleString('id-ID')}`;
 
       const msg =
 `*CONFIRMATION LETTER*
@@ -3251,13 +3274,12 @@ Warmest greetings from Platinum Hotel & Convention Hall Balikpapan. We are pleas
 • *Category:* ${isComp ? 'Compulsory In-House Guest' : 'Commercial / Walk-In Guest'}
 • *Party Size:* ${guest.adults} Adults, ${guest.children} Children (Total: ${guest.pax} Pax)
 • *Event Date & Arrival:* 31 December 2026, ${guest.time || '19:00 WITA'}
-• *Venue:* Grand Golden Ballroom
-• *${amtLabel}:* Rp ${(guest.dp || 0).toLocaleString('id-ID')}
+• *Event Venue:* Convention Hall - Platinum Hotel Balikpapan${depositLine}
 
 Please find your official *Confirmation Letter (PDF Form)* attached to this message. Kindly present it to our Greeter Team upon arrival.
 
 Sincerely yours,
-*Food & Beverage Management*
+*Management*
 Platinum Hotel & Convention Hall Balikpapan`;
 
       let rawPhone = (guest.phone || '').replace(/[^0-9]/g, '');
