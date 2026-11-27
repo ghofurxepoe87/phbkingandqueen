@@ -1165,7 +1165,7 @@
           <i class="fa-solid fa-address-book"></i> Guest Directory <span style="background:#e2e8f0; color:#0f172a; padding:1px 6px; border-radius:10px; font-size:0.68rem;" id="tabGuestCount">0</span>
         </button>
         <button class="vhp-tab" onclick="openMasterMenuModal()">
-          <i class="fa-solid fa-utensils"></i> Banquet Packages
+          <i class="fa-solid fa-utensils"></i> Banquet Packages <span style="background:#e0f2fe; color:#0369a1; padding:1px 6px; border-radius:10px; font-size:0.68rem;" id="tabMenuCount">2</span>
         </button>
       </div>
 
@@ -1413,15 +1413,15 @@
             <select id="selectMasterMenuDropdown" class="inp-field" style="flex: 1;">
               <option value="">-- Select Package / Menu --</option>
             </select>
-            <button type="button" class="btn-save" style="padding: 0 14px;" onclick="addCartItemFromDropdown()">
+            <button type="button" class="btn-save" style="padding: 0 14px;" onclick="addCartItemFromDropdown()" title="Add Selected Menu">
               <i class="fa-solid fa-plus"></i>
             </button>
           </div>
 
           <div style="display: grid; grid-template-columns: 1.3fr 1.2fr auto; gap: 6px;">
             <input type="text" id="customMenuName" class="inp-field" placeholder="Custom Item">
-            <input type="text" id="customMenuPrice" class="inp-field" inputmode="numeric" placeholder="Price" onkeyup="formatCurrencyInput(this)">
-            <button type="button" class="btn-save" style="background: #0891b2; padding: 0 12px;" onclick="addCustomCartItem()">
+            <input type="text" id="customMenuPrice" class="inp-field" inputmode="numeric" placeholder="Price" oninput="formatCurrencyInput(this)">
+            <button type="button" class="btn-save" style="background: #0891b2; padding: 0 12px;" onclick="addCustomCartItem()" title="Add Custom Item">
               <i class="fa-solid fa-plus"></i>
             </button>
           </div>
@@ -1439,7 +1439,7 @@
           <label id="dpAmountLabel"><i class="fa-solid fa-money-bill-wave" style="color: #059669;"></i> Deposit / Down Payment (DP)</label>
           <div class="money-input-box">
             <span>Rp</span>
-            <input type="text" id="guestDP" class="inp-field" inputmode="numeric" placeholder="e.g. 1.000.000" onkeyup="formatCurrencyInput(this); updateBalanceDisplay();">
+            <input type="text" id="guestDP" class="inp-field" inputmode="numeric" placeholder="e.g. 1.000.000" oninput="formatCurrencyInput(this); updateBalanceDisplay();">
           </div>
         </div>
 
@@ -1564,7 +1564,7 @@
           <label id="regAmountLabel">Deposit / Revenue Amount</label>
           <div class="money-input-box">
             <span>Rp</span>
-            <input type="text" id="regGuestDP" class="inp-field" inputmode="numeric" placeholder="1.000.000" onkeyup="formatCurrencyInput(this)">
+            <input type="text" id="regGuestDP" class="inp-field" inputmode="numeric" placeholder="1.000.000" oninput="formatCurrencyInput(this)">
           </div>
         </div>
 
@@ -1795,7 +1795,7 @@
     </div>
   </div>
 
-  <!-- BANQUET PACKAGES MASTER MODAL -->
+  <!-- BANQUET PACKAGES MASTER MODAL (CLOUD + LOCAL PERSISTENT) -->
   <div id="masterMenuModal" class="modal-backdrop">
     <div class="modal-container">
       <div class="modal-header">
@@ -1820,14 +1820,15 @@
             <label>Price (IDR) *</label>
             <div class="money-input-box">
               <span>Rp</span>
-              <input type="text" id="menuItemPrice" class="inp-field" inputmode="numeric" placeholder="2.500.000" onkeyup="formatCurrencyInput(this)">
+              <input type="text" id="menuItemPrice" class="inp-field" inputmode="numeric" placeholder="2.500.000" oninput="formatCurrencyInput(this)">
             </div>
           </div>
         </div>
-        <button class="btn-save" style="width:100%; justify-content:center;" onclick="addMasterMenuItem()">
-          <i class="fa-solid fa-plus"></i> Add Package
+        <button type="button" id="btnAddMasterMenu" class="btn-save" style="width:100%; justify-content:center;" onclick="addMasterMenuItem()">
+          <i class="fa-solid fa-plus"></i> Save & Add Package
         </button>
-        <div id="masterMenuListContent" style="max-height: 180px; overflow-y: auto; margin-top:6px;"></div>
+        <div id="menuSyncNotice" style="font-size:0.72rem; font-weight:700; color:#0369a1; display:none;"></div>
+        <div id="masterMenuListContent" style="max-height: 220px; overflow-y: auto; margin-top:4px; display:flex; flex-direction:column; gap:6px;"></div>
       </div>
       <div class="modal-footer">
         <button class="btn-vhp-outline" onclick="closeMasterMenuModal()">Close</button>
@@ -1845,8 +1846,10 @@
     const SUPABASE_URL = 'https://hupvhnvztvzqbdhuukpt.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh1cHZobnZ6dHZ6cWJkaHV1a3B0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAyNDY4NTIsImV4cCI6MjEwNTgyMjg1Mn0.E-XiAzngGIe_KAe2Znk201Jy55zwLUMOwL4cHhxQCPQ';
 
-    // TEMPEL WEB APP URL (/exec) GOOGLE APPS SCRIPT AKUN FBM ANDA DI SINI:
-    const FBM_GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/TEMPEL_URL_FBM_DISINI/exec';
+    // OFFICIAL FBM GOOGLE APPS SCRIPT WEB APP URL & SECRET TOKEN
+    const FBM_GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxEbAQZ3c-Mf5zWuyZM2To0L8BvtHzOcqwoQmpk_zqyWT7outkJ1J19z6gfUC-Rh7yE/exec';
+    const FBM_SECRET_TOKEN = 'PHB-KQ2027-FBM-9981';
+    const MENU_CONFIG_ROW_ID = '_SYSTEM_MENU_MASTER';
 
     const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -1903,11 +1906,13 @@
     const ALL_TABLE_IDS = Object.keys(LOCKED_TABLE_CONFIGS);
     const TOTAL_TABLES_COUNT = ALL_TABLE_IDS.length;
 
-    let bookings = {};
-    let masterMenu = [
+    const DEFAULT_MASTER_MENU = [
       { id: 1, name: 'VIP Gala Dinner Set Menu', category: 'Gala Dinner Package', price: 2500000 },
       { id: 2, name: 'Premium Red Wine Bottle', category: 'Beverage & Wine', price: 1500000 }
     ];
+
+    let bookings = {};
+    let masterMenu = loadLocalMenuFallback();
 
     let currentCart = [];
     let currentTable = null;
@@ -1915,6 +1920,65 @@
     let activeVoucherData = null;
     let cachedLogoBase64 = null;
     let mapWidthPercent = 100;
+
+    function loadLocalMenuFallback() {
+      try {
+        const saved = localStorage.getItem('phb_kq2027_master_menu');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        }
+      } catch (e) {}
+      return [...DEFAULT_MASTER_MENU];
+    }
+
+    function updateMenuCountBadge() {
+      const badge = document.getElementById('tabMenuCount');
+      if (badge) badge.innerText = masterMenu.length;
+    }
+
+    async function persistMasterMenuToCloud() {
+      localStorage.setItem('phb_kq2027_master_menu', JSON.stringify(masterMenu));
+      updateMenuCountBadge();
+      populateBookingMenuDropdown();
+
+      const noticeEl = document.getElementById('menuSyncNotice');
+      if (noticeEl) {
+        noticeEl.style.display = 'block';
+        noticeEl.style.color = '#0369a1';
+        noticeEl.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Saving menu to cloud...`;
+      }
+
+      try {
+        const payload = {
+          table_id: MENU_CONFIG_ROW_ID,
+          guest_name: 'SYSTEM_BANQUET_PACKAGES',
+          guest_phone: '',
+          pax: 0,
+          dp: 0,
+          balance: 0,
+          arrival_time: '',
+          created_by: 'SYSTEM',
+          timestamp: new Date().toISOString(),
+          notes: 'Master Banquet Menu Storage',
+          cart_items: JSON.stringify({ _v2_menu_master: true, items: masterMenu })
+        };
+
+        const { error } = await _supabase.from('kq_table_bookings').upsert(payload, { onConflict: 'table_id' });
+        if (error) throw error;
+
+        if (noticeEl) {
+          noticeEl.style.color = '#15803d';
+          noticeEl.innerHTML = `<i class="fa-solid fa-circle-check"></i> Saved & synced to all devices!`;
+          setTimeout(() => { noticeEl.style.display = 'none'; }, 2500);
+        }
+      } catch (err) {
+        if (noticeEl) {
+          noticeEl.style.color = '#b45309';
+          noticeEl.innerHTML = `<i class="fa-solid fa-circle-info"></i> Saved locally on this device (${err.message}).`;
+        }
+      }
+    }
 
     function handleBrandLogoFallback(imgEl) {
       if (!imgEl.dataset.triedLower) {
@@ -1992,6 +2056,7 @@
       preloadHotelLogoBase64();
       startLiveClock();
       populateRoomDropdowns();
+      updateMenuCountBadge();
       document.getElementById('statTotalTables').innerText = TOTAL_TABLES_COUNT;
       renderLockedHotspots();
       await fetchAllCloudData();
@@ -2093,6 +2158,16 @@
         if (tableData) {
           tableData.forEach(row => {
             const tid = String(row.table_id).trim();
+            if (tid === MENU_CONFIG_ROW_ID) {
+              try {
+                const parsedMenu = JSON.parse(row.cart_items || '{}');
+                if (parsedMenu._v2_menu_master && Array.isArray(parsedMenu.items)) {
+                  masterMenu = parsedMenu.items;
+                  localStorage.setItem('phb_kq2027_master_menu', JSON.stringify(masterMenu));
+                }
+              } catch (e) {}
+              return;
+            }
             const guestsList = parseRowToGuests(row);
             if (guestsList.length > 0) {
               bookings[tid] = { guests: guestsList };
@@ -2101,6 +2176,9 @@
         }
 
         setCloudStatus(true, 'Synced + Supabase Cloud');
+        updateMenuCountBadge();
+        populateBookingMenuDropdown();
+        renderMasterMenuList();
         refreshMapNodes();
         updateMetrics();
         renderDirectoryTable();
@@ -2743,22 +2821,23 @@
 
     function populateBookingMenuDropdown() {
       const dropdown = document.getElementById('selectMasterMenuDropdown');
+      if (!dropdown) return;
       let html = '<option value="">-- Select Package / Menu --</option>';
       masterMenu.forEach(item => {
-        html += `<option value="${item.id}">${item.name} - Rp ${item.price.toLocaleString('id-ID')}</option>`;
+        html += `<option value="${item.id}">${item.name} - Rp ${Number(item.price).toLocaleString('id-ID')}</option>`;
       });
       dropdown.innerHTML = html;
     }
 
     function addCartItemFromDropdown() {
       const dropdown = document.getElementById('selectMasterMenuDropdown');
-      const selectedId = parseInt(dropdown.value, 10);
-      if (!selectedId) return;
-      const menuItem = masterMenu.find(m => m.id === selectedId);
+      const selectedVal = dropdown.value;
+      if (!selectedVal) return;
+      const menuItem = masterMenu.find(m => String(m.id) === String(selectedVal));
       if (!menuItem) return;
-      const existing = currentCart.find(c => c.id === selectedId);
+      const existing = currentCart.find(c => String(c.id) === String(menuItem.id));
       if (existing) existing.qty += 1;
-      else currentCart.push({ id: menuItem.id, name: menuItem.name, price: menuItem.price, qty: 1 });
+      else currentCart.push({ id: menuItem.id, name: menuItem.name, price: Number(menuItem.price), qty: 1 });
       dropdown.value = '';
       renderBookingCart();
     }
@@ -2766,7 +2845,10 @@
     function addCustomCartItem() {
       const name = document.getElementById('customMenuName').value.trim();
       const rawPrice = document.getElementById('customMenuPrice').value.replace(/[^0-9]/g, '');
-      if (!name || !rawPrice) return;
+      if (!name || !rawPrice) {
+        alert('Please enter both custom item name and price.');
+        return;
+      }
       currentCart.push({ id: 'custom-' + Date.now(), name, price: parseInt(rawPrice, 10), qty: 1 });
       document.getElementById('customMenuName').value = '';
       document.getElementById('customMenuPrice').value = '';
@@ -2774,15 +2856,15 @@
     }
 
     function changeCartQty(id, delta) {
-      const item = currentCart.find(c => c.id === id);
+      const item = currentCart.find(c => String(c.id) === String(id));
       if (item) {
         item.qty += delta;
-        if (item.qty <= 0) currentCart = currentCart.filter(c => c.id !== id);
+        if (item.qty <= 0) currentCart = currentCart.filter(c => String(c.id) !== String(id));
       }
       renderBookingCart();
     }
 
-    function calculateCartTotal(cartArray) { return cartArray.reduce((sum, item) => sum + (item.price * item.qty), 0); }
+    function calculateCartTotal(cartArray) { return cartArray.reduce((sum, item) => sum + (Number(item.price) * Number(item.qty)), 0); }
 
     function renderBookingCart() {
       const container = document.getElementById('bookingCartItemsContainer');
@@ -2795,13 +2877,13 @@
       }
       let html = '', grandTotal = 0;
       currentCart.forEach(item => {
-        const subtotal = item.price * item.qty;
+        const subtotal = Number(item.price) * Number(item.qty);
         grandTotal += subtotal;
         html += `
           <div style="background:#ffffff; border:1px solid var(--border-color); border-radius:8px; padding:6px 10px; display:flex; justify-content:space-between; align-items:center;">
             <div>
               <strong style="font-size:0.76rem;">${item.name}</strong>
-              <div style="font-size:0.66rem; color:#059669;">Rp ${item.price.toLocaleString('id-ID')} × ${item.qty}</div>
+              <div style="font-size:0.66rem; color:#059669;">Rp ${Number(item.price).toLocaleString('id-ID')} × ${item.qty}</div>
             </div>
             <div style="display:flex; align-items:center; gap:6px;">
               <button type="button" onclick="changeCartQty('${item.id}', -1)" style="background:#e2e8f0; border:none; width:24px; height:24px; border-radius:4px; cursor:pointer;">-</button>
@@ -3191,18 +3273,15 @@
       btnEl.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Sending...`;
       statusEl.style.display = 'block';
       statusEl.style.color = '#1e40af';
-      statusEl.innerText = `Sending Confirmation Letter PDF to ${toEmail}...`;
+      statusEl.innerText = `Sending Confirmation Letter PDF via FBM Email to ${toEmail}...`;
 
       try {
-        if (FBM_GOOGLE_SCRIPT_URL.includes('TEMPEL_URL_FBM_DISINI')) {
-          throw new Error('FBM Google Apps Script URL not set yet');
-        }
-
         await fetch(FBM_GOOGLE_SCRIPT_URL, {
           method: 'POST',
           mode: 'no-cors',
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify({
+            token: FBM_SECRET_TOKEN,
             toEmail: toEmail,
             guestName: guest.name,
             tableId: tableId,
@@ -3219,7 +3298,7 @@
         });
 
         statusEl.style.color = '#15803d';
-        statusEl.innerHTML = `<i class="fa-solid fa-circle-check"></i> Confirmation Letter PDF sent to <strong>${toEmail}</strong>!`;
+        statusEl.innerHTML = `<i class="fa-solid fa-circle-check"></i> Confirmation Letter PDF sent from FBM Email to <strong>${toEmail}</strong>!`;
       } catch (err) {
         statusEl.style.color = '#b91c1c';
         statusEl.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> ${err.message}. Downloading PDF & opening email draft...`;
@@ -3290,27 +3369,75 @@ Platinum Hotel & Convention Hall Balikpapan`;
       window.open(waUrl, '_blank');
     }
 
-    function openMasterMenuModal() { document.getElementById('masterMenuModal').classList.add('open'); renderMasterMenuList(); }
-    function closeMasterMenuModal() { document.getElementById('masterMenuModal').classList.remove('open'); }
-
-    function addMasterMenuItem() {
-      const name = document.getElementById('menuItemName').value.trim();
-      const category = document.getElementById('menuItemCategory').value;
-      const rawPrice = document.getElementById('menuItemPrice').value.replace(/[^0-9]/g, '');
-      if (!name || !rawPrice) return;
-      masterMenu.push({ id: Date.now(), name, category, price: parseInt(rawPrice, 10) });
-      document.getElementById('menuItemName').value = '';
-      document.getElementById('menuItemPrice').value = '';
+    // BANQUET PACKAGES MASTER (PERSISTENT CLOUD + LOCALSTORAGE)
+    function openMasterMenuModal() {
+      document.getElementById('masterMenuModal').classList.add('open');
       renderMasterMenuList();
+    }
+    function closeMasterMenuModal() {
+      document.getElementById('masterMenuModal').classList.remove('open');
+    }
+
+    async function addMasterMenuItem() {
+      const nameInput = document.getElementById('menuItemName');
+      const catSelect = document.getElementById('menuItemCategory');
+      const priceInput = document.getElementById('menuItemPrice');
+      const btnEl = document.getElementById('btnAddMasterMenu');
+
+      const name = nameInput.value.trim();
+      const category = catSelect.value;
+      const rawPrice = priceInput.value.replace(/[^0-9]/g, '');
+
+      if (!name) {
+        alert('Please enter the Package / Menu Name.');
+        nameInput.focus();
+        return;
+      }
+      if (!rawPrice || parseInt(rawPrice, 10) <= 0) {
+        alert('Please enter a valid Price (IDR).');
+        priceInput.focus();
+        return;
+      }
+
+      masterMenu.push({
+        id: Date.now(),
+        name: name,
+        category: category,
+        price: parseInt(rawPrice, 10)
+      });
+
+      nameInput.value = '';
+      priceInput.value = '';
+      renderMasterMenuList();
+
+      btnEl.disabled = true;
+      await persistMasterMenuToCloud();
+      btnEl.disabled = false;
+    }
+
+    async function deleteMasterMenuItem(itemId) {
+      masterMenu = masterMenu.filter(m => String(m.id) !== String(itemId));
+      renderMasterMenuList();
+      await persistMasterMenuToCloud();
     }
 
     function renderMasterMenuList() {
       const container = document.getElementById('masterMenuListContent');
+      if (!container) return;
+      if (masterMenu.length === 0) {
+        container.innerHTML = `<div style="text-align:center; color:#64748b; font-size:0.75rem; padding:12px;">No banquet packages added yet.</div>`;
+        return;
+      }
       let html = '';
       masterMenu.forEach(item => {
-        html += `<div style="background:#f8fafc; border:1px solid var(--border-color); border-radius:6px; padding:8px; margin-bottom:4px; display:flex; justify-content:space-between; align-items:center;">
-          <div><strong>${item.name}</strong><br><small style="color:var(--text-muted);">${item.category} | Rp ${item.price.toLocaleString('id-ID')}</small></div>
-          <button onclick="masterMenu = masterMenu.filter(m => m.id !== ${item.id}); renderMasterMenuList();" style="background:#fee2e2; border:none; color:#b91c1c; width:26px; height:26px; border-radius:4px; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+        html += `<div style="background:#f8fafc; border:1px solid var(--border-color); border-radius:8px; padding:8px 10px; display:flex; justify-content:space-between; align-items:center; gap:8px;">
+          <div>
+            <strong style="font-size:0.8rem; color:#0f172a;">${item.name}</strong><br>
+            <small style="color:var(--text-muted);">${item.category} • <strong style="color:#059669;">Rp ${Number(item.price).toLocaleString('id-ID')}</strong></small>
+          </div>
+          <button type="button" onclick="deleteMasterMenuItem('${item.id}')" style="background:#fee2e2; border:none; color:#b91c1c; width:28px; height:28px; border-radius:6px; cursor:pointer;" title="Delete Package">
+            <i class="fa-solid fa-trash"></i>
+          </button>
         </div>`;
       });
       container.innerHTML = html;
