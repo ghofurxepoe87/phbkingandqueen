@@ -5,8 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
   <title>Ballroom Command - King & Queen of the Night 2027 | Platinum Balikpapan</title>
   
-  <link rel="icon" type="image/png" href="favicon.png">
-  <link rel="apple-touch-icon" href="favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png?v=3">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon.png?v=3">
+  <link rel="shortcut icon" href="favicon.png?v=3">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon.png?v=3">
 
   <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1186,7 +1188,7 @@
         </div>
         <div class="search-input-wrap">
           <i class="fa-solid fa-magnifying-glass"></i>
-          <input type="text" id="greeterSearchInput"
+          <input type="text" id="greeterSearchInput" name="kq2027_greeter_search" autocomplete="off"
                  placeholder="Search by Guest Name, Email, Room Number (e.g. 502 / 1012), or Table Number..."
                  oninput="handleGreeterSearch()">
           <button type="button" id="btnClearSearch" class="btn-clear-search" onclick="clearGreeterSearch()" title="Clear Search">
@@ -1358,7 +1360,7 @@
 
         <div class="form-row">
           <label><i class="fa-solid fa-user"></i> Guest Name *</label>
-          <input type="text" id="guestName" class="inp-field" placeholder="e.g. Mr. John Doe">
+          <input type="text" id="guestName" name="kq2027_guest_fullname" autocomplete="new-password" class="inp-field" placeholder="e.g. Mr. John Doe">
         </div>
 
         <!-- ROOM NUMBER & TYPE (SHOWN ONLY FOR COMPULSORY IN-HOUSE) -->
@@ -1379,11 +1381,11 @@
         <div class="form-grid-2">
           <div class="form-row">
             <label><i class="fa-solid fa-envelope" style="color: #2563eb;"></i> Guest Email (For Auto PDF)</label>
-            <input type="email" id="guestEmail" class="inp-field" placeholder="e.g. guest@email.com">
+            <input type="email" id="guestEmail" name="kq2027_guest_email" autocomplete="off" class="inp-field" placeholder="e.g. guest@email.com">
           </div>
           <div class="form-row">
             <label><i class="fa-brands fa-whatsapp" style="color: #16a34a;"></i> WhatsApp / Phone</label>
-            <input type="tel" id="guestPhone" class="inp-field" placeholder="e.g. 0812-xxxx-xxxx">
+            <input type="tel" id="guestPhone" name="kq2027_guest_phone" autocomplete="off" class="inp-field" placeholder="e.g. 0812-xxxx-xxxx">
           </div>
         </div>
 
@@ -1419,8 +1421,8 @@
           </div>
 
           <div style="display: grid; grid-template-columns: 1.3fr 1.2fr auto; gap: 6px;">
-            <input type="text" id="customMenuName" class="inp-field" placeholder="Custom Item">
-            <input type="text" id="customMenuPrice" class="inp-field" inputmode="numeric" placeholder="Price" oninput="formatCurrencyInput(this)">
+            <input type="text" id="customMenuName" autocomplete="off" class="inp-field" placeholder="Custom Item">
+            <input type="text" id="customMenuPrice" autocomplete="off" class="inp-field" inputmode="numeric" placeholder="Price" oninput="formatCurrencyInput(this)">
             <button type="button" class="btn-save" style="background: #0891b2; padding: 0 12px;" onclick="addCustomCartItem()" title="Add Custom Item">
               <i class="fa-solid fa-plus"></i>
             </button>
@@ -1439,7 +1441,7 @@
           <label id="dpAmountLabel"><i class="fa-solid fa-money-bill-wave" style="color: #059669;"></i> Deposit / Down Payment (DP)</label>
           <div class="money-input-box">
             <span>Rp</span>
-            <input type="text" id="guestDP" class="inp-field" inputmode="numeric" placeholder="e.g. 1.000.000" oninput="formatCurrencyInput(this); updateBalanceDisplay();">
+            <input type="text" id="guestDP" autocomplete="off" class="inp-field" inputmode="numeric" placeholder="e.g. 1.000.000" oninput="formatCurrencyInput(this); updateBalanceDisplay();">
           </div>
         </div>
 
@@ -1462,13 +1464,13 @@
           </div>
           <div class="form-row">
             <label><i class="fa-solid fa-user-tag"></i> Created By (Staff) *</label>
-            <input type="text" id="guestCreatedBy" class="inp-field" placeholder="Staff name...">
+            <input type="text" id="guestCreatedBy" autocomplete="off" class="inp-field" placeholder="Staff name...">
           </div>
         </div>
 
         <div class="form-row">
           <label><i class="fa-solid fa-note-sticky"></i> Special Requests / Notes</label>
-          <input type="text" id="guestNotes" class="inp-field" placeholder="e.g. Baby chair, dietary allergy...">
+          <input type="text" id="guestNotes" autocomplete="off" class="inp-field" placeholder="e.g. Baby chair, dietary allergy...">
         </div>
       </div>
 
@@ -1515,7 +1517,7 @@
 
         <div class="form-row">
           <label>Guest Name *</label>
-          <input type="text" id="regGuestName" class="inp-field" placeholder="e.g. Mr. John Doe">
+          <input type="text" id="regGuestName" name="kq2027_reg_guest_fullname" autocomplete="new-password" class="inp-field" placeholder="e.g. Mr. John Doe">
         </div>
 
         <!-- ROOM DROPDOWN (VISIBLE ONLY FOR COMPULSORY IN-HOUSE) -->
@@ -1536,11 +1538,11 @@
         <div class="form-grid-2">
           <div class="form-row">
             <label>Guest Email (For Auto PDF)</label>
-            <input type="email" id="regGuestEmail" class="inp-field" placeholder="e.g. guest@email.com">
+            <input type="email" id="regGuestEmail" autocomplete="off" class="inp-field" placeholder="e.g. guest@email.com">
           </div>
           <div class="form-row">
             <label>WhatsApp / Phone Number</label>
-            <input type="tel" id="regGuestPhone" class="inp-field" placeholder="e.g. 0812-xxxx-xxxx">
+            <input type="tel" id="regGuestPhone" autocomplete="off" class="inp-field" placeholder="e.g. 0812-xxxx-xxxx">
           </div>
         </div>
 
@@ -1564,13 +1566,13 @@
           <label id="regAmountLabel">Deposit / Revenue Amount</label>
           <div class="money-input-box">
             <span>Rp</span>
-            <input type="text" id="regGuestDP" class="inp-field" inputmode="numeric" placeholder="1.000.000" oninput="formatCurrencyInput(this)">
+            <input type="text" id="regGuestDP" autocomplete="off" class="inp-field" inputmode="numeric" placeholder="1.000.000" oninput="formatCurrencyInput(this)">
           </div>
         </div>
 
         <div class="form-row">
           <label>Created By (Staff) *</label>
-          <input type="text" id="regGuestCreatedBy" class="inp-field" placeholder="Staff name...">
+          <input type="text" id="regGuestCreatedBy" autocomplete="off" class="inp-field" placeholder="Staff name...">
         </div>
       </div>
 
@@ -1681,7 +1683,7 @@
           <label style="font-size:0.74rem; font-weight:800; color:#1e40af;">
             <i class="fa-solid fa-envelope-circle-check"></i> Recipient Email for Confirmation Letter PDF:
           </label>
-          <input type="email" id="voucherRecipientEmail" class="inp-field" placeholder="Enter or verify guest email address...">
+          <input type="email" id="voucherRecipientEmail" autocomplete="off" class="inp-field" placeholder="Enter or verify guest email address...">
           <div id="emailDeliveryStatus" style="font-size:0.72rem; font-weight:700; display:none;"></div>
         </div>
       </div>
@@ -1805,7 +1807,7 @@
       <div class="modal-body">
         <div class="form-row">
           <label>Package / Menu Name *</label>
-          <input type="text" id="menuItemName" class="inp-field" placeholder="e.g. VIP Gala Dinner Set Menu">
+          <input type="text" id="menuItemName" autocomplete="off" class="inp-field" placeholder="e.g. VIP Gala Dinner Set Menu">
         </div>
         <div class="form-grid-2">
           <div class="form-row">
@@ -1820,7 +1822,7 @@
             <label>Price (IDR) *</label>
             <div class="money-input-box">
               <span>Rp</span>
-              <input type="text" id="menuItemPrice" class="inp-field" inputmode="numeric" placeholder="2.500.000" oninput="formatCurrencyInput(this)">
+              <input type="text" id="menuItemPrice" autocomplete="off" class="inp-field" inputmode="numeric" placeholder="2.500.000" oninput="formatCurrencyInput(this)">
             </div>
           </div>
         </div>
@@ -1920,6 +1922,13 @@
     let activeVoucherData = null;
     let cachedLogoBase64 = null;
     let mapWidthPercent = 100;
+
+    function forceFaviconRefresh() {
+      const iconUrl = 'favicon.png?v=' + Date.now().toString().slice(-5);
+      document.querySelectorAll('link[rel="icon"], link[rel="shortcut icon"], link[rel="apple-touch-icon"]').forEach(link => {
+        link.href = iconUrl;
+      });
+    }
 
     function loadLocalMenuFallback() {
       try {
@@ -2053,6 +2062,7 @@
     }
 
     window.addEventListener('DOMContentLoaded', async () => {
+      forceFaviconRefresh();
       preloadHotelLogoBase64();
       startLiveClock();
       populateRoomDropdowns();
@@ -3005,7 +3015,6 @@
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
 
-      // Double Border Frame
       doc.setDrawColor(3, 83, 136);
       doc.setLineWidth(0.7);
       doc.rect(10, 10, 190, 277);
@@ -3013,7 +3022,6 @@
       doc.setLineWidth(0.3);
       doc.rect(11.8, 11.8, 186.4, 273.4);
 
-      // Hotel Logo Left
       if (cachedLogoBase64 && cachedLogoBase64.dataUrl) {
         const logoH = 16;
         const logoW = Math.min(52, logoH * cachedLogoBase64.ratio);
@@ -3028,7 +3036,6 @@
         doc.text('& CONVENTION HALL BALIKPAPAN', 18, 29);
       }
 
-      // Hotel Address Right (Properly aligned within 192mm margin)
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(8.8);
       doc.setTextColor(3, 83, 136);
@@ -3039,7 +3046,6 @@
       doc.text('Jl. Soekarno Hatta Km. 5, Balikpapan 76125, East Kalimantan', 192, 25, { align: 'right' });
       doc.text('Tel: +62 542 883 0228 • Web: platinumhotelindonesia.com', 192, 29.5, { align: 'right' });
 
-      // Header Rule
       doc.setDrawColor(3, 83, 136);
       doc.setLineWidth(0.8);
       doc.line(18, 36, 192, 36);
@@ -3047,7 +3053,6 @@
       doc.setLineWidth(0.4);
       doc.line(18, 37.5, 192, 37.5);
 
-      // Title Banner
       doc.setFillColor(248, 250, 252);
       doc.rect(18, 41, 174, 15, 'F');
       doc.setFont('helvetica', 'bold');
@@ -3058,7 +3063,6 @@
       doc.setTextColor(180, 83, 9);
       doc.text("KING & QUEEN OF THE NIGHT 2027 — NEW YEAR'S EVE GALA CELEBRATION", 105, 53.5, { align: 'center' });
 
-      // Ref & Date Row
       const todayStr = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(9);
@@ -3066,7 +3070,6 @@
       doc.text(`Ref. Number : ${guest.id || 'CL-KQ2027'}`, 18, 64);
       doc.text(`Date Issued : ${todayStr}`, 192, 64, { align: 'right' });
 
-      // Salutation
       doc.setTextColor(15, 23, 42);
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(9.8);
@@ -3079,7 +3082,6 @@
       const splitIntro = doc.splitTextToSize(introText, 174);
       doc.text(splitIntro, 18, 87);
 
-      // Registration Form Table
       let y = 104;
       const rowH = 9.5;
       const drawFormRow = (label, value, highlight = false) => {
@@ -3116,7 +3118,6 @@
       drawFormRow('Event Date & Arrival Time', `31 December 2026 • ${guest.time || '19:00 WITA'}`);
       drawFormRow('Event Venue', 'Convention Hall - Platinum Hotel Balikpapan');
 
-      // HIDE ALLOCATION AMOUNT ON PDF FOR COMPULSORY IN-HOUSE GUESTS
       if (!isComp) {
         drawFormRow('Deposit / Down Payment', `Rp ${(guest.dp || 0).toLocaleString('id-ID')}`);
         if (guest.balance > 0) {
@@ -3128,7 +3129,6 @@
         drawFormRow('Special Requests / Notes', guest.notes.slice(0, 58));
       }
 
-      // Check-In Protocol Box
       y += 6;
       doc.setFillColor(254, 252, 232);
       doc.setDrawColor(253, 224, 71);
@@ -3145,7 +3145,6 @@
       doc.text('1. Kindly present this Confirmation Letter (printed or digital PDF) at the Convention Hall Entrance upon arrival.', 22, y + 12.5);
       doc.text(`2. Our Greeter Team will verify your registration and escort your party directly to Table #${tableId}.`, 22, y + 18);
 
-      // Closing & Management Signature
       y += 32;
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(9.5);
@@ -3210,7 +3209,6 @@
       document.getElementById('vPaxBreakdown').innerText = `${guestObj.adults} Adults, ${guestObj.children} Children (Total: ${guestObj.pax} Pax)`;
       document.getElementById('vArrivalTime').innerText = `31 December 2026 • ${guestObj.time || '19:00 WITA'}`;
 
-      // HIDE ALLOCATION ROW ON CONFIRMATION LETTER FOR COMPULSORY IN-HOUSE
       const amountRow = document.getElementById('vAmountRow');
       if (isComp) {
         amountRow.style.display = 'none';
